@@ -3,2364 +3,1683 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ASH Consumer Investment Partners — Operating & Value-Creation Playbook</title>
-<link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<title>ASH Consumer Investment Partners — Operating Playbook v2.0</title>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    /* ── Official ASH Brand Colors (Logo Standards Sheet v1.0) ── */
-    --ash-black:  #382f2d;   /* PMS 412  — near-black, primary dark    */
-    --ash-dark:   #57514c;   /* Dark Brown — sidebar bg                 */
-    --ash-mid:    #676159;   /* PMS 405  — secondary dark               */
-    --ash-warm:   #69625c;   /* Light Brown — muted text, dividers      */
-    --ash-orange: #bc663b;   /* PMS 7583 — primary accent               */
-    --ash-tan:    #d1c5b7;   /* PMS 7528 — light bg / rule color        */
-    --ash-tan-dk: #c0b2a2;   /* deeper tan for alt sections             */
-    --white:      #faf7f4;   /* warm white base                         */
 
-    /* Semantic aliases kept for compatibility */
-    --ash:        #57514c;
-    --sand:       #d1c5b7;
-    --sand-dark:  #c0b2a2;
-    --gold:       #bc663b;
-    --gold-light: #d4845a;
-    --muted:      #69625c;
-    --rule:       #d1c5b7;
-    --accent:     #bc663b;
-  }
+/* ─────────────────────────────────────────────────
+   TOKENS
+───────────────────────────────────────────────── */
+:root {
+  --c-dark:    #382f2d;
+  --c-brown:   #57514c;
+  --c-mid:     #676159;
+  --c-warm:    #69625c;
+  --c-orange:  #bc663b;
+  --c-tan:     #d1c5b7;
+  --c-tan-lt:  #e8e0d4;
+  --c-bg:      #f7f4f0;
+  --c-white:   #fdfbf8;
+  --c-rule:    #ddd5c8;
+
+  --sidebar-w: 220px;
+  --font-body: 'Work Sans', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+}
+
+/* ─────────────────────────────────────────────────
+   RESET
+───────────────────────────────────────────────── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--c-dark);
+  background: var(--c-bg);
+}
+a { color: inherit; text-decoration: none; }
+strong { font-weight: 600; }
+
+/* ─────────────────────────────────────────────────
+   PASSWORD GATE
+───────────────────────────────────────────────── */
+#gate {
+  position: fixed; inset: 0; z-index: 9999;
+  background: var(--c-dark);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+}
+#gate .g-logo {
+  font-size: 56px; font-weight: 700; color: #fff;
+  letter-spacing: 0.08em; line-height: 1; margin-bottom: 6px;
+}
+#gate .g-logo span { color: var(--c-orange); }
+#gate .g-sub {
+  font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase;
+  color: rgba(255,255,255,0.35); margin-bottom: 48px;
+}
+#gate .g-form { width: 300px; }
+#gate .g-label {
+  font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase;
+  color: rgba(255,255,255,0.35); margin-bottom: 8px; display: block;
+}
+#gate input {
+  width: 100%; padding: 13px 16px;
+  background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15);
+  color: #fff; font-family: var(--font-mono); font-size: 13px;
+  outline: none; margin-bottom: 8px; letter-spacing: 0.1em;
+}
+#gate input:focus { border-color: var(--c-orange); }
+#gate button {
+  width: 100%; padding: 13px;
+  background: var(--c-orange); border: none; color: #fff;
+  font-family: var(--font-body); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer;
+  transition: background 0.15s;
+}
+#gate button:hover { background: var(--c-brown); }
+#gate .g-err {
+  font-size: 11px; color: #e07050; margin-top: 8px;
+  text-align: center; min-height: 16px; letter-spacing: 0.04em;
+}
+#gate .g-foot {
+  position: absolute; bottom: 28px;
+  font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase;
+  color: rgba(255,255,255,0.18);
+}
+
+/* ─────────────────────────────────────────────────
+   LAYOUT
+───────────────────────────────────────────────── */
+.sidebar {
+  position: fixed; left: 0; top: 0; bottom: 0;
+  width: var(--sidebar-w);
+  background: var(--c-dark);
+  display: flex; flex-direction: column;
+  z-index: 100; overflow-y: auto;
+}
+.main { margin-left: var(--sidebar-w); min-height: 100vh; }
+
+/* ─────────────────────────────────────────────────
+   SIDEBAR
+───────────────────────────────────────────────── */
+.sb-logo {
+  padding: 28px 24px 24px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.sb-logo .mark {
+  font-size: 28px; font-weight: 700; color: #fff;
+  letter-spacing: 0.08em; line-height: 1; display: block;
+}
+.sb-logo .mark span { color: var(--c-orange); }
+.sb-logo .sub {
+  font-size: 8px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: rgba(255,255,255,0.3); margin-top: 5px; display: block;
+}
+.sb-section {
+  padding: 18px 24px 5px;
+  font-size: 8px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: rgba(255,255,255,0.22); font-weight: 600;
+}
+.sb-link {
+  display: flex; align-items: center; gap: 8px;
+  padding: 7px 24px;
+  font-size: 11.5px; font-weight: 400;
+  color: rgba(255,255,255,0.48);
+  border-left: 2px solid transparent;
+  transition: all 0.15s; line-height: 1.3;
+}
+.sb-link:hover, .sb-link.active {
+  color: #fff;
+  border-left-color: var(--c-orange);
+  background: rgba(255,255,255,0.04);
+}
+.sb-link .num {
+  font-family: var(--font-mono); font-size: 9px;
+  color: rgba(255,255,255,0.2); min-width: 18px;
+}
+.sb-link.active .num { color: var(--c-orange); }
+.sb-footer {
+  margin-top: auto;
+  padding: 20px 24px;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  font-size: 9px; letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.2); line-height: 1.8;
+}
+.sb-version {
+  display: inline-block;
+  background: var(--c-orange); color: #fff;
+  font-size: 8px; font-weight: 700; letter-spacing: 0.15em;
+  padding: 2px 7px; margin-bottom: 6px;
+}
+
+/* ─────────────────────────────────────────────────
+   COVER
+───────────────────────────────────────────────── */
+.cover {
+  min-height: 100vh;
+  background: var(--c-dark);
+  padding: 64px 72px;
+  display: flex; flex-direction: column;
+  justify-content: space-between;
+  position: relative; overflow: hidden;
+}
+.cover::after {
+  content: '';
+  position: absolute; top: 0; right: 0;
+  width: 3px; height: 100%;
+  background: var(--c-orange);
+}
+.cover-eyebrow {
+  font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--c-orange); font-weight: 600; margin-bottom: 20px;
+}
+.cover-title {
+  font-size: 42px; font-weight: 700; color: #fff;
+  line-height: 1.1; letter-spacing: -0.02em; max-width: 520px;
+}
+.cover-title span { color: var(--c-orange); }
+.cover-rule { width: 40px; height: 3px; background: var(--c-orange); margin: 28px 0; }
+.cover-desc {
+  font-size: 14px; font-weight: 300; color: rgba(255,255,255,0.55);
+  max-width: 460px; line-height: 1.7;
+}
+.cover-meta {
+  display: flex; gap: 40px; margin-top: 64px;
+}
+.cover-meta-item label {
+  display: block; font-size: 8px; letter-spacing: 0.25em;
+  text-transform: uppercase; color: rgba(255,255,255,0.25);
+  margin-bottom: 4px;
+}
+.cover-meta-item span {
+  font-family: var(--font-mono); font-size: 12px;
+  color: rgba(255,255,255,0.6);
+}
+
+/* ─────────────────────────────────────────────────
+   SECTIONS
+───────────────────────────────────────────────── */
+.section {
+  padding: 56px 72px;
+  border-bottom: 1px solid var(--c-rule);
+  background: var(--c-white);
+  position: relative;
+}
+.section:nth-child(even) { background: var(--c-bg); }
+.section-eyebrow {
+  font-size: 8px; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--c-orange); font-weight: 700; margin-bottom: 8px;
+}
+.section h2 {
+  font-size: 28px; font-weight: 700; color: var(--c-dark);
+  letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 24px;
+}
+.section h3 {
+  font-size: 14px; font-weight: 700; color: var(--c-dark);
+  letter-spacing: 0.01em; margin: 32px 0 10px;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  font-size: 10px;
+}
+.section p {
+  font-size: 13.5px; color: var(--c-mid);
+  max-width: 680px; margin-bottom: 14px; line-height: 1.75;
+}
+.section p:last-child { margin-bottom: 0; }
+
+/* ─────────────────────────────────────────────────
+   LISTS
+───────────────────────────────────────────────── */
+.list { list-style: none; max-width: 680px; }
+.list li {
+  font-size: 13.5px; color: var(--c-mid);
+  padding: 8px 0 8px 20px;
+  border-bottom: 1px solid var(--c-rule);
+  position: relative; line-height: 1.6;
+}
+.list li:last-child { border-bottom: none; }
+.list li::before {
+  content: '';
+  position: absolute; left: 0; top: 18px;
+  width: 8px; height: 1px; background: var(--c-orange);
+}
+
+/* ─────────────────────────────────────────────────
+   PRINT BUTTON
+───────────────────────────────────────────────── */
+.print-btn {
+  position: absolute; top: 20px; right: 24px;
+  display: flex; align-items: center; gap: 6px;
+  background: transparent; border: 1px solid var(--c-rule);
+  color: var(--c-tan); font-family: var(--font-body);
+  font-size: 9px; font-weight: 600; letter-spacing: 0.18em;
+  text-transform: uppercase; padding: 6px 12px; cursor: pointer;
+  transition: all 0.15s;
+}
+.print-btn:hover { border-color: var(--c-orange); color: var(--c-orange); }
+.print-btn svg { width: 11px; height: 11px; flex-shrink: 0; }
+
+/* ─────────────────────────────────────────────────
+   COMPONENTS
+───────────────────────────────────────────────── */
+
+/* Two-col cards */
+.cards-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; max-width: 880px; background: var(--c-rule); }
+.cards-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; max-width: 880px; background: var(--c-rule); }
+.cards-5 { display: grid; grid-template-columns: repeat(5,1fr); gap: 2px; max-width: 880px; background: var(--c-rule); }
+
+.card {
+  background: var(--c-white); padding: 24px 24px 20px;
+}
+.section:nth-child(even) .card { background: var(--c-bg); }
+.card .card-label {
+  font-size: 8px; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--c-orange); font-weight: 700; margin-bottom: 8px;
+}
+.card .card-title {
+  font-size: 14px; font-weight: 700; color: var(--c-dark);
+  margin-bottom: 10px; letter-spacing: -0.01em;
+}
+.card .card-body {
+  font-size: 12.5px; color: var(--c-mid); line-height: 1.65; max-width: 100%;
+}
+.card ul { max-width: 100%; }
+.card ul li { font-size: 12.5px; }
+
+/* Dark card */
+.card-dark {
+  background: var(--c-dark) !important;
+  padding: 24px 24px 20px;
+}
+.card-dark .card-label { color: var(--c-orange); }
+.card-dark .card-title { color: #fff; }
+.card-dark .card-body { color: rgba(255,255,255,0.55); }
+.card-dark ul li { color: rgba(255,255,255,0.55); border-bottom-color: rgba(255,255,255,0.08); }
+.card-dark ul li::before { background: var(--c-orange); }
+
+/* Stat grid */
+.stat-row { display: flex; gap: 2px; max-width: 880px; background: var(--c-rule); margin-bottom: 32px; }
+.stat-block { flex: 1; background: var(--c-white); padding: 18px 20px; }
+.section:nth-child(even) .stat-block { background: var(--c-bg); }
+.stat-block .sb-num {
+  font-family: var(--font-mono); font-size: 26px; font-weight: 500;
+  color: var(--c-orange); line-height: 1; margin-bottom: 4px;
+}
+.stat-block .sb-label {
+  font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--c-warm); font-weight: 600; margin-bottom: 3px;
+}
+.stat-block .sb-desc { font-size: 11px; color: var(--c-warm); line-height: 1.4; }
+
+/* Phase timeline */
+.phases { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; max-width: 880px; background: var(--c-rule); }
+.phase { background: var(--c-white); padding: 22px 22px 20px; }
+.section:nth-child(even) .phase { background: var(--c-bg); }
+.phase .ph-range {
+  font-family: var(--font-mono); font-size: 9px; color: var(--c-orange);
+  letter-spacing: 0.1em; margin-bottom: 8px;
+}
+.phase .ph-num {
+  font-size: 48px; font-weight: 700; color: var(--c-rule);
+  line-height: 1; margin-bottom: 6px; letter-spacing: -0.03em;
+}
+.phase .ph-title {
+  font-size: 11px; font-weight: 700; color: var(--c-dark);
+  letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 12px;
+}
+.phase ul { max-width: 100%; }
+.phase ul li { font-size: 12px; }
+
+/* Cadence grid */
+.cadence-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; max-width: 880px; }
+.cadence-card { border: 1px solid var(--c-rule); padding: 24px; }
+.cadence-card .cc-freq {
+  font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.15em;
+  color: var(--c-orange); text-transform: uppercase; margin-bottom: 4px;
+}
+.cadence-card .cc-title {
+  font-size: 16px; font-weight: 700; color: var(--c-dark); margin-bottom: 2px;
+}
+.cadence-card .cc-dur {
+  font-family: var(--font-mono); font-size: 10px; color: var(--c-warm);
+  margin-bottom: 16px;
+}
+.cadence-card ul { max-width: 100%; }
+.cadence-card ul li { font-size: 12px; }
+
+/* Routing box */
+.routing { border: 1px solid var(--c-rule); max-width: 680px; }
+.routing-row {
+  display: grid; grid-template-columns: 24px 1fr;
+  gap: 14px; padding: 12px 18px; border-bottom: 1px solid var(--c-rule);
+  align-items: start;
+}
+.routing-row:last-child { border-bottom: none; }
+.routing-row .arr { color: var(--c-orange); font-size: 14px; margin-top: 2px; }
+.routing-row p { font-size: 13px; color: var(--c-mid); max-width: 100%; margin: 0; }
+
+/* Scorecard grid */
+.scorecard { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; max-width: 880px; background: var(--c-rule); }
+.sc-block { background: var(--c-white); padding: 22px 24px; }
+.section:nth-child(even) .sc-block { background: var(--c-bg); }
+.sc-block .sc-num {
+  font-family: var(--font-mono); font-size: 32px; font-weight: 500;
+  color: var(--c-rule); line-height: 1; margin-bottom: 4px;
+}
+.sc-block .sc-label {
+  font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--c-warm); font-weight: 700; margin-bottom: 12px;
+}
+.sc-block ul { max-width: 100%; }
+.sc-block ul li { font-size: 12.5px; }
+
+/* OS Map */
+.os-map { display: grid; grid-template-columns: repeat(5,1fr); gap: 2px; max-width: 880px; background: var(--c-rule); }
+.os-col { background: var(--c-dark); padding: 18px 16px; }
+.os-col .oc-label {
+  font-size: 8px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--c-orange); font-weight: 700; margin-bottom: 14px;
+}
+.os-col ul { max-width: 100%; }
+.os-col ul li {
+  font-size: 11.5px; color: rgba(255,255,255,0.5);
+  border-bottom-color: rgba(255,255,255,0.06);
+}
+.os-col ul li::before { background: var(--c-orange); }
+
+/* Team cards */
+.team-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; max-width: 880px; background: var(--c-rule); }
+.team-card { background: var(--c-white); padding: 24px; }
+.section:nth-child(even) .team-card { background: var(--c-bg); }
+.team-card .tc-init {
+  width: 40px; height: 40px; background: var(--c-dark);
+  color: var(--c-orange); font-size: 14px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 14px; letter-spacing: 0.04em;
+}
+.team-card .tc-name { font-size: 15px; font-weight: 700; color: var(--c-dark); margin-bottom: 2px; }
+.team-card .tc-title {
+  font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--c-orange); font-weight: 600; margin-bottom: 12px;
+}
+.team-card .tc-bio { font-size: 12.5px; color: var(--c-mid); line-height: 1.65; max-width: 100%; margin: 0; }
+
+/* Glossary */
+.glossary { max-width: 840px; }
+.gloss-item {
+  display: grid; grid-template-columns: 220px 1fr;
+  gap: 24px; padding: 12px 0; border-bottom: 1px solid var(--c-rule);
+}
+.gloss-item:last-child { border-bottom: none; }
+.gloss-term { font-size: 12.5px; font-weight: 700; color: var(--c-dark); }
+.gloss-def { font-size: 12.5px; color: var(--c-mid); line-height: 1.65; }
+
+/* Inline highlight */
+.hl { color: var(--c-orange); font-weight: 700; }
+
+/* Failure list */
+.fail-list li { color: #8b3a2a; }
+.fail-list li::before { background: #c0392b; }
+
+/* RYG threshold table */
+.ryg { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; max-width: 880px; background: var(--c-rule); margin-top: 16px; }
+.ryg-col { padding: 18px 20px; }
+.ryg-col.r { background: #fdf0ed; }
+.ryg-col.y { background: #fdf8ed; }
+.ryg-col.g { background: #edf5f0; }
+.ryg-col .ryg-label {
+  font-size: 9px; letter-spacing: 0.2em; font-weight: 700; text-transform: uppercase; margin-bottom: 10px;
+}
+.ryg-col.r .ryg-label { color: #c0392b; }
+.ryg-col.y .ryg-label { color: #b7860b; }
+.ryg-col.g .ryg-label { color: #27764a; }
+.ryg-col ul { max-width: 100%; }
+.ryg-col ul li { font-size: 12px; }
+.ryg-col.r ul li::before { background: #c0392b; }
+.ryg-col.y ul li::before { background: #b7860b; }
+.ryg-col.g ul li::before { background: #27764a; }
+
+/* Decision rights */
+.rights-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; max-width: 880px; background: var(--c-rule); gap: 2px; }
+.rights-header { background: var(--c-dark); padding: 10px 16px; }
+.rights-header .rh-label { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.4); font-weight: 600; }
+.rights-row { display: contents; }
+.rights-cell { background: var(--c-white); padding: 11px 16px; font-size: 12.5px; color: var(--c-mid); border: none; }
+.section:nth-child(even) .rights-cell { background: var(--c-bg); }
+.rights-cell.action { font-weight: 500; color: var(--c-dark); }
+.rights-cell.yes { color: #27764a; font-weight: 700; font-size: 11px; letter-spacing: 0.08em; }
+.rights-cell.consult { color: #b7860b; font-weight: 600; font-size: 11px; letter-spacing: 0.06em; }
+.rights-cell.inform { color: var(--c-warm); font-size: 11px; letter-spacing: 0.06em; }
+
+/* Footer */
+.doc-footer {
+  background: var(--c-dark); padding: 36px 72px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.doc-footer .fm { font-size: 22px; font-weight: 700; color: #fff; letter-spacing: 0.06em; }
+.doc-footer .fm span { color: var(--c-orange); }
+.doc-footer .fmeta { font-size: 10px; color: rgba(255,255,255,0.25); letter-spacing: 0.06em; line-height: 1.9; text-align: right; }
+
+/* Print all bar */
+.print-bar {
+  background: var(--c-tan-lt); padding: 11px 72px;
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 1px solid var(--c-rule);
+}
+.print-bar span { font-size: 10px; color: var(--c-warm); letter-spacing: 0.04em; }
+.print-all-btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: var(--c-dark); color: #fff; border: none;
+  font-family: var(--font-body); font-size: 9px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase; padding: 9px 18px;
+  cursor: pointer; transition: background 0.15s;
+}
+.print-all-btn:hover { background: var(--c-orange); }
+
+/* ─────────────────────────────────────────────────
+   PRINT
+───────────────────────────────────────────────── */
+@media print {
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { font-size: 10pt; background: white; }
+  .sidebar, .print-btn, .print-bar, .doc-footer, #gate { display: none !important; }
+  .main { margin-left: 0 !important; }
+  .cover, .section { display: none !important; }
+  .print-target { display: block !important; padding: 0 !important; background: white !important; }
+  body.print-all .cover, body.print-all .section { display: block !important; }
+  body.print-all .cover { page-break-after: always; }
+  .print-header { display: flex !important; justify-content: space-between; align-items: center; padding-bottom: 16pt; border-bottom: 1pt solid #d1c5b7; margin-bottom: 24pt; }
+  .print-header { display: none; }
+  .print-footer-line { display: none; }
+  h2 { font-size: 20pt !important; }
+  .card { background: white !important; }
+  .card-dark { background: #382f2d !important; }
+  .os-col { background: #382f2d !important; }
+}
+.print-header, .print-footer-line { display: none; }
+
+/* ─────────────────────────────────────────────────
+   RESPONSIVE
+───────────────────────────────────────────────── */
+@media (max-width: 860px) {
+  .sidebar { display: none; }
+  .main { margin-left: 0; }
+  .cover, .section { padding: 40px 28px; }
+  .cards-2, .cards-3, .cards-5, .phases, .cadence-grid,
+  .scorecard, .os-map, .team-grid, .rights-grid, .ryg { grid-template-columns: 1fr; }
+  .stat-row { flex-direction: column; }
+  .gloss-item { grid-template-columns: 1fr; gap: 4px; }
+  .doc-footer { flex-direction: column; gap: 16px; text-align: center; padding: 32px 28px; }
+  .doc-footer .fmeta { text-align: center; }
+}
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--white);
-    color: var(--ash-black);
-    font-family: 'Work Sans', sans-serif;
-    font-weight: 300;
-    font-size: 15px;
-    line-height: 1.75;
-  }
-
-  /* ── SIDEBAR NAV ─────────────────────────────── */
-  .sidebar {
-    position: fixed;
-    left: 0; top: 0; bottom: 0;
-    width: 240px;
-    background: var(--ash);
-    color: var(--sand);
-    display: flex;
-    flex-direction: column;
-    padding: 40px 0;
-    z-index: 100;
-    overflow-y: auto;
-  }
-
-  .sidebar-logo {
-    padding: 0 32px 32px;
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-  }
-
-  .sidebar-logo .mark {
-    font-family: 'Work Sans', sans-serif;
-    font-size: 36px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    color: #ffffff;
-    line-height: 1;
-    display: block;
-  }
-
-  .sidebar-logo .mark span {
-    color: var(--ash-orange);
-    font-weight: 700;
-  }
-
-  .sidebar-logo .sub {
-    font-size: 9px;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-top: 6px;
-    display: block;
-  }
-
-  .nav-section {
-    padding: 24px 0 8px 32px;
-    font-size: 9px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.25);
-  }
-
-  .sidebar nav a {
-    display: block;
-    padding: 8px 32px;
-    font-size: 12px;
-    color: rgba(255,255,255,0.55);
-    text-decoration: none;
-    letter-spacing: 0.02em;
-    transition: all 0.2s;
-    border-left: 2px solid transparent;
-    line-height: 1.4;
-  }
-
-  .sidebar nav a:hover,
-  .sidebar nav a.active {
-    color: var(--gold-light);
-    border-left-color: var(--gold);
-    background: rgba(255,255,255,0.04);
-  }
-
-  .sidebar-footer {
-    margin-top: auto;
-    padding: 24px 32px 0;
-    border-top: 1px solid rgba(255,255,255,0.08);
-    font-size: 10px;
-    color: rgba(255,255,255,0.25);
-    letter-spacing: 0.04em;
-  }
-
-  /* ── MAIN CONTENT ────────────────────────────── */
-  .main {
-    margin-left: 240px;
-    min-height: 100vh;
-  }
-
-  /* ── HERO ────────────────────────────────────── */
-  .hero {
-    background: var(--ash-dark);
-    padding: 80px 80px 72px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero::before {
-    content: 'ASH';
-    position: absolute;
-    right: -20px;
-    top: -40px;
-    font-family: 'Work Sans', sans-serif;
-    font-size: 280px;
-    font-weight: 700;
-    color: rgba(255,255,255,0.04);
-    letter-spacing: -0.05em;
-    pointer-events: none;
-    user-select: none;
-  }
-
-  .hero-eyebrow {
-    font-size: 10px;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--ash-orange);
-    margin-bottom: 20px;
-    font-weight: 500;
-  }
-
-  .hero h1 {
-    font-family: 'Work Sans', sans-serif;
-    font-size: 48px;
-    font-weight: 700;
-    color: #ffffff;
-    line-height: 1.1;
-    letter-spacing: -0.03em;
-    max-width: 600px;
-  }
-
-  .hero h1 em {
-    font-style: normal;
-    color: var(--ash-orange);
-  }
-
-  .hero-meta {
-    margin-top: 36px;
-    display: flex;
-    gap: 48px;
-  }
-
-  .hero-meta-item label {
-    display: block;
-    font-size: 9px;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.3);
-    margin-bottom: 4px;
-  }
-
-  .hero-meta-item span {
-    font-size: 13px;
-    color: rgba(255,255,255,0.65);
-    font-family: 'DM Mono', monospace;
-    font-weight: 300;
-  }
-
-  .hero-rule {
-    width: 48px;
-    height: 3px;
-    background: var(--ash-orange);
-    margin: 32px 0 0;
-  }
-
-  /* ── CONTENT SECTIONS ────────────────────────── */
-  .content {
-    padding: 0;
-  }
-
-  section {
-    padding: 72px 80px;
-    border-bottom: 1px solid var(--rule);
-  }
-
-  section.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  section:nth-child(even) {
-    background: var(--sand);
-  }
-
-  section:nth-child(odd) {
-    background: var(--white);
-  }
-
-  .section-eyebrow {
-    font-size: 9px;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 12px;
-  }
-
-  h2 {
-    font-family: 'Work Sans', sans-serif;
-    font-size: 34px;
-    font-weight: 600;
-    line-height: 1.15;
-    color: var(--ash-black);
-    margin-bottom: 32px;
-    letter-spacing: -0.02em;
-  }
-
-  h3 {
-    font-family: 'Work Sans', sans-serif;
-    font-size: 20px;
-    font-weight: 600;
-    color: var(--ash-black);
-    margin: 40px 0 14px;
-    letter-spacing: -0.01em;
-  }
-
-  h3:first-of-type { margin-top: 0; }
-
-  h4 {
-    font-size: 11px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--muted);
-    font-weight: 500;
-    margin: 28px 0 10px;
-  }
-
-  p {
-    color: #3a3830;
-    max-width: 720px;
-    margin-bottom: 16px;
-  }
-
-  p:last-child { margin-bottom: 0; }
-
-  /* ── LISTS ───────────────────────────────────── */
-  ul {
-    list-style: none;
-    max-width: 680px;
-  }
-
-  ul li {
-    padding: 7px 0 7px 20px;
-    position: relative;
-    color: #3a3830;
-    border-bottom: 1px solid var(--rule);
-    font-size: 14px;
-  }
-
-  ul li:last-child { border-bottom: none; }
-
-  ul li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 50%;
-    width: 6px;
-    height: 1px;
-    background: var(--gold);
-  }
-
-  /* ── TWO-COLUMN GRID ─────────────────────────── */
-  .two-col {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 32px;
-    max-width: 880px;
-  }
-
-  .card {
-    background: var(--ash-dark);
-    color: var(--ash-tan);
-    padding: 32px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .card::after {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    background: var(--ash-orange);
-  }
-
-  .card h3 {
-    color: #ffffff;
-    font-family: 'Work Sans', sans-serif;
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 16px;
-    margin-top: 0;
-  }
-
-  .card p {
-    color: rgba(245,240,232,0.7);
-    font-size: 13.5px;
-    max-width: 100%;
-    margin-bottom: 16px;
-  }
-
-  .card ul { max-width: 100%; }
-
-  .card ul li {
-    color: rgba(245,240,232,0.7);
-    border-bottom-color: rgba(255,255,255,0.08);
-    font-size: 13px;
-  }
-
-  .card ul li::before { background: var(--gold); }
-
-  .card .card-label {
-    font-size: 9px;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 8px;
-  }
-
-  /* ── VISION GRID ─────────────────────────────── */
-  .vision-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2px;
-    max-width: 880px;
-    background: var(--rule);
-    border: 1px solid var(--rule);
-  }
-
-  .vision-item {
-    background: var(--white);
-    padding: 28px 32px;
-  }
-
-  section:nth-child(even) .vision-item {
-    background: var(--sand-dark);
-  }
-
-  .vision-item h4 {
-    color: var(--gold);
-    margin-top: 0;
-    margin-bottom: 8px;
-  }
-
-  .vision-item p {
-    font-size: 13.5px;
-    max-width: 100%;
-  }
-
-  /* ── PHASE TIMELINE ──────────────────────────── */
-  .phases {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0;
-    max-width: 880px;
-    border: 1px solid var(--rule);
-  }
-
-  .phase {
-    padding: 28px 28px;
-    border-right: 1px solid var(--rule);
-    position: relative;
-  }
-
-  .phase:last-child { border-right: none; }
-
-  .phase-number {
-    font-family: 'Work Sans', sans-serif;
-    font-size: 40px;
-    font-weight: 700;
-    color: var(--ash-tan);
-    line-height: 1;
-    margin-bottom: 8px;
-  }
-
-  .phase-label {
-    font-size: 9px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--ash-orange);
-    margin-bottom: 8px;
-  }
-
-  .phase h4 {
-    font-size: 13px;
-    letter-spacing: 0.05em;
-    color: var(--ash);
-    margin: 0 0 12px;
-    text-transform: none;
-  }
-
-  .phase ul { max-width: 100%; }
-  .phase ul li { font-size: 12.5px; }
-
-  /* ── CADENCE TABLE ───────────────────────────── */
-  .cadence-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    max-width: 880px;
-  }
-
-  .cadence-card {
-    border: 1px solid var(--rule);
-    padding: 28px;
-  }
-
-  .cadence-card .freq {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    color: var(--gold);
-    text-transform: uppercase;
-    margin-bottom: 6px;
-  }
-
-  .cadence-card h3 {
-    font-size: 20px;
-    margin: 0 0 6px;
-  }
-
-  .cadence-card .dur {
-    font-size: 11px;
-    color: var(--muted);
-    margin-bottom: 16px;
-    font-family: 'DM Mono', monospace;
-  }
-
-  .cadence-card ul { max-width: 100%; }
-  .cadence-card ul li { font-size: 12.5px; }
-
-  /* ── SCORECARD ───────────────────────────────── */
-  .scorecard-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2px;
-    max-width: 880px;
-    background: var(--rule);
-    border: 1px solid var(--rule);
-  }
-
-  .scorecard-block {
-    background: var(--white);
-    padding: 24px 28px;
-  }
-
-  section:nth-child(even) .scorecard-block {
-    background: var(--sand-dark);
-  }
-
-  .scorecard-block .block-num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 36px;
-    font-weight: 300;
-    color: var(--rule);
-    line-height: 1;
-    margin-bottom: 4px;
-  }
-
-  .scorecard-block h4 {
-    margin-top: 0;
-    color: var(--ash);
-    font-size: 10px;
-    letter-spacing: 0.2em;
-  }
-
-  .scorecard-block ul { max-width: 100%; }
-  .scorecard-block ul li { font-size: 12.5px; }
-
-  /* ── DIAGNOSTIC LENSES ───────────────────────── */
-  .lens-row {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-    max-width: 800px;
-    margin-bottom: 32px;
-  }
-
-  .lens-tag {
-    background: var(--ash);
-    color: var(--sand);
-    padding: 8px 16px;
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .lens-tag span {
-    color: var(--gold);
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-  }
-
-  /* ── ROUTING BOX ─────────────────────────────── */
-  .routing-box {
-    border: 1px solid var(--rule);
-    max-width: 680px;
-    overflow: hidden;
-  }
-
-  .routing-row {
-    display: grid;
-    grid-template-columns: 28px 1fr;
-    padding: 14px 20px;
-    border-bottom: 1px solid var(--rule);
-    gap: 16px;
-    align-items: start;
-  }
-
-  .routing-row:last-child { border-bottom: none; }
-
-  .routing-row .arrow {
-    color: var(--gold);
-    font-size: 14px;
-    margin-top: 2px;
-  }
-
-  .routing-row p {
-    max-width: 100%;
-    font-size: 13.5px;
-    margin: 0;
-  }
-
-  /* ── FAILURE MODES ───────────────────────────── */
-  .failure-list {
-    max-width: 600px;
-  }
-
-  .failure-list li {
-    color: #6b2a2a;
-  }
-
-  .failure-list li::before {
-    background: #c0392b;
-  }
-
-  /* ── OPERATING MAP ───────────────────────────── */
-  .os-map {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 2px;
-    max-width: 960px;
-    background: var(--rule);
-  }
-
-  .os-col {
-    background: var(--ash-dark);
-    padding: 20px 18px;
-  }
-
-  .os-col h4 {
-    color: var(--ash-orange);
-    font-size: 9px;
-    letter-spacing: 0.2em;
-    margin-bottom: 16px;
-  }
-
-  .os-col ul { max-width: 100%; }
-
-  .os-col ul li {
-    font-size: 11px;
-    color: rgba(245,240,232,0.6);
-    border-bottom-color: rgba(255,255,255,0.06);
-  }
-
-  .os-col ul li::before { background: var(--gold); }
-
-  /* ── FOOTER ──────────────────────────────────── */
-  .doc-footer {
-    background: var(--ash-dark);
-    padding: 48px 80px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .doc-footer .footer-mark {
-    font-family: 'Work Sans', sans-serif;
-    font-size: 28px;
-    font-weight: 700;
-    color: #ffffff;
-    letter-spacing: 0.06em;
-    line-height: 1;
-  }
-
-  .doc-footer .footer-mark span {
-    color: var(--ash-orange);
-  }
-
-  .doc-footer .footer-meta {
-    text-align: right;
-    font-size: 11px;
-    color: rgba(255,255,255,0.3);
-    letter-spacing: 0.05em;
-    line-height: 1.8;
-  }
-
-  /* ── COVER PAGE ──────────────────────────────── */
-  .cover-page {
-    min-height: 100vh;
-    background: var(--ash-dark);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 72px 80px;
-    position: relative;
-    overflow: hidden;
-    border-bottom: 4px solid var(--ash-orange);
-  }
-  .cover-page::before {
-    content: '';
-    position: absolute;
-    top: 0; right: 0;
-    width: 380px; height: 100%;
-    background: linear-gradient(135deg, transparent 40%, rgba(188,102,59,0.08) 100%);
-    pointer-events: none;
-  }
-  .cover-wordmark { display: flex; align-items: flex-end; }
-  .cover-wordmark .wm-ash {
-    font-family: 'Work Sans', sans-serif;
-    font-size: 96px; font-weight: 700; color: #fff;
-    letter-spacing: 0.06em; line-height: 1;
-  }
-  .cover-wordmark .wm-atl {
-    font-family: 'Work Sans', sans-serif;
-    font-size: 96px; font-weight: 700; color: var(--ash-orange);
-    letter-spacing: 0.06em; line-height: 1;
-  }
-  .cover-divider { width: 64px; height: 4px; background: var(--ash-orange); margin: 28px 0; }
-  .cover-title {
-    font-size: 12px; font-weight: 500; letter-spacing: 0.28em;
-    text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 12px;
-  }
-  .cover-headline {
-    font-size: 36px; font-weight: 300; color: #fff;
-    line-height: 1.25; max-width: 580px; letter-spacing: -0.01em;
-  }
-  .cover-headline strong { font-weight: 600; color: var(--ash-orange); }
-  .cover-bottom { display: flex; justify-content: space-between; align-items: flex-end; }
-  .cover-meta { display: flex; gap: 48px; }
-  .cover-meta-item label {
-    display: block; font-size: 9px; letter-spacing: 0.25em;
-    text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 5px; font-weight: 500;
-  }
-  .cover-meta-item span {
-    font-size: 13px; color: rgba(255,255,255,0.7);
-    font-family: 'DM Mono', monospace; font-weight: 300;
-  }
-  .cover-confidential {
-    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
-    color: rgba(255,255,255,0.25); border: 1px solid rgba(255,255,255,0.15); padding: 6px 14px;
-  }
-
-  /* ── LEGAL DISCLAIMER ────────────────────────── */
-  .disclaimer-page {
-    background: var(--ash-tan); padding: 64px 80px; border-bottom: 1px solid var(--rule);
-  }
-  .disclaimer-page .disc-label {
-    font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase;
-    color: var(--ash-orange); font-weight: 600; margin-bottom: 20px;
-  }
-  .disclaimer-page p {
-    font-size: 12px; color: var(--ash-mid); line-height: 1.8; max-width: 800px; margin-bottom: 12px;
-  }
-
-  /* ── TOC ─────────────────────────────────────── */
-  .toc-page { background: var(--white); padding: 72px 80px; border-bottom: 1px solid var(--rule); }
-  .toc-grid {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 0; max-width: 800px; margin-top: 32px;
-  }
-  .toc-item {
-    display: flex; align-items: baseline; padding: 11px 8px 11px 0;
-    border-bottom: 1px solid var(--rule); text-decoration: none; transition: all 0.15s;
-  }
-  .toc-item:hover { padding-left: 8px; background: rgba(188,102,59,0.04); }
-  .toc-item .toc-num {
-    font-family: 'DM Mono', monospace; font-size: 10px;
-    color: var(--ash-orange); min-width: 32px; font-weight: 400;
-  }
-  .toc-item .toc-title { font-size: 13px; color: var(--ash-black); font-weight: 400; }
-  .toc-section-label {
-    grid-column: 1 / -1; font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase;
-    color: var(--ash-orange); padding: 20px 0 6px; font-weight: 600;
-    border-bottom: 2px solid var(--ash-orange);
-  }
-
-  /* ── TEAM ────────────────────────────────────── */
-  .team-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr);
-    gap: 2px; max-width: 920px; background: var(--rule); margin-top: 32px;
-  }
-  .team-card { background: var(--white); padding: 28px 28px 24px; }
-  section:nth-child(even) .team-card { background: var(--ash-tan-dk); }
-  .team-card .tc-initial {
-    width: 48px; height: 48px; background: var(--ash-dark); color: var(--ash-orange);
-    font-family: 'Work Sans', sans-serif; font-size: 20px; font-weight: 700;
-    display: flex; align-items: center; justify-content: center; margin-bottom: 16px;
-  }
-  .team-card .tc-name {
-    font-family: 'Work Sans', sans-serif; font-size: 16px; font-weight: 600;
-    color: var(--ash-black); margin-bottom: 3px;
-  }
-  .team-card .tc-title {
-    font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
-    color: var(--ash-orange); font-weight: 500; margin-bottom: 14px;
-  }
-  .team-card .tc-bio { font-size: 12.5px; color: var(--ash-mid); line-height: 1.65; max-width: 100%; margin: 0; }
-
-  /* ── PORTFOLIO ───────────────────────────────── */
-  .portfolio-grid {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 20px; max-width: 920px; margin-top: 32px;
-  }
-  .portfolio-card {
-    border: 1px solid var(--rule); padding: 28px 28px 24px;
-    position: relative; overflow: hidden;
-  }
-  .portfolio-card::before {
-    content: ''; position: absolute; top: 0; left: 0;
-    width: 3px; height: 100%; background: var(--ash-orange);
-  }
-  .portfolio-card.exited::before { background: var(--ash-warm); }
-  .portfolio-card .pc-status {
-    font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase;
-    color: var(--ash-orange); font-weight: 600; margin-bottom: 8px;
-  }
-  .portfolio-card.exited .pc-status { color: var(--ash-warm); }
-  .portfolio-card .pc-name {
-    font-family: 'Work Sans', sans-serif; font-size: 20px; font-weight: 700;
-    color: var(--ash-black); margin-bottom: 4px;
-  }
-  .portfolio-card .pc-vertical {
-    font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
-    color: var(--muted); font-weight: 500; margin-bottom: 14px;
-  }
-  .portfolio-card .pc-desc {
-    font-size: 13px; color: var(--ash-mid); line-height: 1.65; max-width: 100%; margin: 0 0 16px;
-  }
-  .portfolio-card .pc-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-  .pc-tag {
-    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
-    background: var(--ash-tan); color: var(--ash-mid); padding: 3px 10px; font-weight: 500;
-  }
-
-  /* ── INVESTMENT CRITERIA ─────────────────────── */
-  .criteria-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr);
-    gap: 2px; max-width: 920px; background: var(--rule); margin-top: 32px;
-  }
-  .criteria-block { background: var(--white); padding: 24px 28px; }
-  section:nth-child(even) .criteria-block { background: var(--ash-tan-dk); }
-  .criteria-block .cb-label {
-    font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase;
-    color: var(--ash-orange); font-weight: 600; margin-bottom: 10px;
-  }
-  .criteria-block .cb-value {
-    font-family: 'Work Sans', sans-serif; font-size: 22px; font-weight: 700;
-    color: var(--ash-black); line-height: 1.1; margin-bottom: 6px;
-  }
-  .criteria-block .cb-desc { font-size: 12.5px; color: var(--ash-mid); line-height: 1.6; max-width: 100%; margin: 0; }
-
-  /* ── PRINT ALL BAR ───────────────────────────── */
-  .print-all-bar {
-    background: var(--ash-tan); padding: 14px 80px;
-    display: flex; align-items: center; justify-content: space-between;
-    border-bottom: 1px solid var(--rule);
-  }
-  .print-all-bar span { font-size: 11px; color: var(--muted); letter-spacing: 0.05em; }
-  .print-all-btn {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: var(--ash-dark); color: #fff; border: none;
-    font-family: 'Work Sans', sans-serif; font-size: 10px; font-weight: 600;
-    letter-spacing: 0.15em; text-transform: uppercase; padding: 10px 20px;
-    cursor: pointer; transition: background 0.2s;
-  }
-  .print-all-btn:hover { background: var(--ash-orange); }
-
-  /* ── PRINT BUTTON ────────────────────────────── */
-  .print-btn {
-    position: absolute;
-    top: 24px;
-    right: 32px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    background: transparent;
-    border: 1px solid var(--rule);
-    color: var(--muted);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    padding: 7px 14px;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .print-btn:hover {
-    border-color: var(--gold);
-    color: var(--gold);
-    background: rgba(184,149,90,0.06);
-  }
-
-  .print-btn svg {
-    width: 12px;
-    height: 12px;
-    flex-shrink: 0;
-  }
-
-  section { position: relative; }
-
-  /* ── PRINT STYLES ────────────────────────────── */
-  @media print {
-    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-
-    body { background: white; font-size: 11pt; }
-
-    .sidebar, .print-btn, .doc-footer { display: none !important; }
-
-    .main { margin-left: 0 !important; }
-
-    /* Hide everything by default */
-    .hero, section, #purpose, .cover-page, .disclaimer-page, .toc-page, .print-all-bar { display: none !important; }
-
-    /* Show only the section being printed, or everything in print-all mode */
-    .print-target { display: block !important; }
-    body.print-all .hero { display: block !important; }
-    body.print-all section { display: block !important; }
-    body.print-all #purpose { display: block !important; }
-    body.print-all .cover-page { display: flex !important; page-break-after: always; }
-    body.print-all .disclaimer-page { display: block !important; }
-    body.print-all .toc-page { display: block !important; }
-
-    /* Print header injected via JS */
-    .print-header {
-      display: flex !important;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 0 20pt;
-      border-bottom: 1pt solid #d8d0c0;
-      margin-bottom: 28pt;
-    }
-
-    .print-header .ph-mark {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 28pt;
-      font-weight: 300;
-      color: #b8955a;
-      letter-spacing: 0.12em;
-    }
-
-    .print-header .ph-meta {
-      text-align: right;
-      font-size: 7pt;
-      color: #7a7568;
-      letter-spacing: 0.08em;
-      line-height: 1.7;
-    }
-
-    .print-footer-bar {
-      display: block !important;
-      position: fixed;
-      bottom: 0; left: 0; right: 0;
-      border-top: 1pt solid #d8d0c0;
-      padding: 8pt 0 0;
-      font-size: 7pt;
-      color: #7a7568;
-      letter-spacing: 0.08em;
-      display: flex;
-      justify-content: space-between;
-    }
-
-    section.print-target {
-      padding: 0 !important;
-      border: none !important;
-      opacity: 1 !important;
-      transform: none !important;
-      background: white !important;
-      page-break-inside: avoid;
-    }
-
-    /* Force backgrounds in print */
-    .card { background: #1a1a18 !important; }
-    .os-col { background: #1a1a18 !important; }
-    .scorecard-grid { background: #d8d0c0 !important; }
-    .vision-grid { background: #d8d0c0 !important; }
-    .phases { border: 1pt solid #d8d0c0 !important; }
-    .phase { border-right: 1pt solid #d8d0c0 !important; }
-
-    h2 { font-size: 26pt !important; margin-bottom: 16pt !important; }
-    h3 { font-size: 16pt !important; }
-    p, li { font-size: 10pt !important; line-height: 1.55 !important; }
-
-    /* Grids: collapse to single column if needed */
-    .two-col, .cadence-grid, .phases, .scorecard-grid, .vision-grid {
-      grid-template-columns: 1fr 1fr !important;
-    }
-    .os-map { grid-template-columns: repeat(5,1fr) !important; }
-  }
-
-  /* Hide print-only elements on screen */
-  .print-header, .print-footer-bar { display: none; }
-
-  /* ── SCROLLBAR ───────────────────────────────── */
-  ::-webkit-scrollbar { width: 4px; }
-  ::-webkit-scrollbar-track { background: var(--ash); }
-  ::-webkit-scrollbar-thumb { background: var(--gold); }
-
-  /* ── RESPONSIVE ──────────────────────────────── */
-  @media (max-width: 900px) {
-    .sidebar { display: none; }
-    .main { margin-left: 0; }
-    .hero, section { padding: 48px 32px; }
-    .two-col, .cadence-grid, .phases, .scorecard-grid { grid-template-columns: 1fr; }
-    .vision-grid { grid-template-columns: 1fr; }
-    .os-map { grid-template-columns: 1fr; }
-    .doc-footer { flex-direction: column; gap: 20px; text-align: center; padding: 40px 32px; }
-    .doc-footer .footer-meta { text-align: center; }
-    .fund-stats, .market-grid, .process-steps,
-    .exit-grid, .risk-grid, .case-study-grid, .team-grid { grid-template-columns: 1fr; }
-    .case-study-header { flex-direction: column; gap: 16px; }
-  }
-
-  /* ── FUND OVERVIEW ───────────────────────────── */
-  .fund-hero {
-    background: var(--ash-dark); padding: 40px 40px 36px;
-    position: relative; overflow: hidden; max-width: 920px; margin-bottom: 32px;
-  }
-  .fund-hero::after {
-    content: 'I'; position: absolute; right: 32px; top: -20px;
-    font-family: 'Work Sans', sans-serif; font-size: 160px; font-weight: 700;
-    color: rgba(255,255,255,0.04); line-height: 1; pointer-events: none;
-  }
-  .fund-hero .fh-label {
-    font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase;
-    color: var(--ash-orange); font-weight: 600; margin-bottom: 10px;
-  }
-  .fund-hero .fh-name {
-    font-family: 'Work Sans', sans-serif; font-size: 28px; font-weight: 700; color: #fff; margin-bottom: 6px;
-  }
-  .fund-hero .fh-sub { font-size: 13px; color: rgba(255,255,255,0.55); max-width: 560px; line-height: 1.6; }
-  .fund-stats {
-    display: grid; grid-template-columns: repeat(4,1fr);
-    gap: 2px; max-width: 920px; background: var(--rule); margin-bottom: 32px;
-  }
-  .fund-stat { background: var(--white); padding: 20px 24px; }
-  section:nth-child(even) .fund-stat { background: var(--ash-tan-dk); }
-  .fund-stat .fs-label {
-    font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase;
-    color: var(--ash-orange); font-weight: 600; margin-bottom: 8px;
-  }
-  .fund-stat .fs-value {
-    font-family: 'Work Sans', sans-serif; font-size: 24px; font-weight: 700;
-    color: var(--ash-black); line-height: 1; margin-bottom: 4px;
-  }
-  .fund-stat .fs-desc { font-size: 11px; color: var(--muted); line-height: 1.5; }
-
-  /* ── SOUTHEAST THESIS ────────────────────────── */
-  .market-grid {
-    display: grid; grid-template-columns: repeat(3,1fr);
-    gap: 2px; max-width: 920px; background: var(--rule); margin-top: 32px;
-  }
-  .market-block { background: var(--white); padding: 24px 28px; }
-  section:nth-child(even) .market-block { background: var(--ash-tan-dk); }
-  .market-block .mb-stat {
-    font-family: 'Work Sans', sans-serif; font-size: 32px; font-weight: 700;
-    color: var(--ash-orange); line-height: 1; margin-bottom: 6px;
-  }
-  .market-block .mb-label { font-size: 11px; font-weight: 600; color: var(--ash-black); margin-bottom: 8px; }
-  .market-block .mb-desc { font-size: 12.5px; color: var(--ash-mid); line-height: 1.6; max-width: 100%; margin: 0; }
-  .market-states { display: flex; flex-wrap: wrap; gap: 8px; max-width: 920px; margin-top: 28px; }
-  .market-state {
-    background: var(--ash-dark); color: #fff;
-    font-size: 11px; font-weight: 600; letter-spacing: 0.1em; padding: 8px 18px; text-transform: uppercase;
-  }
-  .market-state.primary { background: var(--ash-orange); }
-
-  /* ── CASE STUDY ──────────────────────────────── */
-  .case-study-header {
-    background: var(--ash-dark); padding: 32px 36px; max-width: 920px;
-    margin-bottom: 2px; display: flex; align-items: center; justify-content: space-between;
-  }
-  .csh-label {
-    font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase;
-    color: var(--ash-orange); font-weight: 600; margin-bottom: 8px;
-  }
-  .csh-name { font-family: 'Work Sans', sans-serif; font-size: 26px; font-weight: 700; color: #fff; }
-  .csh-sub { font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 4px; }
-  .csh-num {
-    font-family: 'Work Sans', sans-serif; font-size: 52px; font-weight: 700;
-    color: var(--ash-orange); line-height: 1; text-align: right;
-  }
-  .csh-num-label {
-    font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
-    color: rgba(255,255,255,0.4); margin-top: 4px; text-align: right;
-  }
-  .case-study-grid {
-    display: grid; grid-template-columns: 1fr 1fr 1fr;
-    gap: 2px; max-width: 920px; background: var(--rule);
-  }
-  .cs-block { background: var(--white); padding: 24px 28px; }
-  section:nth-child(even) .cs-block { background: var(--ash-tan-dk); }
-  .cs-block .csb-label {
-    font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase;
-    color: var(--ash-orange); font-weight: 600; margin-bottom: 12px;
-  }
-  .cs-block ul { max-width: 100%; }
-  .cs-block ul li { font-size: 12.5px; }
-
-  /* ── HOW TO PARTNER ──────────────────────────── */
-  .process-steps {
-    display: grid; grid-template-columns: repeat(5,1fr);
-    gap: 0; max-width: 920px; margin-top: 32px;
-  }
-  .process-step {
-    padding: 28px 20px; border: 1px solid var(--rule);
-    border-right: none; position: relative;
-  }
-  .process-step:last-child { border-right: 1px solid var(--rule); }
-  .process-step::after {
-    content: '→'; position: absolute; right: -13px; top: 28px;
-    color: var(--ash-orange); font-size: 16px; font-weight: 700; z-index: 2;
-  }
-  .process-step:last-child::after { display: none; }
-  .ps-num {
-    font-family: 'Work Sans', sans-serif; font-size: 36px; font-weight: 700;
-    color: var(--ash-tan); line-height: 1; margin-bottom: 8px;
-  }
-  .ps-title { font-size: 12px; font-weight: 600; color: var(--ash-black); margin-bottom: 8px; }
-  .ps-desc { font-size: 11.5px; color: var(--ash-mid); line-height: 1.55; max-width: 100%; margin: 0; }
-  .ps-time { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--ash-orange); margin-top: 10px; }
-
-  /* ── EXIT STRATEGY ───────────────────────────── */
-  .exit-grid {
-    display: grid; grid-template-columns: repeat(3,1fr);
-    gap: 20px; max-width: 920px; margin-top: 32px;
-  }
-  .exit-card {
-    border: 1px solid var(--rule); padding: 28px; position: relative; overflow: hidden;
-  }
-  .exit-card::after {
-    content: ''; position: absolute; bottom: 0; left: 0; right: 0;
-    height: 3px; background: var(--ash-orange);
-  }
-  .exit-card .ec-label {
-    font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase;
-    color: var(--ash-orange); font-weight: 600; margin-bottom: 10px;
-  }
-  .exit-card h3 { margin: 0 0 12px; font-size: 17px; }
-  .exit-card p { font-size: 13px; color: var(--ash-mid); line-height: 1.65; max-width: 100%; margin: 0; }
-
-  /* ── RISK FACTORS ────────────────────────────── */
-  .risk-grid {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 2px; max-width: 920px; background: var(--rule); margin-top: 32px;
-  }
-  .risk-block { background: var(--white); padding: 22px 28px; }
-  section:nth-child(even) .risk-block { background: var(--ash-tan-dk); }
-  .risk-block .rb-label {
-    font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
-    color: var(--ash-warm); font-weight: 600; margin-bottom: 8px;
-  }
-  .risk-block .rb-title { font-size: 14px; font-weight: 600; color: var(--ash-black); margin-bottom: 6px; }
-  .risk-block p { font-size: 12.5px; color: var(--ash-mid); line-height: 1.6; max-width: 100%; margin: 0; }
 </style>
 </head>
 <body>
 
-<!-- PASSWORD GATE -->
-<div id="gate" style="
-  position: fixed; inset: 0; z-index: 9999;
-  background: #57514c;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  font-family: 'Work Sans', sans-serif;
-">
-  <div style="text-align: center; margin-bottom: 48px;">
-    <div style="font-size: 64px; font-weight: 700; color: #fff; letter-spacing: 0.08em; line-height: 1;">
-      ASH<span style="color: #bc663b;">ATL</span>
-    </div>
-    <div style="font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-top: 10px;">
-      Consumer Investment Partners
-    </div>
+<!-- ─── PASSWORD GATE ──────────────────────────── -->
+<div id="gate">
+  <div class="g-logo">ASH<span>ATL</span></div>
+  <div class="g-sub">Consumer Investment Partners</div>
+  <div class="g-form">
+    <label class="g-label" for="pwInput">Access Code</label>
+    <input id="pwInput" type="password" placeholder="········"
+      onkeydown="if(event.key==='Enter')checkPw()">
+    <button onclick="checkPw()">Access Document</button>
+    <div class="g-err" id="pwErr"></div>
   </div>
-  <div style="width: 320px;">
-    <div style="font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 10px;">
-      Access Code Required
-    </div>
-    <input id="gateInput" type="password" placeholder="Enter access code"
-      style="
-        width: 100%; padding: 14px 18px; font-size: 14px;
-        font-family: 'Work Sans', sans-serif; font-weight: 400;
-        background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2);
-        color: #fff; outline: none; margin-bottom: 10px;
-        letter-spacing: 0.05em;
-      "
-      onkeydown="if(event.key==='Enter') checkPassword()"
-    />
-    <button onclick="checkPassword()" style="
-      width: 100%; padding: 14px; background: #bc663b; border: none;
-      color: #fff; font-family: 'Work Sans', sans-serif;
-      font-size: 11px; font-weight: 600; letter-spacing: 0.2em;
-      text-transform: uppercase; cursor: pointer; transition: background 0.2s;
-    "
-      onmouseover="this.style.background='#382f2d'"
-      onmouseout="this.style.background='#bc663b'"
-    >
-      Access Document
-    </button>
-    <div id="gateError" style="
-      font-size: 11px; color: #e07050; margin-top: 10px;
-      letter-spacing: 0.05em; text-align: center; min-height: 18px;
-    "></div>
-  </div>
-  <div style="position: absolute; bottom: 32px; font-size: 10px; color: rgba(255,255,255,0.2); letter-spacing: 0.1em;">
-    Confidential · ASH Consumer Investment Partners · 2026
-  </div>
+  <div class="g-foot">Confidential · ASH Consumer Investment Partners · 2026</div>
 </div>
 
-<script>
-  // Check if already authenticated this session
-  if (sessionStorage.getItem('ash_auth') === 'true') {
-    document.getElementById('gate').style.display = 'none';
-  }
-
-  function checkPassword() {
-    const val = document.getElementById('gateInput').value;
-    // Password: ASH2026 — change this to whatever you want
-    if (val === 'ASH2026') {
-      sessionStorage.setItem('ash_auth', 'true');
-      const gate = document.getElementById('gate');
-      gate.style.transition = 'opacity 0.4s ease';
-      gate.style.opacity = '0';
-      setTimeout(() => gate.style.display = 'none', 400);
-    } else {
-      document.getElementById('gateError').textContent = 'Incorrect access code. Please try again.';
-      document.getElementById('gateInput').value = '';
-      document.getElementById('gateInput').focus();
-    }
-  }
-</script>
-
-<!-- SIDEBAR -->
+<!-- ─── SIDEBAR ────────────────────────────────── -->
 <aside class="sidebar">
-  <div class="sidebar-logo">
-    <span class="mark">ASH<br><span>ATL</span></span>
+  <div class="sb-logo">
+    <span class="mark">ASH<span>ATL</span></span>
     <span class="sub">Consumer Investment Partners</span>
   </div>
   <nav>
-    <div class="nav-section">Document</div>
-    <a href="#cover">Cover</a>
-    <a href="#toc">Table of Contents</a>
-    <div class="nav-section">Fund I</div>
-    <a href="#fund">Fund Overview</a>
-    <a href="#southeast">Southeast Thesis</a>
-    <a href="#exit-strategy">Exit Strategy</a>
-    <a href="#risk">Risk Factors</a>
-    <div class="nav-section">About ASH</div>
-    <a href="#team">Team &amp; Leadership</a>
-    <a href="#portfolio">Portfolio</a>
-    <a href="#case-study">Case Study: JFA</a>
-    <a href="#criteria">Investment Criteria</a>
-    <a href="#how-to-partner">How to Partner</a>
-    <div class="nav-section">Foundation</div>
-    <a href="#what-we-are">What ASH Is</a>
-    <a href="#vision">Our Vision</a>
-    <a href="#thesis">Value-Creation Thesis</a>
-    <a href="#how-we-work">How We Work</a>
-    <div class="nav-section">Operating System</div>
-    <a href="#motions">Operating Motions</a>
-    <a href="#north-star">Financial North Star</a>
-    <a href="#diagnostic">14-Day Diagnostic</a>
-    <a href="#cadence">The ASH Cadence</a>
-    <div class="nav-section">100-Day Plans</div>
-    <a href="#100day-growth">Growth &amp; Scale</a>
-    <a href="#100day-optimize">Performance Optimization</a>
-    <div class="nav-section">Measurement</div>
-    <a href="#scorecard">Scorecard Framework</a>
-    <a href="#os-map">Operating System Map</a>
+    <div class="sb-section">Document</div>
+    <a class="sb-link" href="#cover"><span class="num">—</span>Cover</a>
+
+    <div class="sb-section">Who We Are</div>
+    <a class="sb-link" href="#what"><span class="num">01</span>What ASH Is</a>
+    <a class="sb-link" href="#moat"><span class="num">02</span>Our Moat</a>
+    <a class="sb-link" href="#requirements"><span class="num">03</span>Investment Requirements</a>
+    <a class="sb-link" href="#commandments"><span class="num">04</span>ASH Commitments</a>
+    <a class="sb-link" href="#team"><span class="num">05</span>The Team</a>
+
+    <div class="sb-section">Value Creation</div>
+    <a class="sb-link" href="#thesis"><span class="num">06</span>Value-Creation Thesis</a>
+    <a class="sb-link" href="#how-we-work"><span class="num">07</span>How We Work</a>
+    <a class="sb-link" href="#motions"><span class="num">08</span>Operating Motions</a>
+
+    <div class="sb-section">Operating System</div>
+    <a class="sb-link" href="#northstar"><span class="num">09</span>Financial North Star</a>
+    <a class="sb-link" href="#diagnostic"><span class="num">10</span>14-Day Diagnostic</a>
+    <a class="sb-link" href="#cadence"><span class="num">11</span>The ASH Cadence</a>
+    <a class="sb-link" href="#rights"><span class="num">12</span>Decision Rights</a>
+
+    <div class="sb-section">100-Day Plans</div>
+    <a class="sb-link" href="#plan-growth"><span class="num">13</span>Growth &amp; Scale</a>
+    <a class="sb-link" href="#plan-optimize"><span class="num">14</span>Operational Alpha</a>
+
+    <div class="sb-section">Measurement</div>
+    <a class="sb-link" href="#scorecard"><span class="num">15</span>Scorecard Framework</a>
+    <a class="sb-link" href="#thresholds"><span class="num">16</span>RYG Thresholds</a>
+    <a class="sb-link" href="#osmap"><span class="num">17</span>Operating System Map</a>
+    <a class="sb-link" href="#glossary"><span class="num">18</span>Glossary</a>
   </nav>
-  <div class="sidebar-footer">
-    Core v1.0 · March 2026<br>
-    Confidential
+  <div class="sb-footer">
+    <div class="sb-version">v2.0</div>
+    March 2026<br>
+    Internal Use Only<br>
+    ASH Consumer Investment Partners
   </div>
 </aside>
 
-<!-- MAIN -->
+<!-- ─── MAIN ────────────────────────────────────── -->
 <div class="main">
 
-  <!-- COVER PAGE -->
-  <div class="cover-page" id="cover">
-    <div class="cover-top">
-      <div class="cover-wordmark">
-        <span class="wm-ash">ASH</span><span class="wm-atl">ATL</span>
-      </div>
-      <div class="cover-divider"></div>
-      <div class="cover-title">Operating &amp; Value-Creation Playbook</div>
-      <div class="cover-headline">A disciplined operating system for building <strong>enduring consumer businesses.</strong></div>
+<!-- COVER -->
+<div class="cover" id="cover">
+  <div>
+    <div class="cover-eyebrow">Internal Operating Document</div>
+    <div class="cover-title">ASH Consumer<br>Investment Partners<br><span>Operating Playbook</span></div>
+    <div class="cover-rule"></div>
+    <div class="cover-desc">A repeatable operating system for building enduring consumer businesses — defining how ASH diagnoses, engages, improves, and measures value across every partnership.</div>
+  </div>
+  <div class="cover-meta">
+    <div class="cover-meta-item">
+      <label>Version</label>
+      <span>v2.0</span>
     </div>
-    <div class="cover-bottom">
-      <div class="cover-meta">
-        <div class="cover-meta-item">
-          <label>Document</label>
-          <span>Core v1.0</span>
-        </div>
-        <div class="cover-meta-item">
-          <label>Date</label>
-          <span>March 2026</span>
-        </div>
-        <div class="cover-meta-item">
-          <label>Status</label>
-          <span>Living Document</span>
-        </div>
-        <div class="cover-meta-item">
-          <label>Contact</label>
-          <span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="076e6976726e75624766746f66736b666973662964686a">[email&#160;protected]</a></span>
-        </div>
-      </div>
-      <div class="cover-confidential">Confidential</div>
+    <div class="cover-meta-item">
+      <label>Date</label>
+      <span>March 2026</span>
+    </div>
+    <div class="cover-meta-item">
+      <label>Classification</label>
+      <span>Internal / Confidential</span>
+    </div>
+    <div class="cover-meta-item">
+      <label>Owner</label>
+      <span>Josh Kalson, Principal</span>
     </div>
   </div>
+</div>
 
-  <!-- LEGAL DISCLAIMER -->
-  <div class="disclaimer-page" id="disclaimer">
-    <div class="disc-label">Important Disclosures &amp; Legal Notice</div>
-    <p>This document is confidential and has been prepared by ASH Consumer Investment Partners, LLC ("ASH") solely for informational purposes and for use by the intended recipient. It may not be reproduced or redistributed in whole or in part without the prior written consent of ASH.</p>
-    <p>Nothing in this document is intended, or should be considered, to constitute investment, accounting, tax, or legal advice. This document is intended solely to provide general information regarding ASH Consumer Investment Partners, LLC and its operating approach. ASH Consumer Investment Partners, LLC does not solicit or make its services available to the general public.</p>
-    <p>Under no circumstances should any information provided in this document be used or considered as an offer to sell, or a solicitation of an offer to buy, any security or securities. Although this document may include investment-related information, nothing herein is a recommendation that you purchase, sell, or hold any security or other investment, or that you pursue any investment style or strategy.</p>
-    <p>ASH Consumer Investment Partners, LLC does not guarantee, and cannot be held liable for, the accuracy or timeliness of information in this document. Information may change at any time without notice. Past performance is not indicative of future results. All investments involve risk, including the possible loss of principal.</p>
-    <p style="font-weight: 500; color: var(--ash-black);">One Buckhead Plaza · 3060 Peachtree Road NW, Suite 1400 · Atlanta, GA 30305 · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e88186999d819a8da8899b80899c8489869c89c68b8785">[email&#160;protected]</a> · 470.795.5505</p>
-  </div>
+<!-- PRINT BAR -->
+<div class="print-bar">
+  <span>ASH Consumer Investment Partners · Operating Playbook v2.0 · Internal / Confidential</span>
+  <button class="print-all-btn" id="printAllBtn">
+    <svg width="11" height="11" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="1" width="10" height="7" rx="0.5"/><path d="M3 10H1.5A.5.5 0 0 1 1 9.5v-4A.5.5 0 0 1 1.5 5h13a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5H13"/><rect x="3" y="9" width="10" height="6" rx="0.5"/></svg>
+    Print Full Document
+  </button>
+</div>
 
-  <!-- TABLE OF CONTENTS -->
-  <div class="toc-page" id="toc">
-    <div class="section-eyebrow">Table of Contents</div>
-    <h2>Document Overview</h2>
-    <div class="toc-grid">
-      <div class="toc-section-label">Fund I</div>
-      <a class="toc-item" href="#fund"><span class="toc-num">—</span><span class="toc-title">Fund Overview &amp; Strategy</span></a>
-      <a class="toc-item" href="#southeast"><span class="toc-num">—</span><span class="toc-title">Why the Southeast</span></a>
-      <a class="toc-item" href="#exit-strategy"><span class="toc-num">—</span><span class="toc-title">Exit Strategy</span></a>
-      <a class="toc-item" href="#risk"><span class="toc-num">—</span><span class="toc-title">Risk Factors</span></a>
-      <div class="toc-section-label">About ASH</div>
-      <a class="toc-item" href="#team"><span class="toc-num">—</span><span class="toc-title">Team &amp; Leadership</span></a>
-      <a class="toc-item" href="#portfolio"><span class="toc-num">—</span><span class="toc-title">Portfolio Companies</span></a>
-      <a class="toc-item" href="#case-study"><span class="toc-num">—</span><span class="toc-title">Case Study: Jackson Fine Art</span></a>
-      <a class="toc-item" href="#criteria"><span class="toc-num">—</span><span class="toc-title">Investment Criteria</span></a>
-      <a class="toc-item" href="#how-to-partner"><span class="toc-num">—</span><span class="toc-title">How to Partner</span></a>
-      <div class="toc-section-label">Operating System</div>
-      <a class="toc-item" href="#what-we-are"><span class="toc-num">01</span><span class="toc-title">What ASH Is</span></a>
-      <a class="toc-item" href="#vision"><span class="toc-num">02</span><span class="toc-title">Our Vision</span></a>
-      <a class="toc-item" href="#thesis"><span class="toc-num">03</span><span class="toc-title">Value-Creation Thesis</span></a>
-      <a class="toc-item" href="#how-we-work"><span class="toc-num">04</span><span class="toc-title">How We Work</span></a>
-      <a class="toc-item" href="#motions"><span class="toc-num">05</span><span class="toc-title">Operating Motions</span></a>
-      <a class="toc-item" href="#north-star"><span class="toc-num">06</span><span class="toc-title">Financial North Star</span></a>
-      <a class="toc-item" href="#diagnostic"><span class="toc-num">07</span><span class="toc-title">14-Day Diagnostic</span></a>
-      <a class="toc-item" href="#cadence"><span class="toc-num">08</span><span class="toc-title">The ASH Cadence</span></a>
-      <div class="toc-section-label">100-Day Plans &amp; Measurement</div>
-      <a class="toc-item" href="#100day-growth"><span class="toc-num">09</span><span class="toc-title">Growth &amp; Scale Plan</span></a>
-      <a class="toc-item" href="#100day-optimize"><span class="toc-num">10</span><span class="toc-title">Performance Optimization Plan</span></a>
-      <a class="toc-item" href="#scorecard"><span class="toc-num">11</span><span class="toc-title">Scorecard Framework</span></a>
-      <a class="toc-item" href="#os-map"><span class="toc-num">12</span><span class="toc-title">Operating System Map</span></a>
+<!-- 01 WHAT ASH IS -->
+<div class="section" id="what">
+  <div class="section-eyebrow">01 — Foundation</div>
+  <h2>What ASH Is</h2>
+  <p>ASH Consumer Investment Partners is an operator-led investment platform that partners with founder-operators to build enduring consumer businesses. We invest across majority and minority positions and add value through a disciplined operating system that improves execution, strengthens unit economics, and supports smart growth.</p>
+  <p>We operate across the consumer landscape, including:</p>
+  <ul class="list">
+    <li><strong>Consumer Products</strong> — DTC, wholesale, omnichannel, marketplace</li>
+    <li><strong>Consumer Services</strong> — membership, recurring revenue, multi-site, delivery-based</li>
+    <li><strong>Hospitality</strong> — restaurants, hotels, clubs, entertainment-driven venues</li>
+  </ul>
+  <p style="margin-top:20px;">While each sub-vertical has unique mechanics, the value-creation system is consistent: drive durable demand, improve unit economics, convert earnings to cash, and build scalable operating infrastructure. We partner with management teams that share our unwavering commitment to the employee and customer experience as a means of growing the intrinsic value of their businesses and generating prosperity for all stakeholders.</p>
+
+  <h3>Our Vision</h3>
+  <div class="cards-2" style="margin-top:12px;">
+    <div class="card">
+      <div class="card-label">Employees</div>
+      <p class="card-body">We employ extraordinary individuals who love working together. As a team we are greater than the sum of our parts, committed to supporting each other on and off the field so every person in our community is set up to live a full life and master their vocation.</p>
+    </div>
+    <div class="card">
+      <div class="card-label">Management Teams &amp; Portfolio Companies</div>
+      <p class="card-body">We are a sought-after partner for management teams looking to grow the intrinsic value of their businesses by placing the customer and employee experiences first. We help management teams identify and harness their secret sauce, build defensible moats, and maximize the value of their business.</p>
+    </div>
+    <div class="card">
+      <div class="card-label">Investors</div>
+      <p class="card-body">The best capital allocators in the world want to invest with us because we generate top-decile returns built on high integrity, disciplined analysis, sector expertise, strategic and operational improvements in portfolio companies, and an unwavering commitment to the truth.</p>
+    </div>
+    <div class="card">
+      <div class="card-label">Service Providers</div>
+      <p class="card-body">We feel understood and supported by our expert suppliers who share our core values — a high sense of urgency and standard of excellence. They are experts in their fields and apply practical expertise without blindly defaulting to theoretical norms.</p>
     </div>
   </div>
+</div>
 
-  <!-- PRINT ALL BAR -->
-  <div class="print-all-bar">
-    <span>ASH Consumer Investment Partners · Operating &amp; Value-Creation Playbook · Core v1.0 · Confidential</span>
-    <button class="print-all-btn" id="printAllBtn">
-      <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="1" width="10" height="7" rx="0.5"/><path d="M3 10H1.5A.5.5 0 0 1 1 9.5v-4A.5.5 0 0 1 1.5 5h13a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5H13"/><rect x="3" y="9" width="10" height="6" rx="0.5"/><circle cx="13" cy="7.5" r="0.5" fill="currentColor" stroke="none"/></svg>
-      Print Full Document
-    </button>
-  </div>
+<!-- 02 MOAT -->
+<div class="section" id="moat">
+  <div class="section-eyebrow">02 — Competitive Advantage</div>
+  <h2>Our Moat</h2>
+  <p>A durable competitive advantage is not a single capability — it is a set of interdependent strengths that, in combination, are difficult to replicate. Any individual element of the ASH platform can be approximated by others. The compounding effect of all four together is what creates a defensible position.</p>
 
-  <!-- HERO -->
-  <div class="hero">
-    <div class="hero-eyebrow">Operating & Value-Creation Playbook</div>
-    <h1>How <em>ASH</em> builds enduring consumer businesses.</h1>
-    <div class="hero-rule"></div>
-    <div class="hero-meta">
-      <div class="hero-meta-item">
-        <label>Version</label>
-        <span>Core v1.0</span>
-      </div>
-      <div class="hero-meta-item">
-        <label>Date</label>
-        <span>March 2026</span>
-      </div>
-      <div class="hero-meta-item">
-        <label>Status</label>
-        <span>Living Document</span>
-      </div>
+  <div class="cards-2" style="margin-top:20px;">
+    <div class="card card-dark">
+      <div class="card-label">01 — Operator Attraction</div>
+      <div class="card-title" style="color:#fff;">Access to World-Class Operators</div>
+      <p class="card-body">ASH's reputation as a genuine operating partner — not passive capital — attracts operators who are exceptional in their craft and selective about their investors. Our track record of operational involvement, combined with the depth of our consumer network, positions ASH as the preferred partner for the caliber of operator that drives outsized outcomes. This quality of deal flow and execution partnership is a direct function of reputation built over two decades.</p>
+    </div>
+    <div class="card card-dark">
+      <div class="card-label">02 — Institutional Infrastructure</div>
+      <div class="card-title" style="color:#fff;">The ASH Operating Playbook</div>
+      <p class="card-body">A documented, repeatable system for diagnosing businesses, selecting the appropriate operating motion, and driving measurable EBITDA improvement — applied consistently across every portfolio company. It is not advisory in nature; it is the operating infrastructure that ASH installs and runs alongside management. Built and refined across 20+ years of hands-on consumer operating experience, it defines how ASH engages from Day 1 of every partnership.</p>
+    </div>
+    <div class="card card-dark">
+      <div class="card-label">03 — Consumer Expertise</div>
+      <div class="card-title" style="color:#fff;">Validated Consumer Judgment</div>
+      <p class="card-body">ASH brings deep, credentialed expertise in the Southeast consumer — understanding what resonates, what endures, and what does not. Portfolio partners value ASH's perspective on brand, product, and consumer experience as much as its operational capability. The combination of consumer taste and operational discipline is rare; most investors have one or the other. This integrated perspective informs both investment selection and value-creation execution.</p>
+    </div>
+    <div class="card card-dark">
+      <div class="card-label">04 — Scale Without Bureaucracy</div>
+      <div class="card-title" style="color:#fff;">Institutional Rigor at the Mid-Market</div>
+      <p class="card-body">The ASH team brings institutional-grade investment discipline, C-suite operating experience, and governance rigor — applied at the scale of businesses that have historically been underserved by this quality of partnership. Most institutional PE cannot operate effectively at $5–30M EBITDA; most local capital cannot bring institutional infrastructure. ASH occupies this intersection deliberately and defensibly.</p>
     </div>
   </div>
 
-  <div class="content">
+  <h3>Proprietary Deal Flow</h3>
+  <p>ASH's 20+ year presence in Atlanta and the broader Southeast has built a dense, trust-based network of operators, founders, advisors, and industry participants who surface opportunities before they reach intermediaries or competitive auction processes. The Southeast consumer market — particularly at the $10–75M enterprise value range — remains significantly underserved by institutional capital. Most large PE firms source from major coastal markets; ASH has the local knowledge and relationships to identify and win high-quality assets earlier and at more attractive entry points.</p>
+</div>
 
-    <!-- PURPOSE NOTE -->
-    <section id="purpose" style="padding: 36px 80px; border-bottom: 1px solid var(--rule);">
-      <p style="font-size: 14px; color: var(--muted); max-width: 680px; font-style: italic;">
-        This playbook defines how ASH creates value in consumer businesses through a repeatable operating system. It is designed to be operator-usable—providing cadence, tools, and decision clarity—while remaining institutional-grade, with governance, measurement discipline, and rigor consistent with top-tier consumer investing.
-      </p>
-    </section>
+<!-- 03 INVESTMENT REQUIREMENTS -->
+<div class="section" id="requirements">
+  <div class="section-eyebrow">03 — Investment Standards</div>
+  <h2>Investment Requirements</h2>
+  <p>Every potential investment must satisfy six threshold requirements before diligence proceeds. These criteria are not weighted or traded off against one another — a business that does not satisfy all six does not advance regardless of financial attractiveness. They reflect the specific type of business where the ASH operating system creates the most value and generates the most durable returns.</p>
 
-    <!-- FUND OVERVIEW -->
-    <section id="fund">
-      <div class="section-eyebrow">Fund I</div>
-      <h2>ASH Consumer Investment Partners Fund I</h2>
-      <div class="fund-hero">
-        <div class="fh-label">Now Raising</div>
-        <div class="fh-name">ASH Consumer Investment Partners Fund I</div>
-        <div class="fh-sub">A Southeast-focused consumer private equity fund applying a proven, repeatable operating system to build enduring businesses and generate top-decile returns for institutional LPs.</div>
-      </div>
-      <div class="fund-stats">
-        <div class="fund-stat">
-          <div class="fs-label">Target Fund Size</div>
-          <div class="fs-value">$150M</div>
-          <div class="fs-desc">Institutional capital sought from qualified investors</div>
-        </div>
-        <div class="fund-stat">
-          <div class="fs-label">Target Net Returns</div>
-          <div class="fs-value">2–3× MOIC</div>
-          <div class="fs-desc">20%+ net IRR target per investment</div>
-        </div>
-        <div class="fund-stat">
-          <div class="fs-label">Hold Period</div>
-          <div class="fs-value">5–7 Yrs</div>
-          <div class="fs-desc">Per portfolio company; full fund life 10 years</div>
-        </div>
-        <div class="fund-stat">
-          <div class="fs-label">Track Record</div>
-          <div class="fs-value">20+ Yrs</div>
-          <div class="fs-desc">Prior investments via SPV structure since 2003</div>
-        </div>
-      </div>
-      <h3>Fund Strategy</h3>
-      <p>Fund I will make 8–12 concentrated investments in founder-led consumer businesses across the Southeast, deploying the ASH operating system to drive EBITDA expansion, unit economics improvement, and scalable growth. We target businesses with $2M–$15M of EBITDA where our operational involvement is the primary value driver — not financial engineering.</p>
-      <h3>Prior Investment Structure</h3>
-      <p>Prior to Fund I, ASH Consumer Investment Partners deployed capital through individual Special Purpose Vehicles (SPVs) on a deal-by-deal basis, building a portfolio of consumer businesses including The Chastain, Perrine's Wine Shop, and Jackson Fine Art. Fund I represents the institutionalization of this approach — bringing the same operating discipline and deal selectivity to a formal fund structure with LP governance, reporting, and alignment.</p>
-      <h3>What Makes Fund I Different</h3>
+  <div class="cards-3" style="margin-top:20px;">
+    <div class="card">
+      <div class="card-label">Criterion 01</div>
+      <div class="card-title">Demonstrable Customer Loyalty</div>
+      <p class="card-body">The business must have a proven, passionate customer base — patrons who return by choice, advocate to others, and would notice the absence of the brand. Operational excellence can improve a business that customers already love; it cannot manufacture the underlying affinity. Businesses without genuine customer loyalty are outside the ASH investment mandate.</p>
+    </div>
+    <div class="card">
+      <div class="card-label">Criterion 02</div>
+      <div class="card-title">Meaningful Consumer Relevance</div>
+      <p class="card-body">The business must play a meaningful role in how its customers live, eat, experience, or express themselves. We invest in businesses that matter to the communities they serve — not commodities, not purely transactional services. Relevance is a leading indicator of retention, pricing power, and long-term defensibility.</p>
+    </div>
+    <div class="card">
+      <div class="card-label">Criterion 03</div>
+      <div class="card-title">Cultural Resonance &amp; Longevity</div>
+      <p class="card-body">The business must be woven into community and consumer lifestyle in a way that is enduring rather than trend-dependent. We invest in brands that have the potential to outlast cycles — businesses with a defined identity, a loyal constituency, and a reason to exist that does not depend on a single moment in culture.</p>
+    </div>
+    <div class="card">
+      <div class="card-label">Criterion 04</div>
+      <div class="card-title">In-Person Experience Orientation</div>
+      <p class="card-body">ASH has a strong preference for businesses centered on live, physical consumer experiences — restaurants, specialty retail, hospitality, events, and services. These businesses are inherently defensible against digital disruption, reward operational excellence disproportionately, and align with the core competencies of the ASH operating system.</p>
+    </div>
+    <div class="card">
+      <div class="card-label">Criterion 05</div>
+      <div class="card-title">Return Threshold</div>
+      <p class="card-body">The high-confidence investment case must support a <span class="hl">20% gross return as the minimum floor</span>. The return pathway must be achievable through operational improvement and growth within the existing capital structure — not dependent on market conditions or outcomes outside ASH's control. Businesses requiring additional capital to survive do not meet this criterion; businesses requiring capital to accelerate growth beyond plan are evaluated on their merits.</p>
+    </div>
+    <div class="card">
+      <div class="card-label">Criterion 06</div>
+      <div class="card-title">Operator Alignment</div>
+      <p class="card-body">The founder or operating leadership must demonstrate openness to the ASH operating system — a shared cadence, transparent reporting, and accountability to agreed performance targets. The quality of the operator relationship is as important as the quality of the business. We invest in partnerships where both sides have made a deliberate choice to work together, with full understanding of what that entails.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 04 COMMANDMENTS -->
+<div class="section" id="commandments">
+  <div class="section-eyebrow">04 — Operating Principles</div>
+  <h2>The ASH Operating Commitments</h2>
+  <p>The following commitments define how ASH conducts itself in every partnership — regardless of ownership structure, business stage, or deal complexity. They are not aspirational statements. They are behavioral standards that govern how we show up as investors, operators, and partners, and they are what operators and LPs should hold us accountable to.</p>
+
+  <div class="cards-2" style="margin-top:20px;">
+    <div class="card card-dark">
+      <div class="card-label">Commitments to Portfolio Companies</div>
       <ul>
-        <li><strong>Operator-led, not financial engineering</strong> — Value is created through the ASH operating system, not leverage or multiple arbitrage</li>
-        <li><strong>Concentrated and high-conviction</strong> — Fewer, larger bets in businesses where ASH has deep sector knowledge</li>
-        <li><strong>Southeast-first advantage</strong> — Proprietary deal flow from 20+ years of regional relationships, before businesses reach competitive auction processes</li>
-        <li><strong>Institutional infrastructure on a mid-market platform</strong> — Scorecard discipline, governance rigor, and management cadence that larger funds apply, deployed at the $5M–$30M equity check size where competition is thinner</li>
+        <li>We establish a shared scorecard with locked definitions before operational work begins — never after</li>
+        <li>We deliver a structured 100-day plan at every new investment and every major phase transition</li>
+        <li>We maintain the operating cadence without exception — consistent presence is a prerequisite for accountability</li>
+        <li>We communicate difficult findings directly and promptly; we do not soften assessments that require action</li>
+        <li>We protect the brand identity and consumer experience in every cost and operational decision</li>
+        <li>We bring institutional rigor without institutional overhead — the system scales to the business, not the reverse</li>
+        <li>We treat employee experience as a core operating lever, not a secondary consideration</li>
+        <li>We give operating partners full recognition for the results they drive</li>
       </ul>
-    </section>
-
-    <!-- SOUTHEAST THESIS -->
-    <section id="southeast">
-      <div class="section-eyebrow">Market Thesis</div>
-      <h2>Why the Southeast</h2>
-      <p>The Southeast is the fastest-growing consumer market in the United States — with population migration, rising household incomes, and a business-friendly environment creating structural tailwinds for consumer businesses. Yet the region remains underserved by institutional consumer-focused private equity, creating a persistent opportunity for an operator with deep regional roots.</p>
-      <div class="market-grid">
-        <div class="market-block">
-          <div class="mb-stat">#1</div>
-          <div class="mb-label">Fastest-Growing U.S. Region</div>
-          <p class="mb-desc">The Southeast leads the nation in population inflows, driven by domestic migration from higher-cost markets in the Northeast and West Coast — bringing spending power and consumer demand.</p>
-        </div>
-        <div class="market-block">
-          <div class="mb-stat">40M+</div>
-          <div class="mb-label">Population Across Core Markets</div>
-          <p class="mb-desc">Georgia, Florida, Tennessee, the Carolinas, and Texas collectively represent one of the largest and most dynamic consumer economies in the world — with Atlanta, Miami, Nashville, Charlotte, and Austin as anchor metros.</p>
-        </div>
-        <div class="market-block">
-          <div class="mb-stat">Gap</div>
-          <div class="mb-label">Underserved by Institutional PE</div>
-          <p class="mb-desc">Most consumer-focused PE is concentrated in New York, Los Angeles, and Chicago. Southeast consumer businesses — particularly those below $50M in enterprise value — rarely see institutional-quality operational partners at the table.</p>
-        </div>
-        <div class="market-block">
-          <div class="mb-stat">Local</div>
-          <div class="mb-label">Proprietary Deal Flow</div>
-          <p class="mb-desc">ASH's 20+ year presence in Atlanta and the Southeast has built a dense network of operators, advisors, and founders who bring opportunities before they reach bankers or competitive processes.</p>
-        </div>
-        <div class="market-block">
-          <div class="mb-stat">Low</div>
-          <div class="mb-label">Entry Multiple Environment</div>
-          <p class="mb-desc">Consumer businesses in the Southeast trade at meaningful discounts to comparable assets in gateway markets — creating built-in multiple expansion potential as businesses professionalize and attract broader buyer interest at exit.</p>
-        </div>
-        <div class="market-block">
-          <div class="mb-stat">Strong</div>
-          <div class="mb-label">Exit Market Dynamics</div>
-          <p class="mb-desc">Atlanta and the broader Southeast have seen significant growth in strategic acquirers, regional PE roll-ups, and family offices seeking consumer assets — deepening the exit landscape for Fund I's portfolio.</p>
-        </div>
-      </div>
-      <h3>Primary Markets</h3>
-      <div class="market-states">
-        <div class="market-state primary">Georgia</div>
-        <div class="market-state primary">Florida</div>
-        <div class="market-state primary">Tennessee</div>
-        <div class="market-state primary">North Carolina</div>
-        <div class="market-state primary">South Carolina</div>
-        <div class="market-state primary">Texas</div>
-        <div class="market-state">Virginia</div>
-        <div class="market-state">Alabama</div>
-        <div class="market-state">Louisiana</div>
-        <div class="market-state">Mississippi</div>
-      </div>
-    </section>
-
-    <!-- CASE STUDY -->
-    <section id="case-study">
-      <div class="section-eyebrow">Value-Creation Case Study</div>
-      <h2>Jackson Fine Art</h2>
-      <div class="case-study-header">
-        <div>
-          <div class="csh-label">Case Study · Arts &amp; Culture · Atlanta, GA</div>
-          <div class="csh-name">Jackson Fine Art</div>
-          <div class="csh-sub">Fine Art Photography Gallery · Buckhead · Est. 1990</div>
-        </div>
-        <div>
-          <div class="csh-num">5×</div>
-          <div class="csh-num-label">Revenue Growth Under ASH Partnership</div>
-        </div>
-      </div>
-      <div class="case-study-grid">
-        <div class="cs-block">
-          <div class="csb-label">The Situation</div>
-          <ul>
-            <li>World-renowned fine art photography gallery with a 30+ year history and loyal collector base</li>
-            <li>Exceptional product and curatorial expertise, but limited operating infrastructure to scale</li>
-            <li>Revenue concentrated in walk-in gallery sales with minimal digital or national presence</li>
-            <li>Leadership transition risk as the founding generation considered succession</li>
-            <li>No formal performance management system or financial reporting cadence</li>
-          </ul>
-        </div>
-        <div class="cs-block">
-          <div class="csb-label">What ASH Did</div>
-          <ul>
-            <li>Acquired a 50% ownership stake and installed governance structure with board representation</li>
-            <li>Applied the Performance Optimization motion — baseline, leakage control, structural margin improvement</li>
-            <li>Built a digital sales and marketing infrastructure to reach collectors nationally and internationally</li>
-            <li>Supported leadership transition to Co-Owner Anna Walker-Skillman, preserving institutional knowledge</li>
-            <li>Introduced financial reporting cadence, pricing discipline, and artist relationship management</li>
-            <li>Relocated to a larger, purpose-built gallery space in Buckhead to support growth</li>
-          </ul>
-        </div>
-        <div class="cs-block">
-          <div class="csb-label">The Outcome</div>
-          <ul>
-            <li><strong>5× revenue growth</strong> over the 20-year partnership</li>
-            <li>Expanded from a local gallery to a globally recognized institution with an international collector base</li>
-            <li>Digital presence established as a primary revenue and awareness channel</li>
-            <li>Successful leadership transition — business now operated independently by next generation</li>
-            <li>Consistently featured in national press including the Atlanta Journal-Constitution</li>
-            <li>Operating Motion Applied: <strong>Performance Optimization → Growth &amp; Scale</strong></li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- EXIT STRATEGY -->
-    <section id="exit-strategy">
-      <div class="section-eyebrow">Liquidity</div>
-      <h2>Exit Strategy</h2>
-      <p>ASH Consumer Investment Partners targets a 5–7 year hold per investment. We build businesses to be attractive to multiple buyer types, and we plan exit pathways from the moment of investment — not at the end of the hold period. Diversified exit paths reduce reliance on any single buyer market.</p>
-      <div class="exit-grid">
-        <div class="exit-card">
-          <div class="ec-label">Primary Path</div>
-          <h3>Strategic Sale</h3>
-          <p>Sale to a strategic acquirer — a larger consumer company, restaurant group, retail platform, or brand operator — seeking to acquire a profitable, well-run business in the Southeast with a proven operating infrastructure. Our operating system makes businesses more attractive acquisition targets by professionalizing reporting, reducing key-person risk, and demonstrating EBITDA predictability.</p>
-        </div>
-        <div class="exit-card">
-          <div class="ec-label">Secondary Path</div>
-          <h3>Management Buyout / Recap</h3>
-          <p>Recapitalization or partial buyout by management, enabling the operator to take back control of a now-institutionalized business. This is particularly relevant in founder-led situations where succession and continuity are core to the investment thesis. ASH takes its return through the recap while management retains or grows their ownership stake.</p>
-        </div>
-        <div class="exit-card">
-          <div class="ec-label">Tertiary Path</div>
-          <h3>PE Sponsor Sale</h3>
-          <p>Sale to a larger private equity sponsor seeking to deploy capital into a proven, scaled consumer platform in the Southeast. As Southeast consumer businesses professionalize, they attract growing interest from mid-market and large-cap PE firms who lack the regional relationships and operating infrastructure to source and develop these assets themselves.</p>
-        </div>
-      </div>
-      <h3 style="margin-top: 40px;">Return Construction</h3>
+    </div>
+    <div class="card card-dark">
+      <div class="card-label">Operational Standards We Hold Ourselves To</div>
       <ul>
-        <li><strong>EBITDA growth</strong> — Primary return driver; 3–5× EBITDA expansion through operating system application</li>
-        <li><strong>Multiple expansion</strong> — Businesses that enter at 4–6× EBITDA exit at 7–10× as they institutionalize</li>
-        <li><strong>Modest leverage</strong> — Used selectively and conservatively; never as a primary return driver</li>
-        <li><strong>Target: 2–3× MOIC / 20%+ net IRR</strong> across the portfolio over a 5–7 year hold</li>
+        <li>We do not scale an operating model that has not been validated — volume amplifies both strengths and deficiencies</li>
+        <li>We do not rely on financial engineering as a primary return driver; EBITDA expansion through operations is the mandate</li>
+        <li>We do not invest in a business without demonstrated consumer affinity and assume that affinity can be created post-close</li>
+        <li>We do not pursue more concurrent initiatives than the operator can own with genuine accountability</li>
+        <li>We do not reduce costs in ways that compromise the consumer experience that underlies the investment thesis</li>
+        <li>We do not defer necessary accountability conversations — personnel, structure, or performance — because they are uncomfortable</li>
+        <li>We do not adjust scorecard definitions or performance targets in response to underperformance</li>
+        <li>We do not treat activity as a proxy for progress — every initiative requires a named owner and a committed date</li>
       </ul>
-    </section>
+    </div>
+  </div>
+</div>
 
-    <!-- RISK FACTORS -->
-    <section id="risk">
-      <div class="section-eyebrow">Risk Disclosure</div>
-      <h2>Risk Factors</h2>
-      <p>Investing in private equity involves significant risk, including the potential loss of invested capital. Prospective investors should carefully consider the following risk factors before making an investment decision. This is not an exhaustive list — prospective LPs should review all offering documents carefully and consult their own legal, financial, and tax advisors.</p>
-      <div class="risk-grid">
-        <div class="risk-block">
-          <div class="rb-label">Investment Risk</div>
-          <div class="rb-title">Illiquidity &amp; Long Hold Periods</div>
-          <p>Investments in Fund I are illiquid and subject to a 5–7 year hold per position, with a full fund life of approximately 10 years. Investors should not expect to redeem capital or receive distributions on a predictable schedule. There is no secondary market for LP interests.</p>
-        </div>
-        <div class="risk-block">
-          <div class="rb-label">Market Risk</div>
-          <div class="rb-title">Consumer Sector Cyclicality</div>
-          <p>Consumer businesses are subject to macroeconomic cycles, discretionary spending shifts, and changes in consumer preferences. An economic downturn, recession, or significant shift in consumer behavior could adversely affect portfolio company revenues and valuations.</p>
-        </div>
-        <div class="risk-block">
-          <div class="rb-label">Operational Risk</div>
-          <div class="rb-title">Execution &amp; Operating Improvement</div>
-          <p>Fund I's return thesis depends substantially on ASH's ability to implement operational improvements across portfolio companies. There is no guarantee that the operating system will produce the anticipated results in every investment, and outcomes will vary by business.</p>
-        </div>
-        <div class="risk-block">
-          <div class="rb-label">Concentration Risk</div>
-          <div class="rb-title">Geographic &amp; Sector Concentration</div>
-          <p>Fund I is concentrated in the Southeast U.S. and within the consumer sector. Regional economic conditions, natural disasters, regulatory changes, or sector-specific headwinds could disproportionately affect the portfolio relative to a more diversified fund.</p>
-        </div>
-        <div class="risk-block">
-          <div class="rb-label">Exit Risk</div>
-          <div class="rb-title">Realization Uncertainty</div>
-          <p>The ability to exit investments at target valuations depends on M&amp;A market conditions, strategic buyer appetite, credit market availability, and business performance at the time of exit. There is no guarantee that exit timelines or valuations will meet projections.</p>
-        </div>
-        <div class="risk-block">
-          <div class="rb-label">Key Person Risk</div>
-          <div class="rb-title">Management &amp; Team Dependency</div>
-          <p>Fund I's performance is dependent on the continued involvement of ASH's senior team and the operator-partners at each portfolio company. The loss of key personnel at either the fund manager or portfolio company level could adversely affect investment outcomes.</p>
-        </div>
-      </div>
-    </section>
+<!-- 05 TEAM -->
+<div class="section" id="team">
+  <div class="section-eyebrow">05 — The Team</div>
+  <h2>Who Runs the System</h2>
+  <p>ASH's value-creation system is only as good as the people operating it. The team combines institutional investing experience, C-suite operating credentials, and hands-on consumer sector expertise — applied at the scale where it actually matters.</p>
+  <div class="team-grid" style="margin-top: 24px;">
+    <div class="team-card">
+      <div class="tc-init">AH</div>
+      <div class="tc-name">Andy Heyman</div>
+      <div class="tc-title">Managing Partner</div>
+      <p class="tc-bio">30-year operating career across Accenture, Radiant Systems (COO → 19× EBITDA NCR acquisition), NCR Financial Services ($3.5B division President), and Catalina Marketing (CEO). 20+ years as a principal investor in consumer businesses across the Southeast. Founded ASH Consumer Investment Partners full-time in 2018.</p>
+    </div>
+    <div class="team-card">
+      <div class="tc-init">MH</div>
+      <div class="tc-name">Melissa Heyman</div>
+      <div class="tc-title">Partner & Chief Investment Officer</div>
+      <p class="tc-bio">Leads capital allocation, investment underwriting, and deal structuring. Prior: GMT Capital (multibillion hedge fund, energy & retail portfolios), The Sterling Group (PE, majority investments in manufacturing & distribution), Credit Suisse energy investment banking. MBA Wharton, B.S. Chemical Engineering Georgia Tech.</p>
+    </div>
+    <div class="team-card">
+      <div class="tc-init">AB</div>
+      <div class="tc-name">Adam Bates</div>
+      <div class="tc-title">Principal, Investment & Strategy</div>
+      <p class="tc-bio">Leads late-stage investments and strategic initiatives. Prior: SuRo Capital (6 years — CoreWeave, Liquid Death, WHOOP, OpenAI), HomeLight (New Product Business Operations), Topgolf (Director, International Strategy). Career start: Houlihan Lokey investment banking. BBA Finance, Emory University.</p>
+    </div>
+    <div class="team-card">
+      <div class="tc-init">JK</div>
+      <div class="tc-name">Josh Kalson</div>
+      <div class="tc-title">Principal, Portfolio Operations</div>
+      <p class="tc-bio">Owns the operating system, playbook development, and portfolio company performance management. Prior: 12 years at Shake Shack as Director of Operations, Southeast — new store openings, financial planning, multi-unit performance optimization, and leadership development across the region. MBA Hospitality, Johnson & Wales.</p>
+    </div>
+  </div>
+</div>
 
-    <!-- HOW TO PARTNER -->
-    <section id="how-to-partner">
-      <div class="section-eyebrow">Get Started</div>
-      <h2>How to Partner With ASH</h2>
-      <p>Whether you are a potential LP seeking to invest in Fund I, or a founder-operator interested in partnering with ASH Consumer Investment Partners, the path forward is straightforward. We move deliberately and build relationships before we close transactions.</p>
-      <div class="process-steps">
-        <div class="process-step">
-          <div class="ps-num">01</div>
-          <div class="ps-title">Initial Conversation</div>
-          <p class="ps-desc">Reach out via email or phone. We discuss your business or LP interest, share relevant materials, and determine mutual fit.</p>
-          <div class="ps-time">Week 1–2</div>
-        </div>
-        <div class="process-step">
-          <div class="ps-num">02</div>
-          <div class="ps-title">Deeper Diligence</div>
-          <p class="ps-desc">For operators: financials, site visit, team meetings. For LPs: fund materials, track record review, LP reference calls.</p>
-          <div class="ps-time">Weeks 2–6</div>
-        </div>
-        <div class="process-step">
-          <div class="ps-num">03</div>
-          <div class="ps-title">14-Day Diagnostic</div>
-          <p class="ps-desc">For operators: ASH runs a structured diagnostic to identify the primary constraint and outline a 100-day plan before any capital is deployed.</p>
-          <div class="ps-time">Days 1–14</div>
-        </div>
-        <div class="process-step">
-          <div class="ps-num">04</div>
-          <div class="ps-title">Term Sheet &amp; Close</div>
-          <p class="ps-desc">Agreed terms documented, legal diligence completed, capital committed. ASH moves efficiently once conviction is established.</p>
-          <div class="ps-time">Weeks 6–12</div>
-        </div>
-        <div class="process-step">
-          <div class="ps-num">05</div>
-          <div class="ps-title">100-Day Plan Launch</div>
-          <p class="ps-desc">Cadence established, scorecard locked, priorities set. The operating system goes live on Day 1 of ownership.</p>
-          <div class="ps-time">Day 1 Post-Close</div>
-        </div>
-      </div>
-      <h3 style="margin-top: 40px;">Contact Us</h3>
-      <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 2px; max-width: 600px; background: var(--rule); margin-top: 16px;">
-        <div style="background: var(--white); padding: 20px 24px;">
-          <div style="font-size:9px; letter-spacing:0.22em; text-transform:uppercase; color:var(--ash-orange); font-weight:600; margin-bottom:8px;">Email</div>
-          <div style="font-size:14px; font-weight:500; color:var(--ash-black);"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c6afa8b7b3afb4a386a7b5aea7b2aaa7a8b2a7e8a5a9ab">[email&#160;protected]</a></div>
-        </div>
-        <div style="background: var(--white); padding: 20px 24px;">
-          <div style="font-size:9px; letter-spacing:0.22em; text-transform:uppercase; color:var(--ash-orange); font-weight:600; margin-bottom:8px;">Phone</div>
-          <div style="font-size:14px; font-weight:500; color:var(--ash-black);">470.795.5505</div>
-        </div>
-        <div style="background: var(--white); padding: 20px 24px; grid-column: 1/-1;">
-          <div style="font-size:9px; letter-spacing:0.22em; text-transform:uppercase; color:var(--ash-orange); font-weight:600; margin-bottom:8px;">Address</div>
-          <div style="font-size:14px; font-weight:500; color:var(--ash-black);">One Buckhead Plaza · 3060 Peachtree Road NW, Suite 1400 · Atlanta, GA 30305</div>
-        </div>
-      </div>
-    </section>
+<!-- 06 THESIS -->
+<div class="section" id="thesis">
+  <div class="section-eyebrow">06 — Value-Creation Thesis</div>
+  <h2>How ASH Creates Value</h2>
+  <p>ASH creates value by installing the operating disciplines that high-performing consumer brands rely on — without stripping away the identity that made the business special. We focus on five levers that reliably expand enterprise value:</p>
+  <ul class="list">
+    <li><strong>Revenue quality</strong> — demand generation, conversion, frequency/retention, mix discipline, and pricing integrity</li>
+    <li><strong>Margin expansion</strong> — COGS discipline, labor/delivery efficiency, waste control, and fixed-cost leverage</li>
+    <li><strong>Cash generation</strong> — working capital discipline, forecasting rhythm, and capex planning</li>
+    <li><strong>People &amp; accountability</strong> — clear roles, coaching cadence, and performance management at every level</li>
+    <li><strong>Scalable infrastructure</strong> — reporting, SOPs, controls, and decision rights that survive founder dependency</li>
+  </ul>
+  <h3>Where We Operate</h3>
+  <p>Primary focus on the Southeast — Georgia, Florida, Tennessee, the Carolinas, and Texas. We target founder-led consumer businesses where operational involvement is the primary value driver. We invest at inflection points: growth businesses that need infrastructure to scale, and established businesses where execution gaps are suppressing value that is already there.</p>
+</div>
 
-    <!-- TEAM & LEADERSHIP -->
-    <section id="team">
-      <div class="section-eyebrow">Team &amp; Leadership</div>
-      <h2>The People Behind ASH</h2>
-      <p>ASH is led by a team of operators and investors with decades of combined experience building, scaling, and optimizing consumer businesses across technology, hospitality, retail, and financial services.</p>
-      <div class="team-grid" style="grid-template-columns: repeat(2, 1fr);">
-        <div class="team-card">
-          <div class="tc-initial">AH</div>
-          <div class="tc-name">Andy Heyman</div>
-          <div class="tc-title">Managing Partner</div>
-          <p class="tc-bio">Andy leads ASH Consumer Investment Partners with a mandate to build enduring consumer businesses across the Southeast. His 30-year corporate career spans C-level roles at Accenture, Radiant Systems (COO through NCR acquisition for 19× EBITDA), NCR Financial Services ($3.5B division President), and Catalina Marketing (CEO). He has overseen 12+ acquisitions and has been an active private investor in consumer businesses since 2003, generating exceptional returns that fueled his conviction to build ASH into a disciplined, institutional platform.</p>
-        </div>
-        <div class="team-card">
-          <div class="tc-initial">MH</div>
-          <div class="tc-name">Melissa Heyman</div>
-          <div class="tc-title">Partner &amp; Chief Investment Officer</div>
-          <p class="tc-bio">Melissa oversees ASH's human and financial capital allocation, leads investment underwriting and deal structuring, and provides strategic guidance to portfolio companies. Previously an analyst at GMT Capital, The Sterling Group (PE, majority investments in manufacturing and distribution), and Credit Suisse's energy investment banking group. She holds an MBA from Wharton and a B.S. in Chemical Engineering from Georgia Tech.</p>
-        </div>
-        <div class="team-card">
-          <div class="tc-initial">AB</div>
-          <div class="tc-name">Adam Bates</div>
-          <div class="tc-title">Principal, Investment &amp; Strategy</div>
-          <p class="tc-bio">Adam leads late-stage private market investments and strategic initiatives. Prior to ASH, he spent six years at SuRo Capital investing in consumer and technology companies including CoreWeave, Liquid Death, WHOOP, and OpenAI. He also led New Product Business Operations at HomeLight and served as Director of International Strategy at Topgolf. Adam began his career in investment banking at Houlihan Lokey and holds a B.B.A. in Finance from Emory University.</p>
-        </div>
-        <div class="team-card">
-          <div class="tc-initial">JK</div>
-          <div class="tc-name">Josh Kalson</div>
-          <div class="tc-title">Principal, Portfolio Operations</div>
-          <p class="tc-bio">Josh is responsible for maximizing portfolio company value, building the ASH Consumer Investment Partners Operating Playbook, and developing the Operator Network across the Southeast. He spent 12 years at Shake Shack as Director of Operations for the Southeast, leading new store openings, financial planning, strategic market development, and multi-unit performance optimization. Josh holds a Bachelor's from Indiana University and an MBA in Hospitality from Johnson &amp; Wales University.</p>
-        </div>
-      </div>
-    </section>
+<!-- 07 HOW WE WORK -->
+<div class="section" id="how-we-work">
+  <div class="section-eyebrow">07 — Partnership Model</div>
+  <h2>How We Work</h2>
+  <p>ASH works best when the relationship is explicit. We define how we engage upfront so operators get support — not noise.</p>
 
-    <!-- PORTFOLIO -->
-    <section id="portfolio">
-      <div class="section-eyebrow">Track Record</div>
-      <h2>Portfolio Companies</h2>
-      <p>Since 2003, ASH Consumer Investment Partners has backed founder-led consumer businesses — applying capital, operational rigor, and deep sector expertise to build lasting enterprise value. Our current portfolio spans hospitality, specialty retail, and arts and culture, with a track record built through SPV structures and now transitioning to Fund I.</p>
-      <div class="portfolio-grid">
-        <div class="portfolio-card">
-          <div class="pc-status">Current · Hospitality</div>
-          <div class="pc-name">The Chastain</div>
-          <div class="pc-vertical">New American Restaurant · Buckhead</div>
-          <p class="pc-desc">A neighborhood restaurant set on the north edge of Chastain Park, one of Atlanta's longest continuously operated food service locations. ASH partnered to relaunch as The Chastain in 2020, focusing on refined comfort food, local sourcing, and a world-class team led by Chef Christopher Grossman (formerly Atlas, Aria, The French Laundry) and GM Emilee Durrett.</p>
-          <div class="pc-tags">
-            <span class="pc-tag">Growth &amp; Scale</span>
-            <span class="pc-tag">Majority Owner</span>
-            <span class="pc-tag">Operational Build</span>
-          </div>
-        </div>
-        <div class="portfolio-card">
-          <div class="pc-status">Current · Specialty Retail</div>
-          <div class="pc-name">Perrine's Wine Shop</div>
-          <div class="pc-vertical">Multi-Location Wine Retail &amp; Hospitality</div>
-          <p class="pc-desc">Founded in 2010 in West Midtown, ASH made a growth investment in 2021 impressed by best-in-class sales per square foot and customer experience. Now a multi-concept retail and hospitality company with locations in West Midtown, Buckhead, and Sandy Springs, with a Wine Bar concept in development. Founder Perrine trained as sommelier at 2-Michelin-Star Le Gavroche in London.</p>
-          <div class="pc-tags">
-            <span class="pc-tag">Growth &amp; Scale</span>
-            <span class="pc-tag">Majority Owner</span>
-            <span class="pc-tag">Multi-Site Expansion</span>
-          </div>
-        </div>
-        <div class="portfolio-card">
-          <div class="pc-status">Current · Arts &amp; Culture</div>
-          <div class="pc-name">Jackson Fine Art</div>
-          <div class="pc-vertical">Fine Art Photography Gallery · Buckhead</div>
-          <p class="pc-desc">A world-renowned gallery with a 33-year history supporting collectors of fine art photography across traditional and innovative photo-based mediums. ASH partnered with JFA and has supported 5× growth over 20 years. Led by Co-Owner and Creative Director Anna Walker-Skillman, a 25-year participant in the art community, after directing studios in Atlanta and San Francisco.</p>
-          <div class="pc-tags">
-            <span class="pc-tag">Performance Optimization</span>
-            <span class="pc-tag">50% Owner</span>
-            <span class="pc-tag">Digital Expansion</span>
-          </div>
-        </div>
-        <div class="portfolio-card">
-          <div class="pc-status">Current · Real Estate</div>
-          <div class="pc-name">Atlanta Property Fund II</div>
-          <div class="pc-vertical">Residential Real Estate Development</div>
-          <p class="pc-desc">Provides Atlanta investors access to the city's burgeoning residential real estate sector. The inaugural fund matured successfully; Fund II is now in full swing with several luxury properties under development in partnership with Siegel Construction &amp; Design, Atlanta's premier custom home designer and builder.</p>
-          <div class="pc-tags">
-            <span class="pc-tag">Growth &amp; Scale</span>
-            <span class="pc-tag">Fund Structure</span>
-            <span class="pc-tag">Atlanta Market</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- INVESTMENT CRITERIA -->
-    <section id="criteria">
-      <div class="section-eyebrow">Investment Criteria</div>
-      <h2>What We Look For</h2>
-      <p>ASH Consumer Investment Partners invests in founder-led consumer businesses across the Southeast where our operating system, regional network, and capital can meaningfully accelerate value creation. We are highly selective and partner with operators we trust.</p>
-      <div class="criteria-grid">
-        <div class="criteria-block">
-          <div class="cb-label">Sectors</div>
-          <div class="cb-value">Consumer Focus</div>
-          <p class="cb-desc">Hospitality, specialty retail, consumer services, lifestyle, and consumer products. Businesses with a strong brand identity and passionate customer base.</p>
-        </div>
-        <div class="criteria-block">
-          <div class="cb-label">Geography</div>
-          <div class="cb-value">Southeast-Focused</div>
-          <p class="cb-desc">Primary focus on the Southeast — including Georgia, Florida, Tennessee, Texas, the Carolinas, and surrounding markets. We seek businesses with strong local footholds and regional or national expansion potential.</p>
-        </div>
-        <div class="criteria-block">
-          <div class="cb-label">Stage</div>
-          <div class="cb-value">Growth to Mature</div>
-          <p class="cb-desc">Established businesses with demonstrated product-market fit. We are not pre-revenue. We partner at inflection points where our operating system creates the most leverage.</p>
-        </div>
-        <div class="criteria-block">
-          <div class="cb-label">Ownership</div>
-          <div class="cb-value">Majority &amp; Minority</div>
-          <p class="cb-desc">We invest in both majority and minority positions. In minority situations, we typically seek governance rights including board representation, information rights, and consent rights on major decisions.</p>
-        </div>
-        <div class="criteria-block">
-          <div class="cb-label">Check Size</div>
-          <div class="cb-value">Flexible</div>
-          <p class="cb-desc">Investment size is calibrated to the business's capital needs and value-creation opportunity. We are not constrained by fund mandate minimums or maximums — each partnership is structured appropriately.</p>
-        </div>
-        <div class="criteria-block">
-          <div class="cb-label">What We Bring</div>
-          <div class="cb-value">Operators First</div>
-          <p class="cb-desc">Capital is a commodity. We differentiate through our operating system, local network, sector expertise, and the ASH Playbook — a repeatable value-creation framework built on 20+ years of experience.</p>
-        </div>
-      </div>
-      <h3 style="margin-top: 40px;">Ideal Partner Profile</h3>
+  <div class="cards-2" style="margin-top: 20px;">
+    <div class="card card-dark">
+      <div class="card-label">What operators can expect from ASH</div>
       <ul>
-        <li>Founder or operator with deep domain expertise and genuine passion for their business</li>
-        <li>Business with demonstrated customer loyalty, a defensible niche, and a clear path to margin expansion</li>
-        <li>Operator who wants a value-add partner — not just capital — and is open to performance management discipline</li>
-        <li>Willingness to run a shared operating cadence and transparent reporting culture</li>
+        <li>A clear operating cadence (weekly / monthly / quarterly) from Day 1</li>
+        <li>A shared scorecard with locked definitions everyone agrees on before work begins</li>
+        <li>A 100-day plan at every new investment or phase transition</li>
+        <li>Fast help on high-impact initiatives: pricing, labor models, purchasing, dashboards, SOPs, org design</li>
+        <li>A rolodex — marketing advisors, talent, operators, vendors — built over 20+ years</li>
+        <li>Decision support, not decision takeover</li>
       </ul>
-    </section>
-
-    <!-- WHAT ASH IS -->
-    <section id="what-we-are">
-      <div class="section-eyebrow">01 — Foundation</div>
-      <h2>What ASH Is</h2>
-      <p>ASH is an operator-led investment platform that partners with founder-operators to build enduring consumer businesses. We invest across majority and minority positions and add value through a disciplined operating system that improves execution, strengthens unit economics, and supports smart growth.</p>
-      <p>We operate across the consumer landscape:</p>
+    </div>
+    <div class="card card-dark">
+      <div class="card-label">What ASH expects from operators</div>
       <ul>
-        <li><strong>Consumer Products</strong> — DTC, wholesale, omnichannel, marketplace</li>
-        <li><strong>Consumer Services</strong> — membership, recurring revenue, multi-site, delivery-based</li>
-        <li><strong>Hospitality</strong> — restaurants, hotels, clubs, entertainment-driven venues</li>
+        <li>A single accountable leader per function: Ops, Finance, Sales/Marketing, People</li>
+        <li>Truthful reporting — good news and bad news, fast. No filtered updates.</li>
+        <li>Commitment to run the cadence for at least two full cycles (90 days) before rewriting the system</li>
+        <li>Discipline around fundamentals: cost controls, operating standards, execution consistency</li>
+        <li>Openness to hard conversations when performance demands it</li>
       </ul>
-      <p style="margin-top: 24px;">While each sub-vertical has unique mechanics, the value-creation system is consistent: drive durable demand, improve unit economics, convert earnings to cash, and build scalable operating infrastructure.</p>
-      <p>We partner with management teams that share our unwavering commitment to the employee and customer experience as a means of growing the intrinsic value of their businesses and generating prosperity for all stakeholders.</p>
-    </section>
+    </div>
+  </div>
 
-    <!-- VISION -->
-    <section id="vision">
-      <div class="section-eyebrow">02 — Vision</div>
-      <h2>Our Vision</h2>
-      <div class="vision-grid">
-        <div class="vision-item">
-          <h4>Employees</h4>
-          <p>We employ extraordinary individuals who love working together. As a team we are greater than the sum of our parts, committed to supporting each other on and off the field so every person can live a full life and master their vocation.</p>
-        </div>
-        <div class="vision-item">
-          <h4>Management Teams & Portcos</h4>
-          <p>We are a sought-after partner for management teams looking to grow the intrinsic value of their businesses by placing the customer and employee experiences first. We help identify and harness their secret sauce, build defensible moats, and maximize business value.</p>
-        </div>
-        <div class="vision-item">
-          <h4>Investors</h4>
-          <p>The best capital allocators in the world want to invest with us because we generate top-decile returns built on high integrity, disciplined analysis, sector expertise, strategic and operational improvements, and an unwavering commitment to the truth.</p>
-        </div>
-        <div class="vision-item">
-          <h4>Systems & Environment</h4>
-          <p>Our physical environment is inspiring and comfortable. Our reliable and secure systems optimize productivity, remove unnecessary friction, manage risk, and eliminate error—enhancing the satisfaction of all stakeholders.</p>
-        </div>
-        <div class="vision-item" style="grid-column: 1 / -1;">
-          <h4>Service Providers</h4>
-          <p>We feel understood and supported by our expert suppliers who share our core values—a high sense of urgency and standard of excellence. They apply practical expertise without blindly defaulting to theoretical norms.</p>
-        </div>
-      </div>
-    </section>
+  <h3>Ownership-Based Involvement</h3>
+  <ul class="list">
+    <li><strong>Majority / Control</strong> — ASH leads governance and drives the operating cadence. Deeper functional build-out. Active talent support and hiring involvement. Full playbook deployment.</li>
+    <li><strong>Minority / Non-Control</strong> — ASH supports through scorecard design, monthly reviews, targeted projects, and operator enablement. Influence through rigor, not control. ASH seeks governance rights in all cases: board seat(s), information rights, and consent rights on major decisions.</li>
+  </ul>
 
-    <!-- THESIS -->
-    <section id="thesis">
-      <div class="section-eyebrow">03 — Thesis</div>
-      <h2>Our Value-Creation Thesis</h2>
-      <p>ASH creates value by installing the operating disciplines that high-performing consumer brands rely on—without stripping away the identity that made the business special.</p>
-      <p>We focus on the levers that reliably create enterprise value:</p>
-      <ul>
-        <li><strong>Revenue quality</strong> — demand generation, conversion, frequency/retention, mix, and pricing integrity</li>
-        <li><strong>Margin expansion</strong> — COGS discipline, labor/delivery efficiency, waste control, and fixed-cost leverage</li>
-        <li><strong>Cash generation</strong> — working capital discipline, forecasting rhythm, and capex planning</li>
-        <li><strong>People and accountability</strong> — clear roles, coaching cadence, and performance management</li>
-        <li><strong>Scalable infrastructure</strong> — reporting, SOPs, controls, and decision rights that scale beyond the founder</li>
-      </ul>
-    </section>
+  <h3>What ASH Provides to Portfolio Companies</h3>
+  <ul class="list">
+    <li><strong>Operating infrastructure</strong> — scorecard design, initiative tracker, meeting cadence templates, and variance reporting frameworks installed from Day 1</li>
+    <li><strong>Financial planning &amp; analysis support</strong> — budgeting, forecasting, variance decomposition, and cash flow management in partnership with the operator's finance function</li>
+    <li><strong>Talent sourcing and placement</strong> — access to ASH's network of operators, general managers, and finance professionals built across 20+ years in the Southeast consumer market</li>
+    <li><strong>Marketing and commercial advisory</strong> — a curated network of marketing specialists, brand advisors, and sales professionals who have worked with Southeast consumer businesses</li>
+    <li><strong>Technology and systems guidance</strong> — POS selection, data infrastructure, reporting dashboards, and operational systems recommendations based on experience across the portfolio</li>
+    <li><strong>Real estate and location strategy</strong> — support on site selection, lease negotiation, and retail footprint decisions for businesses considering physical expansion</li>
+    <li><strong>Portfolio network access</strong> — cross-portfolio introductions, peer operator conversations, and shared learning across ASH's consumer business network</li>
+  </ul>
+</div>
 
-    <!-- HOW WE WORK -->
-    <section id="how-we-work">
-      <div class="section-eyebrow">04 — Partnership Model</div>
-      <h2>How We Work</h2>
-      <p>ASH works best when the relationship is explicit. We define how we engage so operators get support—not noise.</p>
-      <div class="two-col" style="margin-top: 32px;">
-        <div class="card">
-          <div class="card-label">What operators can expect from ASH</div>
-          <ul>
-            <li>A clear operating cadence (weekly / monthly / quarterly)</li>
-            <li>A shared scorecard with definitions everyone agrees on</li>
-            <li>A 100-day plan anytime we invest or step into a new phase</li>
-            <li>Fast help on high-impact initiatives (pricing, labor models, purchasing, dashboards, SOPs, org design)</li>
-            <li>Decision support</li>
-          </ul>
-        </div>
-        <div class="card">
-          <div class="card-label">What ASH expects from operators</div>
-          <ul>
-            <li>A single accountable leader per function (Ops, Finance, Sales/Marketing, People)</li>
-            <li>Truthful reporting — good news and bad news, fast</li>
-            <li>Commitment to run the cadence for at least two full cycles (90 days) before rewriting the system</li>
-            <li>Discipline around fundamentals: cost controls, operating standards, and execution consistency</li>
-          </ul>
-        </div>
-      </div>
-      <h3 style="margin-top: 40px;">Ownership-Based Involvement</h3>
-      <ul>
-        <li><strong>Majority</strong> — ASH leads governance and drives the operating cadence; deeper functional build-out; active talent support</li>
-        <li><strong>Minority</strong> — ASH supports through scorecard design, monthly reviews, targeted projects, and operator enablement; influence through rigor, not control. In most cases, ASH still seeks governance rights (board seats, information rights, and consent rights on major decisions)</li>
-      </ul>
-    </section>
+<!-- 08 MOTIONS -->
+<div class="section" id="motions">
+  <div class="section-eyebrow">08 — Operating Motions</div>
+  <h2>The Investment Continuum</h2>
+  <p>ASH operates across a continuum of investment situations, anchored at two ends by distinct operating motions. Every business enters the system somewhere along this continuum, and the specific playbook elements deployed are selected accordingly. The 14-Day Diagnostic determines both the appropriate motion and the discrete interventions that will generate the most value for that business. Deploying a uniform set of tools regardless of context is among the most common failure modes in PE operating partnerships.</p>
 
-    <!-- OPERATING MOTIONS -->
-    <section id="motions">
-      <div class="section-eyebrow">05 — Operating Motions</div>
-      <h2>Value-Creation Operating Motions</h2>
-      <p>ASH deploys one of two operating motions based on the business's starting point—ensuring our approach is stage-appropriate, measurable, and aligned to value creation.</p>
-      <div class="two-col" style="margin-top: 32px;">
-        <div class="card">
-          <div class="card-label">Motion 1</div>
-          <h3>Growth & Scale</h3>
-          <p>For growth-stage brands: institutionalize the operating infrastructure required to scale without margin erosion or brand degradation. We focus on repeatable systems, leadership capacity, and durable unit economics.</p>
-          <h4 style="color: rgba(245,240,232,0.35); margin-top: 20px;">Characteristics</h4>
+  <div style="background:var(--c-rule); padding:2px; max-width:880px; margin:24px 0;">
+    <div style="display:grid; grid-template-columns:1fr 40px 1fr; background:var(--c-rule); gap:2px;">
+      <div class="card card-dark" style="margin:0;">
+        <div class="card-label">Motion 1 — Growth-Oriented</div>
+        <div class="card-title" style="color:#fff; margin-bottom:10px;">Growth &amp; Scale</div>
+        <p class="card-body" style="margin-bottom:14px;">Applied to businesses with demonstrated product-market fit that require operating infrastructure to scale without margin erosion, working-capital strain, or brand dilution. The mandate is to build the systems that make growth repeatable and defensible.</p>
+        <ul>
+          <li>Core return driver: revenue growth, market expansion</li>
+          <li>Primary value creation: scaling what already works</li>
+          <li>Entry constraint: capacity, leadership depth, or repeatability</li>
+          <li>Capital profile: often requires follow-on capital to fund growth</li>
+        </ul>
+        <div style="margin-top:14px; padding-top:14px; border-top:1px solid rgba(255,255,255,0.08);">
+          <div class="card-label">Primary Focus Areas</div>
           <ul>
-            <li>Core return driver: revenue growth, market expansion</li>
-            <li>Primary value creation: scaling what already works</li>
-            <li>Upside: largely through revenue growth and slight margin improvement</li>
-            <li>Capital intensity: often requires follow-on capital</li>
-          </ul>
-          <h4 style="color: rgba(245,240,232,0.35); margin-top: 16px;">Primary Focus Areas</h4>
-          <ul>
-            <li>Scalable org design and leadership capacity</li>
+            <li>Scalable org design, spans/layers, and leadership capacity</li>
             <li>Throughput and capacity planning</li>
             <li>Durable unit economics at scale</li>
             <li>Operating cadence and management systems</li>
-            <li>Repeatability (SOPs, training, brand standards)</li>
-          </ul>
-        </div>
-        <div class="card">
-          <div class="card-label">Motion 2</div>
-          <h3>Performance Optimization</h3>
-          <p>For established assets: improve predictability, profitability, and cash generation through execution rigor and structural efficiency. We prioritize near-term EBITDA improvement while building the cadence to sustain gains.</p>
-          <h4 style="color: rgba(245,240,232,0.35); margin-top: 20px;">Characteristics</h4>
-          <ul>
-            <li>Core return driver: multiple expansion, margin expansion</li>
-            <li>Primary value creation: fixing underperformance</li>
-            <li>Upside: largely through key operational lever pulls</li>
-            <li>Capital intensity: often requires patient capital</li>
-          </ul>
-          <h4 style="color: rgba(245,240,232,0.35); margin-top: 16px;">Primary Focus Areas</h4>
-          <ul>
-            <li>Margin expansion (COGS, labor, waste, pricing/mix)</li>
-            <li>Cash and working capital discipline</li>
-            <li>Execution consistency and manager routines</li>
-            <li>Performance management system</li>
-            <li>Targeted growth where ROI is clear</li>
+            <li>Repeatability: SOPs, training systems, brand standards, QA</li>
           </ul>
         </div>
       </div>
-      <h3>Sub-Vertical Translation</h3>
-      <ul>
-        <li><strong>Products</strong> — demand + channel economics + margin by channel + inventory turns</li>
-        <li><strong>Services</strong> — utilization/capacity + CAC/LTV + labor delivery model + retention</li>
-        <li><strong>Hospitality</strong> — throughput + labor scheduling discipline + mix/pricing + COGS and waste controls</li>
-      </ul>
-    </section>
-
-    <!-- NORTH STAR -->
-    <section id="north-star">
-      <div class="section-eyebrow">06 — Financial Anchor</div>
-      <h2>Financial North Star: Adjusted EBITDA</h2>
-      <p>ASH anchors performance management on Adjusted EBITDA and the operational drivers that expand it: gross margin, labor/delivery efficiency, fixed-cost leverage, and disciplined discretionary spend.</p>
-      <p>Where appropriate, we track contribution margin by channel, site, or service line as a diagnostic layer to understand why EBITDA is moving.</p>
-      <h3>Adjusted EBITDA Conventions</h3>
-      <ul>
-        <li>Establish definitions at the start — owner comp, one-time items, startup/expansion costs, extraordinary items</li>
-        <li>Maintain a consistent reconciliation so operators and investors read the same scorecard</li>
-        <li>Treat adjustments as transparency tools — not hiding places</li>
-      </ul>
-    </section>
-
-    <!-- 14-DAY DIAGNOSTIC -->
-    <section id="diagnostic">
-      <div class="section-eyebrow">07 — Diagnostic Framework</div>
-      <h2>The 14-Day Diagnostic</h2>
-      <p>At the start of each partnership—and at major inflection points—ASH runs a structured 14-day diagnostic to identify the primary constraint and route the engagement into the appropriate motion.</p>
-      <h3>Outputs by Day 14</h3>
-      <ul>
-        <li>Motion selection (Scale vs Optimize) and sequencing</li>
-        <li>Top 5 priorities with owners, timelines, and KPI targets</li>
-        <li>Baseline scorecard with agreed definitions</li>
-        <li>Risk and dependency log (keyperson, vendor, cash, operational risk)</li>
-      </ul>
-      <h3>Diagnostic Lenses</h3>
-      <div class="lens-row">
-        <div class="lens-tag"><span>A</span> Financial Performance & EBITDA Quality</div>
-        <div class="lens-tag"><span>B</span> Revenue Engine (Demand & Mix)</div>
-        <div class="lens-tag"><span>C</span> Unit Economics</div>
-        <div class="lens-tag"><span>D</span> Capacity, Throughput & Delivery</div>
-        <div class="lens-tag"><span>E</span> Cash & Working Capital</div>
-        <div class="lens-tag"><span>F</span> Org, Talent & Accountability</div>
-        <div class="lens-tag"><span>G</span> Systems, Controls & Data Integrity</div>
+      <div style="background:var(--c-dark); display:flex; align-items:center; justify-content:center;">
+        <span style="color:var(--c-orange); font-size:18px; font-weight:700;">↔</span>
       </div>
-      <h3>Routing Logic</h3>
-      <div class="routing-box">
-        <div class="routing-row">
-          <div class="arrow">→</div>
-          <p>If the constraint is <strong>capacity, infrastructure, leadership depth, or repeatability</strong> → route to Growth & Scale</p>
-        </div>
-        <div class="routing-row">
-          <div class="arrow">→</div>
-          <p>If the constraint is <strong>economics leakage, execution inconsistency, or weak controls/cash conversion</strong> → route to Performance Optimization</p>
-        </div>
-        <div class="routing-row">
-          <div class="arrow">→</div>
-          <p>If <strong>both are true</strong> → stabilize economics and controls first, then scale</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- CADENCE -->
-    <section id="cadence">
-      <div class="section-eyebrow">08 — Operating Rhythm</div>
-      <h2>The ASH Cadence</h2>
-      <p>ASH is built around a simple principle: tight weekly execution + clear monthly accountability + quarterly strategic alignment.</p>
-      <div class="cadence-grid" style="margin-top: 32px;">
-        <div class="cadence-card">
-          <div class="freq">Weekly</div>
-          <h3>Operating Review</h3>
-          <div class="dur">45 minutes</div>
-          <h4>Agenda</h4>
+      <div class="card card-dark" style="margin:0;">
+        <div class="card-label">Motion 2 — Operational Alpha</div>
+        <div class="card-title" style="color:#fff; margin-bottom:10px;">Operational Alpha</div>
+        <p class="card-body" style="margin-bottom:14px;">Applied to established businesses in strong verticals or markets where execution gaps, structural inefficiencies, or weak controls are suppressing value. The mandate is to improve profitability and predictability through rigorous operational intervention, entered at an attractive valuation.</p>
+        <ul>
+          <li>Core return driver: margin expansion, multiple expansion, execution improvement</li>
+          <li>Primary value creation: closing the gap between current and potential performance</li>
+          <li>Entry constraint: economics leakage, inconsistent execution, or weak financial controls</li>
+          <li>Capital profile: typically patient capital; growth investment follows stabilization</li>
+        </ul>
+        <div style="margin-top:14px; padding-top:14px; border-top:1px solid rgba(255,255,255,0.08);">
+          <div class="card-label">Primary Focus Areas</div>
           <ul>
-            <li>Scorecard snapshot: revenue, gross margin, labor cost, EBITDA pacing</li>
-            <li>Variance drivers: what moved, why, what we'll do this week</li>
-            <li>Top constraints: 1–3 issues limiting performance</li>
-            <li>Initiative tracker: due items, blockers, resets</li>
-            <li>Decisions/escalations requiring partner input</li>
-          </ul>
-          <h4 style="margin-top: 16px;">Rules</h4>
-          <ul>
-            <li>No storytelling without numbers</li>
-            <li>Every issue ends with an owner + date</li>
-            <li>If it matters, it hits the tracker</li>
-          </ul>
-        </div>
-        <div class="cadence-card">
-          <div class="freq">Monthly</div>
-          <h3>Performance Review</h3>
-          <div class="dur">90 minutes</div>
-          <h4>Agenda</h4>
-          <ul>
-            <li>Financial review: P&L, Adjusted EBITDA vs budget/forecast, bridge</li>
-            <li>Commercial review: revenue by channel/site, pricing, mix, retention</li>
-            <li>Cost review: COGS, labor model, fixed cost leverage, discretionary spend</li>
-            <li>Cash review: working capital, capex, liquidity outlook</li>
-            <li>Talent/org: capacity, key hires, performance issues</li>
-            <li>Next month priorities: confirm top 5, KPI targets, owners</li>
-          </ul>
-        </div>
-        <div class="cadence-card">
-          <div class="freq">Quarterly</div>
-          <h3>Strategy Review</h3>
-          <div class="dur">2–3 hours</div>
-          <h4>Agenda</h4>
-          <ul>
-            <li>Progress vs thesis and roadmap</li>
-            <li>What to double down on / stop / redesign</li>
-            <li>Capital allocation and growth sequencing</li>
-            <li>Risk review and mitigation plan</li>
-            <li>Updated targets and initiatives for the next 90 days</li>
+            <li>Margin expansion: COGS discipline, labor model, waste, pricing/mix optimization</li>
+            <li>Cash and working capital management</li>
+            <li>Execution consistency and management routines</li>
+            <li>Performance management system installation</li>
+            <li>Targeted growth initiatives where ROI is clear and capital is committed</li>
           </ul>
         </div>
       </div>
-    </section>
-
-    <!-- 100-DAY GROWTH -->
-    <section id="100day-growth">
-      <div class="section-eyebrow">09 — 100-Day Plan</div>
-      <h2>Growth & Scale Motion</h2>
-      <p><strong>Objective:</strong> Scale the business by building operating infrastructure that enables growth without margin erosion, working-capital strain, or brand dilution.</p>
-      <div class="phases" style="margin: 32px 0;">
-        <div class="phase">
-          <div class="phase-number">01</div>
-          <div class="phase-label">Days 1–14</div>
-          <h4>Baseline + Stabilize the Growth Engine</h4>
-          <ul>
-            <li>KPI baseline with clear definitions</li>
-            <li>EBITDA and margin fact base by channel/line/site</li>
-            <li>Constraint map: top 3 bottlenecks</li>
-            <li>Cadence launched with owners</li>
-          </ul>
-        </div>
-        <div class="phase">
-          <div class="phase-number">02</div>
-          <div class="phase-label">Days 15–60</div>
-          <h4>Build Capacity + Repeatability</h4>
-          <ul>
-            <li>Org and capability build plan</li>
-            <li>Repeatable execution system for core workflow</li>
-            <li>Forecasting rhythm: demand, labor, inventory, cash</li>
-            <li>Scale-safe playbook v1: SOPs that protect quality and margin</li>
-          </ul>
-        </div>
-        <div class="phase">
-          <div class="phase-number">03</div>
-          <div class="phase-label">Days 61–100</div>
-          <h4>Systemize + Prepare Next Growth Stage</h4>
-          <ul>
-            <li>Embedded management system with scorecard and variance routines</li>
-            <li>Reporting and close discipline</li>
-            <li>Growth roadmap (6–12 months) with budget gates and KPIs</li>
-            <li>Talent plan to reduce key-person dependency</li>
-          </ul>
-        </div>
-      </div>
-      <h3>Key KPIs</h3>
-      <ul>
-        <li>Adjusted EBITDA stability and pacing as volume grows</li>
-        <li>Gross margin and direct cost discipline (by channel/site)</li>
-        <li>Labor/delivery efficiency ratios and capacity utilization</li>
-        <li>Inventory turns / fill rate / returns (where relevant)</li>
-        <li>Forecast accuracy and cash conversion</li>
-      </ul>
-      <h3>Common Failure Modes</h3>
-      <ul class="failure-list">
-        <li>Scaling demand before capacity/systems are ready</li>
-        <li>Channel growth that is margin-negative</li>
-        <li>Inventory/capex getting ahead of cash conversion</li>
-        <li>Reporting without ownership and action</li>
-      </ul>
-    </section>
-
-    <!-- 100-DAY OPTIMIZE -->
-    <section id="100day-optimize">
-      <div class="section-eyebrow">10 — 100-Day Plan</div>
-      <h2>Performance Optimization Motion</h2>
-      <p><strong>Objective:</strong> Improve profitability, predictability, and cash generation through execution rigor and structural efficiency—without compromising the consumer experience.</p>
-      <div class="phases" style="margin: 32px 0;">
-        <div class="phase">
-          <div class="phase-number">01</div>
-          <div class="phase-label">Days 1–14</div>
-          <h4>Baseline + Stop Leakage</h4>
-          <ul>
-            <li>KPI baseline with variance views; EBITDA bridge</li>
-            <li>Cash visibility: weekly liquidity + near-term obligations</li>
-            <li>Immediate controls installed (spend approvals, scheduling, discount governance)</li>
-            <li>Top leakage list with owners and weekly targets</li>
-          </ul>
-        </div>
-        <div class="phase">
-          <div class="phase-number">02</div>
-          <div class="phase-label">Days 15–60</div>
-          <h4>Structural Margin + Cash Improvements</h4>
-          <ul>
-            <li>Labor/delivery model reset (staffing standards, productivity targets)</li>
-            <li>COGS/vendor/procurement improvements and compliance</li>
-            <li>Pricing and discount governance</li>
-            <li>Working capital plan: inventory turns, payables discipline</li>
-          </ul>
-        </div>
-        <div class="phase">
-          <div class="phase-number">03</div>
-          <div class="phase-label">Days 61–100</div>
-          <h4>Sustain + Institutionalize</h4>
-          <ul>
-            <li>Embedded cadence: weekly execution + monthly performance review</li>
-            <li>SOPs/training for workflows that drive most outcomes</li>
-            <li>Org/talent adjustments where ownership is missing</li>
-            <li>6–12 month roadmap with sequencing and KPI targets</li>
-          </ul>
-        </div>
-      </div>
-      <h3>Key KPIs</h3>
-      <ul>
-        <li>Adjusted EBITDA improvement vs baseline and plan</li>
-        <li>Gross margin and controllable expense ratios</li>
-        <li>Labor/delivery productivity ratios</li>
-        <li>Discount rate and promo ROI</li>
-        <li>Inventory turns / returns / shrink and cash conversion cycle</li>
-      </ul>
-      <h3>Common Failure Modes</h3>
-      <ul class="failure-list">
-        <li>Cutting costs that damage experience and demand</li>
-        <li>Too many initiatives running simultaneously</li>
-        <li>Avoiding accountability and necessary role changes</li>
-        <li>Fixing one channel while another silently bleeds</li>
-      </ul>
-    </section>
-
-    <!-- SCORECARD -->
-    <section id="scorecard">
-      <div class="section-eyebrow">11 — Measurement</div>
-      <h2>Scorecard Framework</h2>
-      <p>One source of truth. EBITDA first, drivers beneath. Every KPI has an owner, and reds trigger actions with due dates.</p>
-      <h3 style="margin-top: 32px;">Core Consumer Scorecard</h3>
-      <div class="scorecard-grid" style="margin: 20px 0 40px;">
-        <div class="scorecard-block">
-          <div class="block-num">01</div>
-          <h4>Financial Performance</h4>
-          <ul>
-            <li>Revenue (MTD/QTD/YTD; vs Budget; vs Prior Year)</li>
-            <li>Gross margin % and $</li>
-            <li>Operating expenses % and $ (key categories)</li>
-            <li>Adjusted EBITDA $ and % (vs Budget / vs Prior Year)</li>
-            <li>EBITDA bridge (price/mix, volume, COGS, labor, fixed costs)</li>
-          </ul>
-        </div>
-        <div class="scorecard-block">
-          <div class="block-num">02</div>
-          <h4>Unit Economics</h4>
-          <ul>
-            <li>Contribution margin by channel/site/line</li>
-            <li>Labor/delivery cost % + productivity ratio</li>
-            <li>COGS/direct costs % + key variance drivers</li>
-            <li>Discounting/promotions % and governance compliance</li>
-            <li>Returns/refunds/comp rate %</li>
-          </ul>
-        </div>
-        <div class="scorecard-block">
-          <div class="block-num">03</div>
-          <h4>Growth & Commercial Health</h4>
-          <ul>
-            <li>Primary demand KPI (one per asset)</li>
-            <li>Conversion rate (if measurable)</li>
-            <li>Retention/repeat/churn (as applicable)</li>
-            <li>Mix shifts (channel/product/service/site)</li>
-            <li>Pricing integrity (net price realization)</li>
-          </ul>
-        </div>
-        <div class="scorecard-block">
-          <div class="block-num">04</div>
-          <h4>Cash & Working Capital</h4>
-          <ul>
-            <li>Weekly cash + 13-week outlook</li>
-            <li>Inventory days/turns (if applicable)</li>
-            <li>AR/AP cadence and exceptions</li>
-            <li>Cash conversion cycle</li>
-            <li>Capex vs plan (timing + approvals)</li>
-          </ul>
-        </div>
-        <div class="scorecard-block" style="grid-column: 1 / -1;">
-          <div class="block-num">05</div>
-          <h4>Operating Execution & Risk</h4>
-          <ul style="display: grid; grid-template-columns: 1fr 1fr; gap: 0 24px; max-width: 100%;">
-            <li>SLA / on-time / backlog (as applicable)</li>
-            <li>Quality failure rate (returns, complaints, rework)</li>
-            <li>Capacity utilization / throughput</li>
-            <li>Staffing health and key roles open</li>
-            <li>Top risks (vendor concentration, compliance, keyperson)</li>
-          </ul>
-        </div>
-      </div>
-      <h3>Add-On Driver Panels</h3>
-      <div style="display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; max-width: 880px; margin-top: 16px;">
-        <div style="border: 1px solid var(--rule); padding: 20px 24px;">
-          <h4>Products</h4>
-          <ul>
-            <li>Revenue and margin by channel</li>
-            <li>CAC / ROAS / MER (where applicable)</li>
-            <li>Repeat rate, AOV (DTC), wholesale velocity/reorder</li>
-            <li>Returns rate and reasons</li>
-            <li>Fill rate / stockouts / inventory turns / forecast accuracy</li>
-          </ul>
-        </div>
-        <div style="border: 1px solid var(--rule); padding: 20px 24px;">
-          <h4>Services</h4>
-          <ul>
-            <li>Leads/bookings → conversion; utilization rate</li>
-            <li>Retention/churn; ARPU</li>
-            <li>Labor efficiency (cost per job/appointment)</li>
-            <li>No-show/cancellation rate</li>
-            <li>Delivery quality / customer satisfaction</li>
-          </ul>
-        </div>
-        <div style="border: 1px solid var(--rule); padding: 20px 24px;">
-          <h4>Hospitality</h4>
-          <ul>
-            <li>Demand KPI (covers/rooms/members) + mix</li>
-            <li>Check average / ADR where relevant</li>
-            <li>Labor % + productivity</li>
-            <li>COGS % + waste controls</li>
-            <li>Throughput constraints + guest sentiment trend</li>
-          </ul>
-        </div>
-      </div>
-      <h3>KPI Definitions to Lock at Start</h3>
-      <ul>
-        <li>Adjusted EBITDA (and reconciliation)</li>
-        <li>COGS/direct costs (in/out)</li>
-        <li>Labor/delivery costs (in/out)</li>
-        <li>Primary demand KPI</li>
-        <li>Primary quality KPI</li>
-      </ul>
-    </section>
-
-    <!-- OS MAP -->
-    <section id="os-map">
-      <div class="section-eyebrow">12 — Architecture</div>
-      <h2>Operating System Map</h2>
-      <p>The five pillars that support every ASH engagement—from diagnostic through sustained performance.</p>
-      <div class="os-map" style="margin-top: 32px;">
-        <div class="os-col">
-          <h4>Governance</h4>
-          <ul>
-            <li>Board structure</li>
-            <li>Decision rights</li>
-            <li>Information rights</li>
-            <li>Consent rights</li>
-            <li>Reporting cadence</li>
-            <li>Escalation framework</li>
-          </ul>
-        </div>
-        <div class="os-col">
-          <h4>Performance Mgmt</h4>
-          <ul>
-            <li>Scorecard (locked KPIs)</li>
-            <li>EBITDA bridge routine</li>
-            <li>Weekly / monthly / quarterly cadence</li>
-            <li>Initiative tracker</li>
-            <li>Variance accountability</li>
-          </ul>
-        </div>
-        <div class="os-col">
-          <h4>Financial Controls</h4>
-          <ul>
-            <li>Spend approvals</li>
-            <li>Purchasing compliance</li>
-            <li>Discount governance</li>
-            <li>Cash forecasting</li>
-            <li>Capex discipline</li>
-            <li>Close process</li>
-          </ul>
-        </div>
-        <div class="os-col">
-          <h4>People & Org</h4>
-          <ul>
-            <li>Role clarity</li>
-            <li>Spans & layers</li>
-            <li>Coaching cadence</li>
-            <li>Performance mgmt</li>
-            <li>Key-person risk</li>
-            <li>Hiring sequencing</li>
-          </ul>
-        </div>
-        <div class="os-col">
-          <h4>Execution Systems</h4>
-          <ul>
-            <li>SOPs by workflow</li>
-            <li>Training systems</li>
-            <li>Brand standards</li>
-            <li>QA checks</li>
-            <li>Data integrity</li>
-            <li>Dashboards</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-  </div><!-- /content -->
-
-  <!-- FOOTER -->
-  <div class="doc-footer">
-    <div class="footer-mark">ASH<br><span>ATL</span></div>
-    <div class="footer-meta">
-      ASH Consumer Investment Partners<br>
-      Operating & Value-Creation Playbook · Core v1.0<br>
-      March 2026 · Confidential
     </div>
   </div>
 
+  <h3>Selecting Playbook Elements</h3>
+  <p>Within each motion, ASH identifies the specific playbook elements relevant to the individual business. A growth-stage hospitality brand requires different interventions than a mature specialty retailer experiencing margin compression. The Playbook is a toolkit; the 14-Day Diagnostic determines which tools to deploy and in what sequence.</p>
+
+  <h3>Sub-Vertical Translation</h3>
+  <ul class="list">
+    <li><strong>Products</strong> — demand generation + channel economics + margin discipline by channel + inventory turns and working capital management</li>
+    <li><strong>Services</strong> — capacity utilization + CAC/LTV ratio + labor delivery model + retention and churn management</li>
+    <li><strong>Hospitality</strong> — throughput optimization + labor scheduling discipline + revenue mix and pricing + COGS and waste controls</li>
+  </ul>
+</div>
+
+<!-- 06 NORTH STAR -->
+<div class="section" id="northstar">
+  <div class="section-eyebrow">09 — Financial North Star</div>
+  <h2>Adjusted EBITDA</h2>
+  <p>ASH anchors all performance management on <span class="hl">Adjusted EBITDA</span> and the operational drivers that expand it. This is the single number that governs weekly reviews, monthly accountability, and investment thesis tracking. Everything else is a driver of this number.</p>
+
+  <div class="stat-row" style="margin-top: 24px;">
+    <div class="stat-block">
+      <div class="sb-label">Driver 1</div>
+      <div class="sb-num">GM%</div>
+      <div class="sb-desc">Gross margin discipline — COGS controls, pricing integrity, waste reduction</div>
+    </div>
+    <div class="stat-block">
+      <div class="sb-label">Driver 2</div>
+      <div class="sb-num">Labor%</div>
+      <div class="sb-desc">Labor/delivery efficiency — scheduling standards, productivity ratios, staffing models</div>
+    </div>
+    <div class="stat-block">
+      <div class="sb-label">Driver 3</div>
+      <div class="sb-num">Fixed</div>
+      <div class="sb-desc">Fixed-cost leverage — occupancy, G&A discipline, vendor contracts</div>
+    </div>
+    <div class="stat-block">
+      <div class="sb-label">Driver 4</div>
+      <div class="sb-num">Disc.</div>
+      <div class="sb-desc">Discretionary spend governance — approvals, timing, ROI requirement</div>
+    </div>
+  </div>
+
+  <h3>Adjusted EBITDA Conventions</h3>
+  <ul class="list">
+    <li>Definitions are locked at the start of every engagement — owner comp treatment, one-time items, startup/expansion costs, extraordinary items</li>
+    <li>A consistent reconciliation is maintained so operators and ASH read the same number — no divergent scorecards</li>
+    <li>Adjustments are transparency tools, not hiding places. Every adjustment is documented and defensible</li>
+    <li>Contribution margin by channel, site, or service line is tracked as a diagnostic layer beneath EBITDA to explain movement</li>
+  </ul>
+</div>
+
+<!-- 07 DIAGNOSTIC -->
+<div class="section" id="diagnostic">
+  <div class="section-eyebrow">10 — Diagnostic Framework</div>
+  <h2>The 14-Day Diagnostic</h2>
+  <p>At the start of every partnership — and at every major inflection point — ASH runs a structured 14-day diagnostic to identify the primary constraint and route the engagement into the correct operating motion. Speed matters: a misdiagnosed motion wastes the first 60 days.</p>
+
+  <h3>Outputs by Day 14</h3>
+  <ul class="list">
+    <li>Motion selection (Growth &amp; Scale vs Performance Optimization) with written rationale</li>
+    <li>Top 5 priorities with owners, timelines, and KPI targets</li>
+    <li>Baseline scorecard with agreed definitions — every KPI locked before work begins</li>
+    <li>Risk and dependency log: keyperson, vendor concentration, cash runway, operational single points of failure</li>
+  </ul>
+
+  <h3>Diagnostic Lenses</h3>
+  <div class="cards-3" style="margin-top:12px;">
+    <div class="card">
+      <div class="card-label">A · Financial</div>
+      <div class="card-title">EBITDA Quality</div>
+      <p class="card-body">P&L structure, margin by line, EBITDA bridge, adjustments audit, cash conversion</p>
+    </div>
+    <div class="card">
+      <div class="card-label">B · Commercial</div>
+      <div class="card-title">Revenue Engine</div>
+      <p class="card-body">Demand drivers, mix, pricing integrity, conversion rates, retention/churn</p>
+    </div>
+    <div class="card">
+      <div class="card-label">C · Economics</div>
+      <div class="card-title">Unit Economics</div>
+      <p class="card-body">Contribution margin by channel/site/line, CAC/LTV where applicable, payback periods</p>
+    </div>
+    <div class="card">
+      <div class="card-label">D · Operations</div>
+      <div class="card-title">Capacity &amp; Throughput</div>
+      <p class="card-body">Constraint map, productivity ratios, quality failure rates, delivery reliability</p>
+    </div>
+    <div class="card">
+      <div class="card-label">E · Finance</div>
+      <div class="card-title">Cash &amp; Working Capital</div>
+      <p class="card-body">Weekly cash position, 13-week outlook, inventory turns, AR/AP cadence</p>
+    </div>
+    <div class="card">
+      <div class="card-label">F · People</div>
+      <div class="card-title">Org &amp; Accountability</div>
+      <p class="card-body">Role clarity, spans/layers, single points of failure, coaching cadence, key-person risk</p>
+    </div>
+  </div>
+  <div class="card" style="max-width:880px; margin-top:2px;">
+    <div class="card-label">G · Systems</div>
+    <div class="card-title">Controls &amp; Data Integrity</div>
+    <p class="card-body">Reporting infrastructure, close process, approval workflows, POS/data accuracy, SOP coverage</p>
+  </div>
+
+  <h3>Routing Logic</h3>
+  <div class="routing" style="margin-top:12px;">
+    <div class="routing-row">
+      <span class="arr">→</span>
+      <p>Constraint is <strong>capacity, infrastructure, leadership depth, or repeatability</strong> → <span class="hl">Growth &amp; Scale</span></p>
+    </div>
+    <div class="routing-row">
+      <span class="arr">→</span>
+      <p>Constraint is <strong>economics leakage, execution inconsistency, weak controls, or cash conversion</strong> → <span class="hl">Performance Optimization</span></p>
+    </div>
+    <div class="routing-row">
+      <span class="arr">→</span>
+      <p>Both are true → <strong>Stabilize economics and controls first, then scale</strong>. Never scale a broken model.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 08 CADENCE -->
+<div class="section" id="cadence">
+  <div class="section-eyebrow">11 — Operating Rhythm</div>
+  <h2>The ASH Cadence</h2>
+  <p>Tight weekly execution + clear monthly accountability + quarterly strategic alignment. The cadence is non-negotiable. Operators who skip weeks don't run the system — they run the old system with a new scorecard on top of it.</p>
+
+  <div class="cadence-grid" style="margin-top: 24px;">
+    <div class="cadence-card">
+      <div class="cc-freq">Weekly</div>
+      <div class="cc-title">Operating Review</div>
+      <div class="cc-dur">45 minutes · every week without exception</div>
+      <h3 style="margin-top:0; margin-bottom:8px;">Agenda</h3>
+      <ul class="list">
+        <li>Scorecard snapshot: revenue, gross margin, labor cost, EBITDA pacing vs budget</li>
+        <li>Variance drivers: what moved, why, what we do this week</li>
+        <li>Top 1–3 constraints limiting performance right now</li>
+        <li>Initiative tracker: due items, blockers, resets</li>
+        <li>Escalations requiring partner input</li>
+      </ul>
+      <h3 style="margin-bottom:8px;">Rules</h3>
+      <ul class="list">
+        <li>No storytelling without numbers</li>
+        <li>Every issue ends with an owner + date</li>
+        <li>If it matters, it's on the tracker</li>
+      </ul>
+    </div>
+    <div class="cadence-card">
+      <div class="cc-freq">Monthly</div>
+      <div class="cc-title">Performance Review</div>
+      <div class="cc-dur">90 minutes · within 5 business days of month-end close</div>
+      <h3 style="margin-top:0; margin-bottom:8px;">Agenda</h3>
+      <ul class="list">
+        <li>P&amp;L review: Adjusted EBITDA vs budget/forecast with full bridge</li>
+        <li>Commercial review: revenue by channel/site, pricing, mix, retention</li>
+        <li>Cost review: COGS, labor model, fixed costs, discretionary spend</li>
+        <li>Cash review: working capital, capex, 13-week liquidity outlook</li>
+        <li>Talent/org: capacity gaps, key hires, performance issues, role clarity</li>
+        <li>Next month priorities: top 5, KPI targets, owners confirmed</li>
+      </ul>
+    </div>
+    <div class="cadence-card">
+      <div class="cc-freq">Quarterly</div>
+      <div class="cc-title">Strategy Review</div>
+      <div class="cc-dur">2–3 hours · with full leadership team</div>
+      <h3 style="margin-top:0; margin-bottom:8px;">Agenda</h3>
+      <ul class="list">
+        <li>Progress vs investment thesis and original motion rationale</li>
+        <li>What to double down on / stop / redesign</li>
+        <li>Capital allocation and growth sequencing for next 90 days</li>
+        <li>Risk review: vendor concentration, keyperson, market shifts, compliance</li>
+        <li>Updated targets and 90-day initiative roadmap</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 09 DECISION RIGHTS -->
+<div class="section" id="rights">
+  <div class="section-eyebrow">12 — Governance</div>
+  <h2>Decision Rights Framework</h2>
+  <p>Ambiguity in decision-making is one of the most common destroyers of operating velocity in PE-backed businesses. This framework locks who owns what — at both majority and minority ownership levels — so the team moves fast without second-guessing authority.</p>
+
+  <div class="rights-grid" style="margin-top: 24px;">
+    <div class="rights-header"><div class="rh-label">Decision</div></div>
+    <div class="rights-header"><div class="rh-label">Majority</div></div>
+    <div class="rights-header"><div class="rh-label">Minority</div></div>
+
+    <div class="rights-cell action">Annual budget approval</div>
+    <div class="rights-cell yes">ASH LEADS</div>
+    <div class="rights-cell consult">CONSENT RIGHT</div>
+
+    <div class="rights-cell action">Hiring: VP-level and above</div>
+    <div class="rights-cell yes">ASH APPROVES</div>
+    <div class="rights-cell consult">INFORMED</div>
+
+    <div class="rights-cell action">Capex above $50K</div>
+    <div class="rights-cell yes">ASH APPROVES</div>
+    <div class="rights-cell consult">CONSENT RIGHT</div>
+
+    <div class="rights-cell action">New location / expansion</div>
+    <div class="rights-cell yes">ASH LEADS</div>
+    <div class="rights-cell consult">CONSENT RIGHT</div>
+
+    <div class="rights-cell action">Pricing changes &gt;10%</div>
+    <div class="rights-cell yes">ASH APPROVES</div>
+    <div class="rights-cell consult">INFORMED</div>
+
+    <div class="rights-cell action">Vendor contracts &gt;$100K/yr</div>
+    <div class="rights-cell yes">ASH APPROVES</div>
+    <div class="rights-cell consult">INFORMED</div>
+
+    <div class="rights-cell action">Debt or financing decisions</div>
+    <div class="rights-cell yes">ASH LEADS</div>
+    <div class="rights-cell consult">CONSENT RIGHT</div>
+
+    <div class="rights-cell action">Daily operational decisions</div>
+    <div class="rights-cell inform">OPERATOR OWNS</div>
+    <div class="rights-cell inform">OPERATOR OWNS</div>
+
+    <div class="rights-cell action">Menu / product changes (minor)</div>
+    <div class="rights-cell inform">OPERATOR OWNS</div>
+    <div class="rights-cell inform">OPERATOR OWNS</div>
+
+    <div class="rights-cell action">Marketing spend within budget</div>
+    <div class="rights-cell inform">OPERATOR OWNS</div>
+    <div class="rights-cell inform">OPERATOR OWNS</div>
+
+    <div class="rights-cell action">Staffing below VP-level</div>
+    <div class="rights-cell inform">OPERATOR OWNS</div>
+    <div class="rights-cell inform">OPERATOR OWNS</div>
+
+    <div class="rights-cell action">Exit / sale of company</div>
+    <div class="rights-cell yes">JOINT DECISION</div>
+    <div class="rights-cell consult">CONSENT RIGHT</div>
+  </div>
+</div>
+
+<!-- 10 PLAN: GROWTH -->
+<div class="section" id="plan-growth">
+  <div class="section-eyebrow">13 — 100-Day Plan</div>
+  <h2>Growth &amp; Scale Motion</h2>
+  <p><strong>Objective:</strong> Build the operating infrastructure that enables growth without margin erosion, working-capital strain, or brand dilution. Scale the engine — don't just push more through a broken one.</p>
+
+  <div class="phases" style="margin: 24px 0 32px;">
+    <div class="phase">
+      <div class="ph-range">Days 1–14</div>
+      <div class="ph-num">01</div>
+      <div class="ph-title">Baseline + Stabilize</div>
+      <ul class="list">
+        <li>KPI baseline with locked definitions by channel/site</li>
+        <li>EBITDA and margin fact base — "where we make money" by line</li>
+        <li>Constraint map: top 3 bottlenecks limiting profitable growth</li>
+        <li>Cadence launched, owners assigned, tracker live</li>
+        <li>Demand clarity: what is driving growth and is it durable?</li>
+      </ul>
+    </div>
+    <div class="phase">
+      <div class="ph-range">Days 15–60</div>
+      <div class="ph-num">02</div>
+      <div class="ph-title">Build Capacity + Repeatability</div>
+      <ul class="list">
+        <li>Org and capability build plan: roles, spans/layers, hiring sequence</li>
+        <li>Repeatable execution system for the core workflow</li>
+        <li>Forecasting rhythm: demand, labor/capacity, inventory, cash</li>
+        <li>Scale-safe playbook v1: SOPs that protect quality and margin at volume</li>
+        <li>Unit economics guardrails by channel/site locked in</li>
+      </ul>
+    </div>
+    <div class="phase">
+      <div class="ph-range">Days 61–100</div>
+      <div class="ph-num">03</div>
+      <div class="ph-title">Systemize + Stage Next Phase</div>
+      <ul class="list">
+        <li>Embedded management system: scorecard, variance routines, initiative tracker</li>
+        <li>Reporting and close discipline — no more ad hoc numbers</li>
+        <li>Growth roadmap (6–12 months) with budget gates and KPI triggers</li>
+        <li>Talent plan to reduce keyperson dependency</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Key KPIs</h3>
+  <ul class="list">
+    <li>Adjusted EBITDA stability and pacing as volume grows</li>
+    <li>Gross margin and direct cost discipline by channel/site</li>
+    <li>Labor/delivery efficiency ratios and capacity utilization</li>
+    <li>Inventory turns / fill rate / returns (where applicable)</li>
+    <li>Forecast accuracy vs actuals (demand, labor, cash)</li>
+  </ul>
+
+  <h3>Common Failure Modes</h3>
+  <ul class="list fail-list">
+    <li>Scaling demand before capacity and systems are ready — growth becomes a liability</li>
+    <li>Adding channels that are margin-negative and masked by top-line growth</li>
+    <li>Inventory and capex outpacing cash conversion — growth kills the business</li>
+    <li>Building reporting without assigning ownership — data without accountability</li>
+  </ul>
+</div>
+
+<!-- 11 PLAN: OPTIMIZE -->
+<div class="section" id="plan-optimize">
+  <div class="section-eyebrow">14 — 100-Day Plan</div>
+  <h2>Operational Alpha Motion</h2>
+  <p><strong>Objective:</strong> Improve profitability, predictability, and cash generation through execution rigor and structural efficiency — without damaging the consumer experience that drives the business.</p>
+
+  <div class="phases" style="margin: 24px 0 32px;">
+    <div class="phase">
+      <div class="ph-range">Days 1–14</div>
+      <div class="ph-num">01</div>
+      <div class="ph-title">Baseline + Stop Leakage</div>
+      <ul class="list">
+        <li>KPI baseline with variance views — EBITDA bridge to isolate drivers</li>
+        <li>Cash visibility: weekly liquidity snapshot + near-term obligations</li>
+        <li>Immediate controls: spend approvals, purchasing compliance, scheduling discipline, discount governance</li>
+        <li>Top leakage list with owners and weekly targets — no analysis without action</li>
+      </ul>
+    </div>
+    <div class="phase">
+      <div class="ph-range">Days 15–60</div>
+      <div class="ph-num">02</div>
+      <div class="ph-title">Structural Margin + Cash</div>
+      <ul class="list">
+        <li>Labor/delivery model reset: staffing standards, productivity targets, scheduling rules</li>
+        <li>COGS/vendor/procurement improvements and compliance routines</li>
+        <li>Pricing and discount governance: guardrails, approvals, promo ROI</li>
+        <li>Working capital plan: inventory turns, purchasing cadence, payables discipline</li>
+      </ul>
+    </div>
+    <div class="phase">
+      <div class="ph-range">Days 61–100</div>
+      <div class="ph-num">03</div>
+      <div class="ph-title">Sustain + Institutionalize</div>
+      <ul class="list">
+        <li>Embedded cadence: weekly execution + monthly performance review running clean</li>
+        <li>SOPs and training for the workflows that drive 80% of outcomes</li>
+        <li>Org/talent adjustments where accountability ownership is missing</li>
+        <li>6–12 month roadmap with sequencing, budget gates, and KPI targets</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Key KPIs</h3>
+  <ul class="list">
+    <li>Adjusted EBITDA improvement vs baseline and plan — the primary test</li>
+    <li>Gross margin and controllable expense ratios</li>
+    <li>Labor/delivery productivity ratios vs standards</li>
+    <li>Discount rate and promotional ROI</li>
+    <li>Inventory turns / returns / shrink / cash conversion cycle</li>
+  </ul>
+
+  <h3>Common Failure Modes</h3>
+  <ul class="list fail-list">
+    <li>Cutting costs that damage the guest/customer experience — short-term gain, long-term revenue destruction</li>
+    <li>Running too many initiatives simultaneously — dilutes ownership, nothing gets done well</li>
+    <li>Avoiding the accountability and role changes the business actually needs</li>
+    <li>Fixing one channel or location while another silently bleeds</li>
+  </ul>
+</div>
+
+<!-- 12 SCORECARD -->
+<div class="section" id="scorecard">
+  <div class="section-eyebrow">15 — Measurement</div>
+  <h2>Scorecard Framework</h2>
+  <p>One source of truth. EBITDA first, operational drivers beneath. Every KPI has a single owner. Reds trigger written action plans with due dates — not verbal commitments.</p>
+
+  <div class="scorecard" style="margin: 24px 0 32px;">
+    <div class="sc-block">
+      <div class="sc-num">01</div>
+      <div class="sc-label">Financial Performance</div>
+      <ul class="list">
+        <li>Revenue: MTD / QTD / YTD vs Budget vs Prior Year</li>
+        <li>Gross margin % and $</li>
+        <li>Operating expenses by category: % and $</li>
+        <li>Adjusted EBITDA $ and % vs Budget and vs Prior Year</li>
+        <li>EBITDA bridge: price/mix, volume, COGS, labor, fixed, other</li>
+      </ul>
+    </div>
+    <div class="sc-block">
+      <div class="sc-num">02</div>
+      <div class="sc-label">Unit Economics</div>
+      <ul class="list">
+        <li>Contribution margin by channel / site / service line</li>
+        <li>Labor/delivery cost % + productivity ratio vs standard</li>
+        <li>COGS / direct costs % + key variance drivers</li>
+        <li>Discount / promo rate % and governance compliance</li>
+        <li>Returns / refunds / comp rate %</li>
+      </ul>
+    </div>
+    <div class="sc-block">
+      <div class="sc-num">03</div>
+      <div class="sc-label">Growth &amp; Commercial Health</div>
+      <ul class="list">
+        <li>Primary demand KPI (one per asset — defined at start)</li>
+        <li>Conversion rate (where measurable)</li>
+        <li>Retention / repeat / churn rate</li>
+        <li>Mix shifts: channel / product / service / site</li>
+        <li>Net price realization (pricing integrity)</li>
+      </ul>
+    </div>
+    <div class="sc-block">
+      <div class="sc-num">04</div>
+      <div class="sc-label">Cash &amp; Working Capital</div>
+      <ul class="list">
+        <li>Weekly cash position + 13-week forward outlook</li>
+        <li>Inventory days / turns (where applicable)</li>
+        <li>AR / AP cadence and exceptions</li>
+        <li>Cash conversion cycle</li>
+        <li>Capex vs plan: timing and approvals</li>
+      </ul>
+    </div>
+    <div class="sc-block" style="grid-column: 1/-1;">
+      <div class="sc-num">05</div>
+      <div class="sc-label">Operating Execution &amp; Risk</div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap: 0 32px;">
+        <ul class="list">
+          <li>SLA / on-time delivery / backlog</li>
+          <li>Quality failure rate: returns, complaints, rework</li>
+          <li>Capacity utilization / throughput</li>
+        </ul>
+        <ul class="list">
+          <li>Staffing health: open roles, turnover rate</li>
+          <li>Top risks: vendor concentration, compliance, keyperson</li>
+          <li>Initiative tracker: on-time completion rate</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <h3>Add-On Driver Panels by Sub-Vertical</h3>
+  <div class="cards-3">
+    <div class="card">
+      <div class="card-label">Products</div>
+      <ul class="list">
+        <li>Revenue and margin by channel</li>
+        <li>CAC / ROAS / MER (where applicable)</li>
+        <li>Repeat rate, AOV (DTC), wholesale velocity/reorder</li>
+        <li>Returns rate and reasons</li>
+        <li>Fill rate / stockouts / forecast accuracy</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-label">Services</div>
+      <ul class="list">
+        <li>Leads / bookings → conversion; utilization rate</li>
+        <li>Retention / churn; ARPU</li>
+        <li>Labor efficiency: cost per job/appointment</li>
+        <li>No-show / cancellation rate</li>
+        <li>Customer satisfaction / NPS</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-label">Hospitality</div>
+      <ul class="list">
+        <li>Covers / rooms / members + mix</li>
+        <li>Check average / ADR</li>
+        <li>Labor % + productivity vs standard</li>
+        <li>COGS % + waste controls</li>
+        <li>Throughput constraints + guest sentiment</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Scorecard Cadence</h3>
+  <ul class="list">
+    <li><strong>Weekly</strong> — Core KPIs + top variances + action tracker items</li>
+    <li><strong>Monthly</strong> — Full P&amp;L + EBITDA bridge + cash + talent + initiative progress</li>
+    <li><strong>Quarterly</strong> — Roadmap reset + capital allocation + updated targets</li>
+  </ul>
+</div>
+
+<!-- 13 THRESHOLDS -->
+<div class="section" id="thresholds">
+  <div class="section-eyebrow">16 — Escalation Triggers</div>
+  <h2>Red / Yellow / Green Thresholds</h2>
+  <p>Every KPI has a threshold. These are the default ranges — they are adjusted at the start of each engagement based on the specific business's baseline. <span class="hl">Red always triggers a written action plan within 48 hours.</span></p>
+
+  <h3>EBITDA vs Budget</h3>
+  <div class="ryg">
+    <div class="ryg-col g">
+      <div class="ryg-label">Green — On Track</div>
+      <ul class="list"><li>Within 5% of budget</li><li>Variance fully explained</li><li>No unplanned cost items</li></ul>
+    </div>
+    <div class="ryg-col y">
+      <div class="ryg-label">Yellow — Watch</div>
+      <ul class="list"><li>5–10% below budget</li><li>Identified root cause</li><li>Recovery plan in progress</li></ul>
+    </div>
+    <div class="ryg-col r">
+      <div class="ryg-label">Red — Action Required</div>
+      <ul class="list"><li>&gt;10% below budget</li><li>Root cause not yet confirmed</li><li>Written action plan due in 48 hrs</li></ul>
+    </div>
+  </div>
+
+  <h3>Gross Margin %</h3>
+  <div class="ryg">
+    <div class="ryg-col g">
+      <div class="ryg-label">Green</div>
+      <ul class="list"><li>Within 1.5pp of target</li><li>No uncontrolled cost variance</li></ul>
+    </div>
+    <div class="ryg-col y">
+      <div class="ryg-label">Yellow</div>
+      <ul class="list"><li>1.5–3pp below target</li><li>Vendor or mix shift identified</li></ul>
+    </div>
+    <div class="ryg-col r">
+      <div class="ryg-label">Red</div>
+      <ul class="list"><li>&gt;3pp below target</li><li>Immediate COGS audit required</li></ul>
+    </div>
+  </div>
+
+  <h3>Labor % of Revenue</h3>
+  <div class="ryg">
+    <div class="ryg-col g">
+      <div class="ryg-label">Green</div>
+      <ul class="list"><li>Within 1pp of target</li><li>Scheduling compliance confirmed</li></ul>
+    </div>
+    <div class="ryg-col y">
+      <div class="ryg-label">Yellow</div>
+      <ul class="list"><li>1–2pp above target</li><li>Scheduling audit in progress</li></ul>
+    </div>
+    <div class="ryg-col r">
+      <div class="ryg-label">Red</div>
+      <ul class="list"><li>&gt;2pp above target</li><li>Scheduling model review required</li></ul>
+    </div>
+  </div>
+
+  <h3>Cash Runway</h3>
+  <div class="ryg">
+    <div class="ryg-col g">
+      <div class="ryg-label">Green</div>
+      <ul class="list"><li>13+ weeks of operating cash</li><li>No covenant concerns</li></ul>
+    </div>
+    <div class="ryg-col y">
+      <div class="ryg-label">Yellow</div>
+      <ul class="list"><li>8–13 weeks runway</li><li>Cash plan review initiated</li></ul>
+    </div>
+    <div class="ryg-col r">
+      <div class="ryg-label">Red</div>
+      <ul class="list"><li>&lt;8 weeks runway</li><li>Immediate ASH escalation</li></ul>
+    </div>
+  </div>
+</div>
+
+<!-- 14 OS MAP -->
+<div class="section" id="osmap">
+  <div class="section-eyebrow">17 — Architecture</div>
+  <h2>Operating System Map</h2>
+  <p>The five pillars that underpin every ASH engagement — from the 14-day diagnostic through sustained performance management. Every tool, process, and deliverable maps to one of these pillars.</p>
+
+  <div class="os-map" style="margin-top: 24px;">
+    <div class="os-col">
+      <div class="oc-label">Governance</div>
+      <ul class="list">
+        <li>Board structure</li>
+        <li>Decision rights</li>
+        <li>Information rights</li>
+        <li>Consent rights</li>
+        <li>Reporting cadence</li>
+        <li>Escalation protocol</li>
+      </ul>
+    </div>
+    <div class="os-col">
+      <div class="oc-label">Performance Mgmt</div>
+      <ul class="list">
+        <li>Locked scorecard (KPIs)</li>
+        <li>EBITDA bridge routine</li>
+        <li>Weekly / monthly / quarterly cadence</li>
+        <li>Initiative tracker</li>
+        <li>Variance accountability</li>
+        <li>RYG thresholds</li>
+      </ul>
+    </div>
+    <div class="os-col">
+      <div class="oc-label">Financial Controls</div>
+      <ul class="list">
+        <li>Spend approvals</li>
+        <li>Purchasing compliance</li>
+        <li>Discount governance</li>
+        <li>Cash forecasting</li>
+        <li>Capex discipline</li>
+        <li>Close process</li>
+      </ul>
+    </div>
+    <div class="os-col">
+      <div class="oc-label">People &amp; Org</div>
+      <ul class="list">
+        <li>Role clarity</li>
+        <li>Spans &amp; layers</li>
+        <li>Coaching cadence</li>
+        <li>Performance mgmt</li>
+        <li>Keyperson risk</li>
+        <li>Hiring sequencing</li>
+      </ul>
+    </div>
+    <div class="os-col">
+      <div class="oc-label">Execution Systems</div>
+      <ul class="list">
+        <li>SOPs by workflow</li>
+        <li>Training systems</li>
+        <li>Brand standards</li>
+        <li>QA checklists</li>
+        <li>Data integrity</li>
+        <li>Dashboards</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 15 GLOSSARY -->
+<div class="section" id="glossary">
+  <div class="section-eyebrow">18 — Reference</div>
+  <h2>Glossary of Terms</h2>
+  <p>All definitions are locked at the start of each engagement. Any deviation from these definitions must be documented and agreed upon in writing. Inconsistent definitions are one of the most common sources of scorecard disputes.</p>
+
+  <div class="glossary" style="margin-top: 24px;">
+    <div class="gloss-item">
+      <div class="gloss-term">Adjusted EBITDA</div>
+      <div class="gloss-def">Earnings before interest, taxes, depreciation, and amortization, further adjusted for owner compensation above/below market rate, non-recurring items, and startup/expansion costs. Adjustments must be documented and consistent period-to-period.</div>
+    </div>
+    <div class="gloss-item">
+      <div class="gloss-term">Contribution Margin</div>
+      <div class="gloss-def">Revenue minus variable costs (COGS + variable labor + direct delivery costs) for a specific channel, site, or service line. Used as a diagnostic layer beneath EBITDA to identify where the business makes and loses money.</div>
+    </div>
+    <div class="gloss-item">
+      <div class="gloss-term">COGS / Direct Costs</div>
+      <div class="gloss-def">All costs directly attributable to producing the product or delivering the service: food & beverage cost, product cost, direct materials, packaging. Does not include labor unless explicitly defined as direct labor. Definition locked at engagement start.</div>
+    </div>
+    <div class="gloss-item">
+      <div class="gloss-term">Labor / Delivery Cost</div>
+      <div class="gloss-def">All hourly and salaried wages plus benefits and payroll taxes for employees directly involved in operations. Management-level employees are included unless separately classified. Definition of "in vs out" locked at engagement start.</div>
+    </div>
+    <div class="gloss-item">
+      <div class="gloss-term">EBITDA Bridge</div>
+      <div class="gloss-def">A structured variance decomposition that explains the movement in Adjusted EBITDA from one period to another (or vs budget) by attributing the change to specific drivers: price/mix, volume, COGS, labor, fixed costs, and other.</div>
+    </div>
+    <div class="gloss-item">
+      <div class="gloss-term">Primary Demand KPI</div>
+      <div class="gloss-def">The single leading indicator of revenue for a given business. Examples: covers (restaurant), bookings (services), units sold (products), members (clubs). One KPI per asset, defined and locked at engagement start.</div>
+    </div>
+    <div class="gloss-item">
+      <div class="gloss-term">Attach Rate</div>
+      <div class="gloss-def">The percentage of transactions or covers that include a specific add-on category (e.g., wine, dessert, starter). Calculated as: transactions with the add-on ÷ total eligible transactions. Used in hospitality to measure upsell execution.</div>
+    </div>
+    <div class="gloss-item">
+      <div class="gloss-term">CAC (Customer Acquisition Cost)</div>
+      <div class="gloss-def">Total sales and marketing spend in a period divided by the number of new customers acquired in that period. Used in services and DTC products. Must define what counts as a "new customer" at engagement start.</div>
+    </div>
+    <div class="gloss-item">
+      <div class="gloss-term">LTV (Lifetime Value)</div>
+      <div class="gloss-def">The projected total revenue or contribution margin from a single customer over their relationship with the business. Calculated as: average order value × purchase frequency × average customer lifespan.</div>
+    </div>
+    <div class="gloss-item">
+      <div class="gloss-term">13-Week Cash Forecast</div>
+      <div class="gloss-def">A rolling weekly cash flow projection covering 13 weeks forward, showing opening cash, inflows, outflows, and closing cash by week. Updated weekly. Primary tool for cash and liquidity management.</div>
+    </div>
+    <div class="gloss-item">
+      <div class="gloss-term">Working Capital</div>
+      <div class="gloss-def">Current assets minus current liabilities. In the context of the ASH operating system, tracked primarily through inventory days, accounts receivable days, and accounts payable days (the cash conversion cycle).</div>
+    </div>
+    <div class="gloss-item">
+      <div class="gloss-term">Comp Rate</div>
+      <div class="gloss-def">The percentage of total revenue that is comped (provided at no charge or at a discount for service recovery, marketing, or employee meals). Target: below 1% of total revenue. All comp types tracked separately.</div>
+    </div>
+    <div class="gloss-item">
+      <div class="gloss-term">Operating Motion</div>
+      <div class="gloss-def">The designated strategic mode for a given engagement: either Growth &amp; Scale (building infrastructure to grow) or Performance Optimization (improving profitability of an existing base). Selected via the 14-Day Diagnostic and documented in the 100-Day Plan.</div>
+    </div>
+    <div class="gloss-item">
+      <div class="gloss-term">Initiative Tracker</div>
+      <div class="gloss-def">The shared document tracking all active improvement initiatives across the business. Each item includes: initiative description, owner (single person), due date, current status, and any blockers. Reviewed at every weekly operating meeting.</div>
+    </div>
+    <div class="gloss-item">
+      <div class="gloss-term">Keyperson Risk</div>
+      <div class="gloss-def">The operational or relational dependency on a single individual whose departure would materially impair business performance. Assessed in the 14-Day Diagnostic and tracked in the risk log. Mitigation is a required element of every 100-Day Plan.</div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="doc-footer">
+  <div class="fm">ASH<span>ATL</span></div>
+  <div class="fmeta">
+    ASH Consumer Investment Partners<br>
+    Operating Playbook · v2.0 · March 2026<br>
+    Internal / Confidential
+  </div>
+</div>
+
 </div><!-- /main -->
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  // ── Print All button ─────────────────────────────
-  document.getElementById('printAllBtn')?.addEventListener('click', () => {
-    document.body.classList.add('print-all');
-    window.print();
-    const cleanup = () => {
-      document.body.classList.remove('print-all');
-      window.removeEventListener('afterprint', cleanup);
-    };
-    window.addEventListener('afterprint', cleanup);
+<script>
+// ── Password gate ──────────────────────────────────
+if (sessionStorage.getItem('ash_v2_auth') === '1') {
+  document.getElementById('gate').style.display = 'none';
+}
+function checkPw() {
+  const v = document.getElementById('pwInput').value;
+  if (v === 'ASH2026') {
+    sessionStorage.setItem('ash_v2_auth', '1');
+    const g = document.getElementById('gate');
+    g.style.transition = 'opacity 0.35s';
+    g.style.opacity = '0';
+    setTimeout(() => g.style.display = 'none', 360);
+  } else {
+    document.getElementById('pwErr').textContent = 'Incorrect access code.';
+    document.getElementById('pwInput').value = '';
+    document.getElementById('pwInput').focus();
+  }
+}
+
+// ── Active nav ─────────────────────────────────────
+const allSections = document.querySelectorAll('.section[id], .cover[id]');
+const navLinks    = document.querySelectorAll('.sb-link');
+const navObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(l => l.classList.remove('active'));
+      const a = document.querySelector(`.sb-link[href="#${e.target.id}"]`);
+      if (a) a.classList.add('active');
+    }
   });
+}, { rootMargin: '-15% 0px -75% 0px' });
+allSections.forEach(s => navObs.observe(s));
 
-  // ── Active nav highlighting ──────────────────────
-  const sections = document.querySelectorAll('section[id], div[id]');
-  const links = document.querySelectorAll('.sidebar nav a');
+// ── Print section buttons ──────────────────────────
+const icon = `<svg width="11" height="11" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="1" width="10" height="7" rx="0.5"/><path d="M3 10H1.5A.5.5 0 0 1 1 9.5v-4A.5.5 0 0 1 1.5 5h13a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5H13"/><rect x="3" y="9" width="10" height="6" rx="0.5"/></svg>`;
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        links.forEach(l => l.classList.remove('active'));
-        const active = document.querySelector(`.sidebar nav a[href="#${entry.target.id}"]`);
-        if (active) active.classList.add('active');
-      }
-    });
-  }, { rootMargin: '-20% 0px -70% 0px' });
+document.querySelectorAll('.section[id]').forEach(sec => {
+  const title = sec.querySelector('h2')?.textContent?.trim() || sec.id;
+  const btn = document.createElement('button');
+  btn.className = 'print-btn';
+  btn.innerHTML = `${icon} Print`;
+  btn.addEventListener('click', () => printSec(sec, title));
+  sec.appendChild(btn);
+});
 
-  sections.forEach(s => observer.observe(s));
+function printSec(sec, title) {
+  document.querySelectorAll('.print-target').forEach(el => el.classList.remove('print-target'));
+  document.querySelectorAll('.ph-injected').forEach(el => el.remove());
+  sec.classList.add('print-target');
 
-  // ── Print button injection ───────────────────────
-  const printIcon = `<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg">
-    <rect x="3" y="1" width="10" height="7" rx="0.5"/>
-    <path d="M3 10H1.5A.5.5 0 0 1 1 9.5v-4A.5.5 0 0 1 1.5 5h13a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5H13"/>
-    <rect x="3" y="9" width="10" height="6" rx="0.5"/>
-    <circle cx="13" cy="7.5" r="0.5" fill="currentColor" stroke="none"/>
-  </svg>`;
+  const hdr = document.createElement('div');
+  hdr.className = 'print-header ph-injected';
+  hdr.innerHTML = `<strong>ASH<span style="color:#bc663b">ATL</span> · Consumer Investment Partners</strong><span style="color:#69625c;font-size:9pt;">${title} · Operating Playbook v2.0 · Confidential</span>`;
+  sec.insertBefore(hdr, sec.firstChild);
 
-  document.querySelectorAll('section[id]').forEach(sec => {
-    const title = sec.querySelector('h2')?.textContent?.trim() || sec.id;
-    const btn = document.createElement('button');
-    btn.className = 'print-btn';
-    btn.innerHTML = `${printIcon} Print Section`;
-    btn.title = `Print: ${title}`;
-    btn.addEventListener('click', () => printSection(sec, title));
-    sec.appendChild(btn);
-  });
+  const ftr = document.createElement('div');
+  ftr.className = 'print-footer-line ph-injected';
+  ftr.innerHTML = `ASH Consumer Investment Partners · Confidential · March 2026`;
+  sec.appendChild(ftr);
 
-  // ── Print a single section ───────────────────────
-  function printSection(sec, title) {
-    // Remove any existing targets
-    document.querySelectorAll('.print-target').forEach(el => el.classList.remove('print-target'));
-    document.querySelectorAll('.print-header, .print-footer-bar').forEach(el => el.remove());
+  window.print();
+  window.addEventListener('afterprint', () => {
+    sec.classList.remove('print-target');
+    document.querySelectorAll('.ph-injected').forEach(el => el.remove());
+  }, { once: true });
+}
 
-    // Mark this section
-    sec.classList.add('print-target');
+// ── Print all ──────────────────────────────────────
+document.getElementById('printAllBtn')?.addEventListener('click', () => {
+  document.body.classList.add('print-all');
+  window.print();
+  window.addEventListener('afterprint', () => {
+    document.body.classList.remove('print-all');
+  }, { once: true });
+});
+</script>
 
-    // Inject print header into section
-    const header = document.createElement('div');
-    header.className = 'print-header';
-    header.innerHTML = `
-      <div class="ph-mark">ASH</div>
-      <div class="ph-meta">
-        ASH Consumer Investment Partners<br>
-        Operating &amp; Value-Creation Playbook · Core v1.0<br>
-        ${title} · Confidential
-      </div>`;
-    sec.insertBefore(header, sec.firstChild);
-
-    // Inject print foo
+</body>
+</html>
