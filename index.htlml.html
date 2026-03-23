@@ -956,10 +956,229 @@
     .os-map { grid-template-columns: 1fr; }
     .doc-footer { flex-direction: column; gap: 20px; text-align: center; padding: 40px 32px; }
     .doc-footer .footer-meta { text-align: center; }
+    .fund-stats, .market-grid, .process-steps,
+    .exit-grid, .risk-grid, .case-study-grid, .team-grid { grid-template-columns: 1fr; }
+    .case-study-header { flex-direction: column; gap: 16px; }
   }
+
+  /* ── FUND OVERVIEW ───────────────────────────── */
+  .fund-hero {
+    background: var(--ash-dark); padding: 40px 40px 36px;
+    position: relative; overflow: hidden; max-width: 920px; margin-bottom: 32px;
+  }
+  .fund-hero::after {
+    content: 'I'; position: absolute; right: 32px; top: -20px;
+    font-family: 'Work Sans', sans-serif; font-size: 160px; font-weight: 700;
+    color: rgba(255,255,255,0.04); line-height: 1; pointer-events: none;
+  }
+  .fund-hero .fh-label {
+    font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--ash-orange); font-weight: 600; margin-bottom: 10px;
+  }
+  .fund-hero .fh-name {
+    font-family: 'Work Sans', sans-serif; font-size: 28px; font-weight: 700; color: #fff; margin-bottom: 6px;
+  }
+  .fund-hero .fh-sub { font-size: 13px; color: rgba(255,255,255,0.55); max-width: 560px; line-height: 1.6; }
+  .fund-stats {
+    display: grid; grid-template-columns: repeat(4,1fr);
+    gap: 2px; max-width: 920px; background: var(--rule); margin-bottom: 32px;
+  }
+  .fund-stat { background: var(--white); padding: 20px 24px; }
+  section:nth-child(even) .fund-stat { background: var(--ash-tan-dk); }
+  .fund-stat .fs-label {
+    font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--ash-orange); font-weight: 600; margin-bottom: 8px;
+  }
+  .fund-stat .fs-value {
+    font-family: 'Work Sans', sans-serif; font-size: 24px; font-weight: 700;
+    color: var(--ash-black); line-height: 1; margin-bottom: 4px;
+  }
+  .fund-stat .fs-desc { font-size: 11px; color: var(--muted); line-height: 1.5; }
+
+  /* ── SOUTHEAST THESIS ────────────────────────── */
+  .market-grid {
+    display: grid; grid-template-columns: repeat(3,1fr);
+    gap: 2px; max-width: 920px; background: var(--rule); margin-top: 32px;
+  }
+  .market-block { background: var(--white); padding: 24px 28px; }
+  section:nth-child(even) .market-block { background: var(--ash-tan-dk); }
+  .market-block .mb-stat {
+    font-family: 'Work Sans', sans-serif; font-size: 32px; font-weight: 700;
+    color: var(--ash-orange); line-height: 1; margin-bottom: 6px;
+  }
+  .market-block .mb-label { font-size: 11px; font-weight: 600; color: var(--ash-black); margin-bottom: 8px; }
+  .market-block .mb-desc { font-size: 12.5px; color: var(--ash-mid); line-height: 1.6; max-width: 100%; margin: 0; }
+  .market-states { display: flex; flex-wrap: wrap; gap: 8px; max-width: 920px; margin-top: 28px; }
+  .market-state {
+    background: var(--ash-dark); color: #fff;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.1em; padding: 8px 18px; text-transform: uppercase;
+  }
+  .market-state.primary { background: var(--ash-orange); }
+
+  /* ── CASE STUDY ──────────────────────────────── */
+  .case-study-header {
+    background: var(--ash-dark); padding: 32px 36px; max-width: 920px;
+    margin-bottom: 2px; display: flex; align-items: center; justify-content: space-between;
+  }
+  .csh-label {
+    font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--ash-orange); font-weight: 600; margin-bottom: 8px;
+  }
+  .csh-name { font-family: 'Work Sans', sans-serif; font-size: 26px; font-weight: 700; color: #fff; }
+  .csh-sub { font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 4px; }
+  .csh-num {
+    font-family: 'Work Sans', sans-serif; font-size: 52px; font-weight: 700;
+    color: var(--ash-orange); line-height: 1; text-align: right;
+  }
+  .csh-num-label {
+    font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+    color: rgba(255,255,255,0.4); margin-top: 4px; text-align: right;
+  }
+  .case-study-grid {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 2px; max-width: 920px; background: var(--rule);
+  }
+  .cs-block { background: var(--white); padding: 24px 28px; }
+  section:nth-child(even) .cs-block { background: var(--ash-tan-dk); }
+  .cs-block .csb-label {
+    font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--ash-orange); font-weight: 600; margin-bottom: 12px;
+  }
+  .cs-block ul { max-width: 100%; }
+  .cs-block ul li { font-size: 12.5px; }
+
+  /* ── HOW TO PARTNER ──────────────────────────── */
+  .process-steps {
+    display: grid; grid-template-columns: repeat(5,1fr);
+    gap: 0; max-width: 920px; margin-top: 32px;
+  }
+  .process-step {
+    padding: 28px 20px; border: 1px solid var(--rule);
+    border-right: none; position: relative;
+  }
+  .process-step:last-child { border-right: 1px solid var(--rule); }
+  .process-step::after {
+    content: '→'; position: absolute; right: -13px; top: 28px;
+    color: var(--ash-orange); font-size: 16px; font-weight: 700; z-index: 2;
+  }
+  .process-step:last-child::after { display: none; }
+  .ps-num {
+    font-family: 'Work Sans', sans-serif; font-size: 36px; font-weight: 700;
+    color: var(--ash-tan); line-height: 1; margin-bottom: 8px;
+  }
+  .ps-title { font-size: 12px; font-weight: 600; color: var(--ash-black); margin-bottom: 8px; }
+  .ps-desc { font-size: 11.5px; color: var(--ash-mid); line-height: 1.55; max-width: 100%; margin: 0; }
+  .ps-time { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--ash-orange); margin-top: 10px; }
+
+  /* ── EXIT STRATEGY ───────────────────────────── */
+  .exit-grid {
+    display: grid; grid-template-columns: repeat(3,1fr);
+    gap: 20px; max-width: 920px; margin-top: 32px;
+  }
+  .exit-card {
+    border: 1px solid var(--rule); padding: 28px; position: relative; overflow: hidden;
+  }
+  .exit-card::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+    height: 3px; background: var(--ash-orange);
+  }
+  .exit-card .ec-label {
+    font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--ash-orange); font-weight: 600; margin-bottom: 10px;
+  }
+  .exit-card h3 { margin: 0 0 12px; font-size: 17px; }
+  .exit-card p { font-size: 13px; color: var(--ash-mid); line-height: 1.65; max-width: 100%; margin: 0; }
+
+  /* ── RISK FACTORS ────────────────────────────── */
+  .risk-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 2px; max-width: 920px; background: var(--rule); margin-top: 32px;
+  }
+  .risk-block { background: var(--white); padding: 22px 28px; }
+  section:nth-child(even) .risk-block { background: var(--ash-tan-dk); }
+  .risk-block .rb-label {
+    font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--ash-warm); font-weight: 600; margin-bottom: 8px;
+  }
+  .risk-block .rb-title { font-size: 14px; font-weight: 600; color: var(--ash-black); margin-bottom: 6px; }
+  .risk-block p { font-size: 12.5px; color: var(--ash-mid); line-height: 1.6; max-width: 100%; margin: 0; }
 </style>
 </head>
 <body>
+
+<!-- PASSWORD GATE -->
+<div id="gate" style="
+  position: fixed; inset: 0; z-index: 9999;
+  background: #57514c;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  font-family: 'Work Sans', sans-serif;
+">
+  <div style="text-align: center; margin-bottom: 48px;">
+    <div style="font-size: 64px; font-weight: 700; color: #fff; letter-spacing: 0.08em; line-height: 1;">
+      ASH<span style="color: #bc663b;">ATL</span>
+    </div>
+    <div style="font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-top: 10px;">
+      Consumer Investment Partners
+    </div>
+  </div>
+  <div style="width: 320px;">
+    <div style="font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 10px;">
+      Access Code Required
+    </div>
+    <input id="gateInput" type="password" placeholder="Enter access code"
+      style="
+        width: 100%; padding: 14px 18px; font-size: 14px;
+        font-family: 'Work Sans', sans-serif; font-weight: 400;
+        background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2);
+        color: #fff; outline: none; margin-bottom: 10px;
+        letter-spacing: 0.05em;
+      "
+      onkeydown="if(event.key==='Enter') checkPassword()"
+    />
+    <button onclick="checkPassword()" style="
+      width: 100%; padding: 14px; background: #bc663b; border: none;
+      color: #fff; font-family: 'Work Sans', sans-serif;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.2em;
+      text-transform: uppercase; cursor: pointer; transition: background 0.2s;
+    "
+      onmouseover="this.style.background='#382f2d'"
+      onmouseout="this.style.background='#bc663b'"
+    >
+      Access Document
+    </button>
+    <div id="gateError" style="
+      font-size: 11px; color: #e07050; margin-top: 10px;
+      letter-spacing: 0.05em; text-align: center; min-height: 18px;
+    "></div>
+  </div>
+  <div style="position: absolute; bottom: 32px; font-size: 10px; color: rgba(255,255,255,0.2); letter-spacing: 0.1em;">
+    Confidential · ASH Consumer Investment Partners · 2026
+  </div>
+</div>
+
+<script>
+  // Check if already authenticated this session
+  if (sessionStorage.getItem('ash_auth') === 'true') {
+    document.getElementById('gate').style.display = 'none';
+  }
+
+  function checkPassword() {
+    const val = document.getElementById('gateInput').value;
+    // Password: ASH2026 — change this to whatever you want
+    if (val === 'ASH2026') {
+      sessionStorage.setItem('ash_auth', 'true');
+      const gate = document.getElementById('gate');
+      gate.style.transition = 'opacity 0.4s ease';
+      gate.style.opacity = '0';
+      setTimeout(() => gate.style.display = 'none', 400);
+    } else {
+      document.getElementById('gateError').textContent = 'Incorrect access code. Please try again.';
+      document.getElementById('gateInput').value = '';
+      document.getElementById('gateInput').focus();
+    }
+  }
+</script>
 
 <!-- SIDEBAR -->
 <aside class="sidebar">
@@ -971,10 +1190,17 @@
     <div class="nav-section">Document</div>
     <a href="#cover">Cover</a>
     <a href="#toc">Table of Contents</a>
+    <div class="nav-section">Fund I</div>
+    <a href="#fund">Fund Overview</a>
+    <a href="#southeast">Southeast Thesis</a>
+    <a href="#exit-strategy">Exit Strategy</a>
+    <a href="#risk">Risk Factors</a>
     <div class="nav-section">About ASH</div>
     <a href="#team">Team &amp; Leadership</a>
     <a href="#portfolio">Portfolio</a>
+    <a href="#case-study">Case Study: JFA</a>
     <a href="#criteria">Investment Criteria</a>
+    <a href="#how-to-partner">How to Partner</a>
     <div class="nav-section">Foundation</div>
     <a href="#what-we-are">What ASH Is</a>
     <a href="#vision">Our Vision</a>
@@ -1037,10 +1263,10 @@
   <!-- LEGAL DISCLAIMER -->
   <div class="disclaimer-page" id="disclaimer">
     <div class="disc-label">Important Disclosures &amp; Legal Notice</div>
-    <p>This document is confidential and has been prepared by ASH Atlanta Investment Partners, LLC ("ASH") solely for informational purposes and for use by the intended recipient. It may not be reproduced or redistributed in whole or in part without the prior written consent of ASH.</p>
-    <p>Nothing in this document is intended, or should be considered, to constitute investment, accounting, tax, or legal advice. This document is intended solely to provide general information regarding ASH Atlanta Investment Partners, LLC and its operating approach. ASH Atlanta Investment Partners, LLC does not solicit or make its services available to the general public.</p>
+    <p>This document is confidential and has been prepared by ASH Consumer Investment Partners, LLC ("ASH") solely for informational purposes and for use by the intended recipient. It may not be reproduced or redistributed in whole or in part without the prior written consent of ASH.</p>
+    <p>Nothing in this document is intended, or should be considered, to constitute investment, accounting, tax, or legal advice. This document is intended solely to provide general information regarding ASH Consumer Investment Partners, LLC and its operating approach. ASH Consumer Investment Partners, LLC does not solicit or make its services available to the general public.</p>
     <p>Under no circumstances should any information provided in this document be used or considered as an offer to sell, or a solicitation of an offer to buy, any security or securities. Although this document may include investment-related information, nothing herein is a recommendation that you purchase, sell, or hold any security or other investment, or that you pursue any investment style or strategy.</p>
-    <p>ASH Atlanta Investment Partners, LLC does not guarantee, and cannot be held liable for, the accuracy or timeliness of information in this document. Information may change at any time without notice. Past performance is not indicative of future results. All investments involve risk, including the possible loss of principal.</p>
+    <p>ASH Consumer Investment Partners, LLC does not guarantee, and cannot be held liable for, the accuracy or timeliness of information in this document. Information may change at any time without notice. Past performance is not indicative of future results. All investments involve risk, including the possible loss of principal.</p>
     <p style="font-weight: 500; color: var(--ash-black);">One Buckhead Plaza · 3060 Peachtree Road NW, Suite 1400 · Atlanta, GA 30305 · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e88186999d819a8da8899b80899c8489869c89c68b8785">[email&#160;protected]</a> · 470.795.5505</p>
   </div>
 
@@ -1049,24 +1275,29 @@
     <div class="section-eyebrow">Table of Contents</div>
     <h2>Document Overview</h2>
     <div class="toc-grid">
+      <div class="toc-section-label">Fund I</div>
+      <a class="toc-item" href="#fund"><span class="toc-num">—</span><span class="toc-title">Fund Overview &amp; Strategy</span></a>
+      <a class="toc-item" href="#southeast"><span class="toc-num">—</span><span class="toc-title">Why the Southeast</span></a>
+      <a class="toc-item" href="#exit-strategy"><span class="toc-num">—</span><span class="toc-title">Exit Strategy</span></a>
+      <a class="toc-item" href="#risk"><span class="toc-num">—</span><span class="toc-title">Risk Factors</span></a>
       <div class="toc-section-label">About ASH</div>
-      <a class="toc-item" href="#team"><span class="toc-num">00</span><span class="toc-title">Team &amp; Leadership</span></a>
-      <a class="toc-item" href="#portfolio"><span class="toc-num">00</span><span class="toc-title">Portfolio Companies</span></a>
-      <a class="toc-item" href="#criteria"><span class="toc-num">00</span><span class="toc-title">Investment Criteria</span></a>
-      <div class="toc-section-label">Foundation</div>
+      <a class="toc-item" href="#team"><span class="toc-num">—</span><span class="toc-title">Team &amp; Leadership</span></a>
+      <a class="toc-item" href="#portfolio"><span class="toc-num">—</span><span class="toc-title">Portfolio Companies</span></a>
+      <a class="toc-item" href="#case-study"><span class="toc-num">—</span><span class="toc-title">Case Study: Jackson Fine Art</span></a>
+      <a class="toc-item" href="#criteria"><span class="toc-num">—</span><span class="toc-title">Investment Criteria</span></a>
+      <a class="toc-item" href="#how-to-partner"><span class="toc-num">—</span><span class="toc-title">How to Partner</span></a>
+      <div class="toc-section-label">Operating System</div>
       <a class="toc-item" href="#what-we-are"><span class="toc-num">01</span><span class="toc-title">What ASH Is</span></a>
       <a class="toc-item" href="#vision"><span class="toc-num">02</span><span class="toc-title">Our Vision</span></a>
       <a class="toc-item" href="#thesis"><span class="toc-num">03</span><span class="toc-title">Value-Creation Thesis</span></a>
       <a class="toc-item" href="#how-we-work"><span class="toc-num">04</span><span class="toc-title">How We Work</span></a>
-      <div class="toc-section-label">Operating System</div>
       <a class="toc-item" href="#motions"><span class="toc-num">05</span><span class="toc-title">Operating Motions</span></a>
       <a class="toc-item" href="#north-star"><span class="toc-num">06</span><span class="toc-title">Financial North Star</span></a>
       <a class="toc-item" href="#diagnostic"><span class="toc-num">07</span><span class="toc-title">14-Day Diagnostic</span></a>
       <a class="toc-item" href="#cadence"><span class="toc-num">08</span><span class="toc-title">The ASH Cadence</span></a>
-      <div class="toc-section-label">100-Day Plans</div>
+      <div class="toc-section-label">100-Day Plans &amp; Measurement</div>
       <a class="toc-item" href="#100day-growth"><span class="toc-num">09</span><span class="toc-title">Growth &amp; Scale Plan</span></a>
       <a class="toc-item" href="#100day-optimize"><span class="toc-num">10</span><span class="toc-title">Performance Optimization Plan</span></a>
-      <div class="toc-section-label">Measurement</div>
       <a class="toc-item" href="#scorecard"><span class="toc-num">11</span><span class="toc-title">Scorecard Framework</span></a>
       <a class="toc-item" href="#os-map"><span class="toc-num">12</span><span class="toc-title">Operating System Map</span></a>
     </div>
@@ -1074,7 +1305,7 @@
 
   <!-- PRINT ALL BAR -->
   <div class="print-all-bar">
-    <span>ASH ATL Operating &amp; Value-Creation Playbook · Core v1.0 · Confidential</span>
+    <span>ASH Consumer Investment Partners · Operating &amp; Value-Creation Playbook · Core v1.0 · Confidential</span>
     <button class="print-all-btn" id="printAllBtn">
       <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="1" width="10" height="7" rx="0.5"/><path d="M3 10H1.5A.5.5 0 0 1 1 9.5v-4A.5.5 0 0 1 1.5 5h13a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5H13"/><rect x="3" y="9" width="10" height="6" rx="0.5"/><circle cx="13" cy="7.5" r="0.5" fill="currentColor" stroke="none"/></svg>
       Print Full Document
@@ -1111,6 +1342,277 @@
       </p>
     </section>
 
+    <!-- FUND OVERVIEW -->
+    <section id="fund">
+      <div class="section-eyebrow">Fund I</div>
+      <h2>ASH Consumer Investment Partners Fund I</h2>
+      <div class="fund-hero">
+        <div class="fh-label">Now Raising</div>
+        <div class="fh-name">ASH Consumer Investment Partners Fund I</div>
+        <div class="fh-sub">A Southeast-focused consumer private equity fund applying a proven, repeatable operating system to build enduring businesses and generate top-decile returns for institutional LPs.</div>
+      </div>
+      <div class="fund-stats">
+        <div class="fund-stat">
+          <div class="fs-label">Target Fund Size</div>
+          <div class="fs-value">$150M</div>
+          <div class="fs-desc">Institutional capital sought from qualified investors</div>
+        </div>
+        <div class="fund-stat">
+          <div class="fs-label">Target Net Returns</div>
+          <div class="fs-value">2–3× MOIC</div>
+          <div class="fs-desc">20%+ net IRR target per investment</div>
+        </div>
+        <div class="fund-stat">
+          <div class="fs-label">Hold Period</div>
+          <div class="fs-value">5–7 Yrs</div>
+          <div class="fs-desc">Per portfolio company; full fund life 10 years</div>
+        </div>
+        <div class="fund-stat">
+          <div class="fs-label">Track Record</div>
+          <div class="fs-value">20+ Yrs</div>
+          <div class="fs-desc">Prior investments via SPV structure since 2003</div>
+        </div>
+      </div>
+      <h3>Fund Strategy</h3>
+      <p>Fund I will make 8–12 concentrated investments in founder-led consumer businesses across the Southeast, deploying the ASH operating system to drive EBITDA expansion, unit economics improvement, and scalable growth. We target businesses with $2M–$15M of EBITDA where our operational involvement is the primary value driver — not financial engineering.</p>
+      <h3>Prior Investment Structure</h3>
+      <p>Prior to Fund I, ASH Consumer Investment Partners deployed capital through individual Special Purpose Vehicles (SPVs) on a deal-by-deal basis, building a portfolio of consumer businesses including The Chastain, Perrine's Wine Shop, and Jackson Fine Art. Fund I represents the institutionalization of this approach — bringing the same operating discipline and deal selectivity to a formal fund structure with LP governance, reporting, and alignment.</p>
+      <h3>What Makes Fund I Different</h3>
+      <ul>
+        <li><strong>Operator-led, not financial engineering</strong> — Value is created through the ASH operating system, not leverage or multiple arbitrage</li>
+        <li><strong>Concentrated and high-conviction</strong> — Fewer, larger bets in businesses where ASH has deep sector knowledge</li>
+        <li><strong>Southeast-first advantage</strong> — Proprietary deal flow from 20+ years of regional relationships, before businesses reach competitive auction processes</li>
+        <li><strong>Institutional infrastructure on a mid-market platform</strong> — Scorecard discipline, governance rigor, and management cadence that larger funds apply, deployed at the $5M–$30M equity check size where competition is thinner</li>
+      </ul>
+    </section>
+
+    <!-- SOUTHEAST THESIS -->
+    <section id="southeast">
+      <div class="section-eyebrow">Market Thesis</div>
+      <h2>Why the Southeast</h2>
+      <p>The Southeast is the fastest-growing consumer market in the United States — with population migration, rising household incomes, and a business-friendly environment creating structural tailwinds for consumer businesses. Yet the region remains underserved by institutional consumer-focused private equity, creating a persistent opportunity for an operator with deep regional roots.</p>
+      <div class="market-grid">
+        <div class="market-block">
+          <div class="mb-stat">#1</div>
+          <div class="mb-label">Fastest-Growing U.S. Region</div>
+          <p class="mb-desc">The Southeast leads the nation in population inflows, driven by domestic migration from higher-cost markets in the Northeast and West Coast — bringing spending power and consumer demand.</p>
+        </div>
+        <div class="market-block">
+          <div class="mb-stat">40M+</div>
+          <div class="mb-label">Population Across Core Markets</div>
+          <p class="mb-desc">Georgia, Florida, Tennessee, the Carolinas, and Texas collectively represent one of the largest and most dynamic consumer economies in the world — with Atlanta, Miami, Nashville, Charlotte, and Austin as anchor metros.</p>
+        </div>
+        <div class="market-block">
+          <div class="mb-stat">Gap</div>
+          <div class="mb-label">Underserved by Institutional PE</div>
+          <p class="mb-desc">Most consumer-focused PE is concentrated in New York, Los Angeles, and Chicago. Southeast consumer businesses — particularly those below $50M in enterprise value — rarely see institutional-quality operational partners at the table.</p>
+        </div>
+        <div class="market-block">
+          <div class="mb-stat">Local</div>
+          <div class="mb-label">Proprietary Deal Flow</div>
+          <p class="mb-desc">ASH's 20+ year presence in Atlanta and the Southeast has built a dense network of operators, advisors, and founders who bring opportunities before they reach bankers or competitive processes.</p>
+        </div>
+        <div class="market-block">
+          <div class="mb-stat">Low</div>
+          <div class="mb-label">Entry Multiple Environment</div>
+          <p class="mb-desc">Consumer businesses in the Southeast trade at meaningful discounts to comparable assets in gateway markets — creating built-in multiple expansion potential as businesses professionalize and attract broader buyer interest at exit.</p>
+        </div>
+        <div class="market-block">
+          <div class="mb-stat">Strong</div>
+          <div class="mb-label">Exit Market Dynamics</div>
+          <p class="mb-desc">Atlanta and the broader Southeast have seen significant growth in strategic acquirers, regional PE roll-ups, and family offices seeking consumer assets — deepening the exit landscape for Fund I's portfolio.</p>
+        </div>
+      </div>
+      <h3>Primary Markets</h3>
+      <div class="market-states">
+        <div class="market-state primary">Georgia</div>
+        <div class="market-state primary">Florida</div>
+        <div class="market-state primary">Tennessee</div>
+        <div class="market-state primary">North Carolina</div>
+        <div class="market-state primary">South Carolina</div>
+        <div class="market-state primary">Texas</div>
+        <div class="market-state">Virginia</div>
+        <div class="market-state">Alabama</div>
+        <div class="market-state">Louisiana</div>
+        <div class="market-state">Mississippi</div>
+      </div>
+    </section>
+
+    <!-- CASE STUDY -->
+    <section id="case-study">
+      <div class="section-eyebrow">Value-Creation Case Study</div>
+      <h2>Jackson Fine Art</h2>
+      <div class="case-study-header">
+        <div>
+          <div class="csh-label">Case Study · Arts &amp; Culture · Atlanta, GA</div>
+          <div class="csh-name">Jackson Fine Art</div>
+          <div class="csh-sub">Fine Art Photography Gallery · Buckhead · Est. 1990</div>
+        </div>
+        <div>
+          <div class="csh-num">5×</div>
+          <div class="csh-num-label">Revenue Growth Under ASH Partnership</div>
+        </div>
+      </div>
+      <div class="case-study-grid">
+        <div class="cs-block">
+          <div class="csb-label">The Situation</div>
+          <ul>
+            <li>World-renowned fine art photography gallery with a 30+ year history and loyal collector base</li>
+            <li>Exceptional product and curatorial expertise, but limited operating infrastructure to scale</li>
+            <li>Revenue concentrated in walk-in gallery sales with minimal digital or national presence</li>
+            <li>Leadership transition risk as the founding generation considered succession</li>
+            <li>No formal performance management system or financial reporting cadence</li>
+          </ul>
+        </div>
+        <div class="cs-block">
+          <div class="csb-label">What ASH Did</div>
+          <ul>
+            <li>Acquired a 50% ownership stake and installed governance structure with board representation</li>
+            <li>Applied the Performance Optimization motion — baseline, leakage control, structural margin improvement</li>
+            <li>Built a digital sales and marketing infrastructure to reach collectors nationally and internationally</li>
+            <li>Supported leadership transition to Co-Owner Anna Walker-Skillman, preserving institutional knowledge</li>
+            <li>Introduced financial reporting cadence, pricing discipline, and artist relationship management</li>
+            <li>Relocated to a larger, purpose-built gallery space in Buckhead to support growth</li>
+          </ul>
+        </div>
+        <div class="cs-block">
+          <div class="csb-label">The Outcome</div>
+          <ul>
+            <li><strong>5× revenue growth</strong> over the 20-year partnership</li>
+            <li>Expanded from a local gallery to a globally recognized institution with an international collector base</li>
+            <li>Digital presence established as a primary revenue and awareness channel</li>
+            <li>Successful leadership transition — business now operated independently by next generation</li>
+            <li>Consistently featured in national press including the Atlanta Journal-Constitution</li>
+            <li>Operating Motion Applied: <strong>Performance Optimization → Growth &amp; Scale</strong></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXIT STRATEGY -->
+    <section id="exit-strategy">
+      <div class="section-eyebrow">Liquidity</div>
+      <h2>Exit Strategy</h2>
+      <p>ASH Consumer Investment Partners targets a 5–7 year hold per investment. We build businesses to be attractive to multiple buyer types, and we plan exit pathways from the moment of investment — not at the end of the hold period. Diversified exit paths reduce reliance on any single buyer market.</p>
+      <div class="exit-grid">
+        <div class="exit-card">
+          <div class="ec-label">Primary Path</div>
+          <h3>Strategic Sale</h3>
+          <p>Sale to a strategic acquirer — a larger consumer company, restaurant group, retail platform, or brand operator — seeking to acquire a profitable, well-run business in the Southeast with a proven operating infrastructure. Our operating system makes businesses more attractive acquisition targets by professionalizing reporting, reducing key-person risk, and demonstrating EBITDA predictability.</p>
+        </div>
+        <div class="exit-card">
+          <div class="ec-label">Secondary Path</div>
+          <h3>Management Buyout / Recap</h3>
+          <p>Recapitalization or partial buyout by management, enabling the operator to take back control of a now-institutionalized business. This is particularly relevant in founder-led situations where succession and continuity are core to the investment thesis. ASH takes its return through the recap while management retains or grows their ownership stake.</p>
+        </div>
+        <div class="exit-card">
+          <div class="ec-label">Tertiary Path</div>
+          <h3>PE Sponsor Sale</h3>
+          <p>Sale to a larger private equity sponsor seeking to deploy capital into a proven, scaled consumer platform in the Southeast. As Southeast consumer businesses professionalize, they attract growing interest from mid-market and large-cap PE firms who lack the regional relationships and operating infrastructure to source and develop these assets themselves.</p>
+        </div>
+      </div>
+      <h3 style="margin-top: 40px;">Return Construction</h3>
+      <ul>
+        <li><strong>EBITDA growth</strong> — Primary return driver; 3–5× EBITDA expansion through operating system application</li>
+        <li><strong>Multiple expansion</strong> — Businesses that enter at 4–6× EBITDA exit at 7–10× as they institutionalize</li>
+        <li><strong>Modest leverage</strong> — Used selectively and conservatively; never as a primary return driver</li>
+        <li><strong>Target: 2–3× MOIC / 20%+ net IRR</strong> across the portfolio over a 5–7 year hold</li>
+      </ul>
+    </section>
+
+    <!-- RISK FACTORS -->
+    <section id="risk">
+      <div class="section-eyebrow">Risk Disclosure</div>
+      <h2>Risk Factors</h2>
+      <p>Investing in private equity involves significant risk, including the potential loss of invested capital. Prospective investors should carefully consider the following risk factors before making an investment decision. This is not an exhaustive list — prospective LPs should review all offering documents carefully and consult their own legal, financial, and tax advisors.</p>
+      <div class="risk-grid">
+        <div class="risk-block">
+          <div class="rb-label">Investment Risk</div>
+          <div class="rb-title">Illiquidity &amp; Long Hold Periods</div>
+          <p>Investments in Fund I are illiquid and subject to a 5–7 year hold per position, with a full fund life of approximately 10 years. Investors should not expect to redeem capital or receive distributions on a predictable schedule. There is no secondary market for LP interests.</p>
+        </div>
+        <div class="risk-block">
+          <div class="rb-label">Market Risk</div>
+          <div class="rb-title">Consumer Sector Cyclicality</div>
+          <p>Consumer businesses are subject to macroeconomic cycles, discretionary spending shifts, and changes in consumer preferences. An economic downturn, recession, or significant shift in consumer behavior could adversely affect portfolio company revenues and valuations.</p>
+        </div>
+        <div class="risk-block">
+          <div class="rb-label">Operational Risk</div>
+          <div class="rb-title">Execution &amp; Operating Improvement</div>
+          <p>Fund I's return thesis depends substantially on ASH's ability to implement operational improvements across portfolio companies. There is no guarantee that the operating system will produce the anticipated results in every investment, and outcomes will vary by business.</p>
+        </div>
+        <div class="risk-block">
+          <div class="rb-label">Concentration Risk</div>
+          <div class="rb-title">Geographic &amp; Sector Concentration</div>
+          <p>Fund I is concentrated in the Southeast U.S. and within the consumer sector. Regional economic conditions, natural disasters, regulatory changes, or sector-specific headwinds could disproportionately affect the portfolio relative to a more diversified fund.</p>
+        </div>
+        <div class="risk-block">
+          <div class="rb-label">Exit Risk</div>
+          <div class="rb-title">Realization Uncertainty</div>
+          <p>The ability to exit investments at target valuations depends on M&amp;A market conditions, strategic buyer appetite, credit market availability, and business performance at the time of exit. There is no guarantee that exit timelines or valuations will meet projections.</p>
+        </div>
+        <div class="risk-block">
+          <div class="rb-label">Key Person Risk</div>
+          <div class="rb-title">Management &amp; Team Dependency</div>
+          <p>Fund I's performance is dependent on the continued involvement of ASH's senior team and the operator-partners at each portfolio company. The loss of key personnel at either the fund manager or portfolio company level could adversely affect investment outcomes.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW TO PARTNER -->
+    <section id="how-to-partner">
+      <div class="section-eyebrow">Get Started</div>
+      <h2>How to Partner With ASH</h2>
+      <p>Whether you are a potential LP seeking to invest in Fund I, or a founder-operator interested in partnering with ASH Consumer Investment Partners, the path forward is straightforward. We move deliberately and build relationships before we close transactions.</p>
+      <div class="process-steps">
+        <div class="process-step">
+          <div class="ps-num">01</div>
+          <div class="ps-title">Initial Conversation</div>
+          <p class="ps-desc">Reach out via email or phone. We discuss your business or LP interest, share relevant materials, and determine mutual fit.</p>
+          <div class="ps-time">Week 1–2</div>
+        </div>
+        <div class="process-step">
+          <div class="ps-num">02</div>
+          <div class="ps-title">Deeper Diligence</div>
+          <p class="ps-desc">For operators: financials, site visit, team meetings. For LPs: fund materials, track record review, LP reference calls.</p>
+          <div class="ps-time">Weeks 2–6</div>
+        </div>
+        <div class="process-step">
+          <div class="ps-num">03</div>
+          <div class="ps-title">14-Day Diagnostic</div>
+          <p class="ps-desc">For operators: ASH runs a structured diagnostic to identify the primary constraint and outline a 100-day plan before any capital is deployed.</p>
+          <div class="ps-time">Days 1–14</div>
+        </div>
+        <div class="process-step">
+          <div class="ps-num">04</div>
+          <div class="ps-title">Term Sheet &amp; Close</div>
+          <p class="ps-desc">Agreed terms documented, legal diligence completed, capital committed. ASH moves efficiently once conviction is established.</p>
+          <div class="ps-time">Weeks 6–12</div>
+        </div>
+        <div class="process-step">
+          <div class="ps-num">05</div>
+          <div class="ps-title">100-Day Plan Launch</div>
+          <p class="ps-desc">Cadence established, scorecard locked, priorities set. The operating system goes live on Day 1 of ownership.</p>
+          <div class="ps-time">Day 1 Post-Close</div>
+        </div>
+      </div>
+      <h3 style="margin-top: 40px;">Contact Us</h3>
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 2px; max-width: 600px; background: var(--rule); margin-top: 16px;">
+        <div style="background: var(--white); padding: 20px 24px;">
+          <div style="font-size:9px; letter-spacing:0.22em; text-transform:uppercase; color:var(--ash-orange); font-weight:600; margin-bottom:8px;">Email</div>
+          <div style="font-size:14px; font-weight:500; color:var(--ash-black);"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c6afa8b7b3afb4a386a7b5aea7b2aaa7a8b2a7e8a5a9ab">[email&#160;protected]</a></div>
+        </div>
+        <div style="background: var(--white); padding: 20px 24px;">
+          <div style="font-size:9px; letter-spacing:0.22em; text-transform:uppercase; color:var(--ash-orange); font-weight:600; margin-bottom:8px;">Phone</div>
+          <div style="font-size:14px; font-weight:500; color:var(--ash-black);">470.795.5505</div>
+        </div>
+        <div style="background: var(--white); padding: 20px 24px; grid-column: 1/-1;">
+          <div style="font-size:9px; letter-spacing:0.22em; text-transform:uppercase; color:var(--ash-orange); font-weight:600; margin-bottom:8px;">Address</div>
+          <div style="font-size:14px; font-weight:500; color:var(--ash-black);">One Buckhead Plaza · 3060 Peachtree Road NW, Suite 1400 · Atlanta, GA 30305</div>
+        </div>
+      </div>
+    </section>
+
     <!-- TEAM & LEADERSHIP -->
     <section id="team">
       <div class="section-eyebrow">Team &amp; Leadership</div>
@@ -1121,7 +1623,7 @@
           <div class="tc-initial">AH</div>
           <div class="tc-name">Andy Heyman</div>
           <div class="tc-title">Managing Partner</div>
-          <p class="tc-bio">Andy leads ASH with a focus on investing in consumer and lifestyle businesses in Atlanta. His 30-year corporate career spans C-level roles at Accenture, Radiant Systems (COO through NCR acquisition for 19× EBITDA), NCR Financial Services ($3.5B division President), and Catalina Marketing (CEO). He has overseen 12+ acquisitions and invested his family office across private businesses since 2003, generating exceptional returns that led him to focus on ASH full-time in 2018.</p>
+          <p class="tc-bio">Andy leads ASH Consumer Investment Partners with a mandate to build enduring consumer businesses across the Southeast. His 30-year corporate career spans C-level roles at Accenture, Radiant Systems (COO through NCR acquisition for 19× EBITDA), NCR Financial Services ($3.5B division President), and Catalina Marketing (CEO). He has overseen 12+ acquisitions and has been an active private investor in consumer businesses since 2003, generating exceptional returns that fueled his conviction to build ASH into a disciplined, institutional platform.</p>
         </div>
         <div class="team-card">
           <div class="tc-initial">MH</div>
@@ -1139,7 +1641,7 @@
           <div class="tc-initial">JK</div>
           <div class="tc-name">Josh Kalson</div>
           <div class="tc-title">Principal, Portfolio Operations</div>
-          <p class="tc-bio">Josh is responsible for maximizing portfolio company value, building the ASH ATL Playbook, and developing the Operator Network. He spent 12 years at Shake Shack as Director of Operations for the Southeast, leading new store openings, financial planning, strategic market development, and multi-unit performance optimization. Josh holds a Bachelor's from Indiana University and an MBA in Hospitality from Johnson &amp; Wales University.</p>
+          <p class="tc-bio">Josh is responsible for maximizing portfolio company value, building the ASH Consumer Investment Partners Operating Playbook, and developing the Operator Network across the Southeast. He spent 12 years at Shake Shack as Director of Operations for the Southeast, leading new store openings, financial planning, strategic market development, and multi-unit performance optimization. Josh holds a Bachelor's from Indiana University and an MBA in Hospitality from Johnson &amp; Wales University.</p>
         </div>
       </div>
     </section>
@@ -1148,7 +1650,7 @@
     <section id="portfolio">
       <div class="section-eyebrow">Track Record</div>
       <h2>Portfolio Companies</h2>
-      <p>Since 2003, ASH has partnered with boutique, founder-led consumer businesses in Atlanta — applying capital, operational rigor, and deep local market knowledge to build lasting enterprise value.</p>
+      <p>Since 2003, ASH Consumer Investment Partners has backed founder-led consumer businesses — applying capital, operational rigor, and deep sector expertise to build lasting enterprise value. Our current portfolio spans hospitality, specialty retail, and arts and culture, with a track record built through SPV structures and now transitioning to Fund I.</p>
       <div class="portfolio-grid">
         <div class="portfolio-card">
           <div class="pc-status">Current · Hospitality</div>
@@ -1201,7 +1703,7 @@
     <section id="criteria">
       <div class="section-eyebrow">Investment Criteria</div>
       <h2>What We Look For</h2>
-      <p>ASH invests in founder-led consumer businesses where our operating system, local Atlanta network, and capital can meaningfully accelerate value creation. We are highly selective and partner with operators we trust.</p>
+      <p>ASH Consumer Investment Partners invests in founder-led consumer businesses across the Southeast where our operating system, regional network, and capital can meaningfully accelerate value creation. We are highly selective and partner with operators we trust.</p>
       <div class="criteria-grid">
         <div class="criteria-block">
           <div class="cb-label">Sectors</div>
@@ -1210,8 +1712,8 @@
         </div>
         <div class="criteria-block">
           <div class="cb-label">Geography</div>
-          <div class="cb-value">Atlanta-Anchored</div>
-          <p class="cb-desc">Primary focus on Atlanta and the Southeast. Businesses with a strong local presence and potential to expand within or beyond the region.</p>
+          <div class="cb-value">Southeast-Focused</div>
+          <p class="cb-desc">Primary focus on the Southeast — including Georgia, Florida, Tennessee, Texas, the Carolinas, and surrounding markets. We seek businesses with strong local footholds and regional or national expansion potential.</p>
         </div>
         <div class="criteria-block">
           <div class="cb-label">Stage</div>
@@ -1794,7 +2296,7 @@
 
 </div><!-- /main -->
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // ── Print All button ─────────────────────────────
   document.getElementById('printAllBtn')?.addEventListener('click', () => {
     document.body.classList.add('print-all');
@@ -1861,8 +2363,4 @@
       </div>`;
     sec.insertBefore(header, sec.firstChild);
 
-    // Inject print footer
-    const footer = document.createElement('div');
-    footer.className = 'print-footer-bar';
-    footer.innerHTML = `<span>ASH Consumer Investment Partners · Confidential</span><span>March 2026 · Core v1.0</span>`;
-    sec.appe
+    // Inject print foo
